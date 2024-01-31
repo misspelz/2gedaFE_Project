@@ -1,0 +1,16 @@
+.welc-form-containr {
+  display: flex;
+  align-items: center;
+}
+@media only screen and (max-width: 940px) {
+  .welc-form-containr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30%;   
+  }
+ 
+  .ire{
+    display: none;
+  }
+}

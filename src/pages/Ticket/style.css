@@ -1,0 +1,370 @@
+.tic-sea {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.search-product {
+  width: 100%;
+  margin-top: 5px;
+}
+.add {
+  display: none;
+}
+.event-image-banner {
+  margin: 15px 0;
+}
+.event-image-banner img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+}
+.detail-bx-container {
+  background: #f5f5f5;
+}
+.bagw {
+  background: #fff;
+}
+.event-name-choose {
+  font-size: 18px;
+  font-weight: 500;
+  color: #4f0da3;
+}
+.reg-v-txt {
+  font-size: 16px;
+  font-weight: 500;
+}
+.reg-vp-pric {
+  font-size: 12px;
+  color: #4f0da3;
+  margin-top: 5px;
+}
+.select-inpcount {
+  border-radius: 5px;
+  background: #f5f5f5;
+  width: 60px;
+  border: none;
+  height: 35px;
+  padding-left: 5px;
+  outline: none;
+}
+.reg-vp-con {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tic-choser-box {
+  border-radius: 15px;
+  border: 1px solid #d9d9d9;
+  padding: 10px 10px 0;
+  margin: 10px 0;
+}
+.row-choose {
+  height: 45px;
+  border-bottom: 1px solid #d9d9d9;
+  margin: 15px 0 0;
+}
+.tot-total-amt {
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tot-tst {
+  font-size: 16px;
+  font-weight: 500;
+}
+.choose-act-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.ddwn {
+  margin-top: 40px;
+}
+
+/* sell-ticket */
+.anal-txt {
+  font-size: 14px;
+  font-weight: 500;
+}
+.sell-filter-sel {
+  border-radius: 5px;
+  border: 1px solid #d0d5dd;
+  outline: none;
+  height: 30px;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
+.analytic-select-filter {
+  justify-content: space-between;
+}
+.ticket-dash-row {
+  gap: 10px;
+  margin: 15px 0;
+}
+.tot-ern {
+  font-size: 14px;
+}
+.tot-ammt {
+  font-size: 16px;
+  font-weight: 500;
+}
+.earn-tot-row {
+  justify-content: space-between;
+}
+.earn-sel {
+  background: none;
+  border: 1px solid #fff;
+  outline: none;
+  color: #4f0da3;
+  font-size: 12px;
+}
+.tot-earn-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.earning-bx-con img {
+  width: 40px;
+  height: 25px;
+}
+.earning-bx-con {
+  justify-content: space-between;
+  border-radius: 5px;
+  background: #fff;
+  padding: 8px;
+  margin: 10px 0;
+}
+.box-earn-req {
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.total-earn-amt-bx {
+  width: 50%;
+}
+
+.earning-container {
+  border-radius: 10px;
+  background: #f5f5f5;
+  padding: 10px 10px 20px;
+  margin-top: 25px;
+}
+.stepper-cont-bx {
+  padding: 22px;
+  position: relative;
+}
+.stepper-hr {
+  width: 85%;
+  margin: 0 auto;
+}
+.pos-cir {
+  position: absolute;
+  width: 95%;
+  top: 30%;
+}
+.cir-stepper-container {
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 85%;
+}
+.each-step-bx {
+  flex-direction: column;
+}
+.ci-eac {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4f0da3;
+}
+.step-txtx {
+  color: #4f0da3;
+}
+.lin-btw {
+  height: 1px;
+  background: #e4e4e4;
+  margin: 0 auto;
+  width: 78%;
+}
+.not-ac {
+  background: #fff;
+  border: 1px solid #c6c6c6;
+}
+.not-ac-txt {
+  color: #6f6f6f;
+}
+.event-ead {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+.event-txt {
+  font-size: 14px;
+  margin-top: 5px;
+}
+.create-evt-inp {
+  height: 30px;
+  width: 100%;
+  outline: none;
+  border: none;
+}
+.area-evn {
+  max-height: 80px;
+  resize: none;
+}
+.event-inp-overall-cont {
+  border-radius: 4px;
+  border: 0.5px solid rgba(92, 92, 92, 0.4);
+  padding: 8px 10px 5px;
+  position: relative;
+  margin-bottom: 15px;
+}
+.adj {
+  font-size: 12px;
+  position: absolute;
+  top: -15%;
+  background: #fff;
+}
+.ins-create {
+  font-size: 10px;
+  color: #5c5c5c;
+  text-align: right;
+}
+.main-event-container {
+  margin-top: 20px;
+}
+.ad-pic {
+  position: absolute;
+  top: -4%;
+  background: #fff;
+}
+.even-inst {
+  font-size: 11px;
+  text-align: center;
+  width: 75%;
+}
+.dotted {
+  border: 2px dotted rgba(92, 92, 92, 0.4);
+}
+.plat-venue-bx {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 5px;
+  font-size: 13px;
+  color: #4f0da3;
+  cursor: pointer;
+}
+.main-sell-ticket-container {
+  position: relative;
+}
+.add-ticket {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #ff8a15;
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 45%;
+  right: 0;
+  cursor: pointer;
+}
+.act-continue-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.copy-url-cont {
+  border-radius: 5px;
+  background: #e4e4e4;
+  font-size: 15px;
+  padding: 5px 15px;
+  display: flex;
+  margin: 15px 0 3px;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.cp-icon {
+  font-size: 16px;
+  cursor: pointer;
+}
+.copied {
+  font-size: 16px;
+  color: #4f0da3;
+  text-align: center;
+}
+.mv-dwn {
+  margin-top: 15px;
+}
+
+@media only screen and (max-width: 1150px) {
+  .seell {
+    width: 100%;
+    padding-left: 30px;
+  }
+  .btn-sell-pro {
+    width: 100%;
+  }
+  .tic-sell {
+    display: none;
+  }
+  .add-ticket {
+    top: 42%;
+    right: 0;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .box-earn-req {
+    flex-direction: column;
+  }
+  .total-earn-amt-bx {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .sms {
+    font-size: 11px;
+  }
+  .stepper-cont-bx {
+    padding: 22px 0px;
+  }
+  .pos-cir {
+    position: absolute;
+    width: 100%;
+    top: 30%;
+  }
+  .cir-stepper-container {
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 97%;
+  }
+  .add-ticket {
+    top: 30%;
+    right: 0;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .copy-url-cont {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+  }
+}
+@media only screen and (max-width: 370px) {
+  .wid {
+    width: 150px;
+  }
+  .ticket-dash-row {
+    flex-direction: column;
+  }
+  .add-ticket {
+    top: 45%;
+    right: 0;
+  }
+}

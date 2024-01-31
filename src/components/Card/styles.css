@@ -1,0 +1,38 @@
+.temp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.circle {
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-purple {
+    font-size: 2.4rem;
+    color: #4b0289;
+}
+
+
+.text-xl {
+    font-size: 2.2rem;
+    color: #4b0289;
+    font-weight: bold;
+}
+
+.text-md{
+    font-size: 1.3rem;
+}
+.text-left{
+    padding: 0 10px;
+}
+

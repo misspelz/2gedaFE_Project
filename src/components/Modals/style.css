@@ -1,0 +1,483 @@
+.postFormModal-container {
+  background: #fff;
+  width: 50%;
+  padding: 20px;
+}
+.post-clos-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cls-post {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.hashtags-container {
+  border-radius: 3px;
+  border: 1px solid #d0d5dd;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 7px;
+  height: 100%;
+  margin-bottom: 15px;
+  gap: 5px;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
+.text-area{
+  font-size: 1.8rem;
+}
+.add-tags-btn {
+  max-width: 140px;
+  background: #ff8a15;
+  border-radius: 3px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 5px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.added-tag-cont {
+  justify-content: space-between;
+  gap: 5px;
+}
+.cls-tag {
+  color: #fff;
+}
+
+.add-tags-frd {
+  font-size: 16px;
+}
+.tag-frd-cont {
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+.tag-frd-cont img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.cls-tag-fr {
+  position: absolute;
+  font-size: 20px;
+  right: 8%;
+  top: -8%;
+  z-index: 100;
+  cursor: pointer;
+}
+.taged-frd-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.post-img-cont-box {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-bottom: 0px;
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+.viwdt {
+  width: 100%;
+}
+.post-img-cont-box::-webkit-scrollbar {
+  width: 0.4vw;
+}
+/* .post-img-cont-box img,
+video {
+  width: 160px;
+  height: 100px;
+} */
+.im-vi-bxb img,
+video {
+  width: 160px;
+  height: 100px;
+  object-fit: cover;
+}
+.im-vi-bxb {
+  position: relative;
+  cursor: pointer;
+}
+.delete-item {
+  position: absolute;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 300;
+  border-radius: 3.333px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  gap: 5px;
+  right: 5px;
+  cursor: pointer;
+  top: 5px;
+  z-index: 111111;
+}
+.delete-audio {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 300;
+  border-radius: 3.333px;
+  background: rgba(0, 0, 0, 0.5);
+  gap: 5px;
+  width: 70px;
+  height: 30px;
+  padding: 0 5px;
+  justify-content: center;
+  cursor: pointer;
+}
+.de-aud {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.dra-im {
+  width: 100%;
+  background: #f5f5f5;
+  height: 150px;
+  margin-bottom: 5px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.add-vid {
+  font-size: 18px;
+  margin: 5px 0;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.8);
+}
+.or-dr {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 14px;
+  word-wrap: break-word;
+}
+.add-new-pic-or {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(0, 0, 0, 0.7);
+  margin: 2px 0 8px;
+  cursor: pointer;
+  justify-content: flex-end;
+}
+.add-nnew {
+  font-size: 12px;
+}
+.add-tion {
+  position: relative;
+  margin-bottom: 10px;
+}
+.absu {
+  position: absolute;
+  bottom: -10%;
+  right: 0;
+  z-index: 11111111111;
+}
+.post-audio-cont-box audio {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.icon-dw {
+  margin-bottom: 10px;
+}
+.status-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.status-modal-container {
+  padding: 0;
+}
+.status-nav-logo img {
+  width: 40px;
+  height: 35px;
+}
+.add-status-m {
+  background: rgba(79, 13, 163, 0.2);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+}
+.owner-status-cont {
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px;
+  cursor: pointer;
+}
+.life-style {
+  font-size: 12px;
+  font-weight: 500;
+}
+.advi-style {
+  font-size: 9px;
+  color: rgba(0, 0, 0, 0.8);
+  margin-top: 0px;
+}
+.actv-life {
+  background: #fff !important;
+}
+.all-status-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0 20px;
+  margin-bottom: -5px;
+}
+.the-sticker-status-cont {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 5px;
+  overflow-x: scroll;
+  justify-content: space-between;
+  gap: 15px;
+  scrollbar-width: normal;
+}
+.the-sticker-status-cont::-webkit-scrollbar {
+  width: 0.4vw;
+}
+.all-the-sticker-status {
+  width: 70%;
+}
+.th-sticker-status {
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.sticker-pic {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  border: 1px solid #4f0da3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.sticker-pic img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.sticker-name-s {
+  font-size: 10px;
+  font-weight: 500;
+}
+.new-time {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.min-sta-cir {
+  background: #d9d9d9;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.new-st {
+  color: #4f0da3;
+  font-weight: 400;
+}
+.status-img-container {
+  padding: 0 20px 20px;
+}
+.status-back-box {
+  width: 100%;
+  height: 450px;
+  background: #000;
+  color: #fff;
+}
+.status-back-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin: 0 auto; */
+  gap: 10px;
+}
+.arrow-control {
+  background: #fff;
+  width: 35px;
+  height: 35px;
+  color: #000;
+  border-radius: 50%;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.status-images-cont-bbx img {
+  height: 350px;
+  object-fit: fill;
+  object-position: center;
+  width: 100%;
+  border-radius: 10px;
+}
+.test img {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.chat-input-field {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.39);
+  background: #d0d5dd;
+  min-height: 35px;
+  max-height: 100px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 75px;
+}
+.att-icon {
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.mess-inpt {
+  min-height: 35px;
+  max-height: 100px;
+  border-radius: 10px;
+  width: 100%;
+  outline: none;
+  border: none;
+  background: none;
+  padding: 5px 10px;
+  caret-color: #4f0da3;
+  resize: none;
+  scrollbar-width: normal;
+}
+.mess-inpt::-webkit-scrollbar {
+  width: 0.4vw;
+}
+.attach-modal-cont {
+  font-size: 20px;
+  background: #fff;
+  width: 20%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  gap: 5px;
+  position: absolute;
+  bottom: 12%;
+  cursor: pointer;
+}
+.att-contt {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10%;
+  margin-bottom: -5px;
+  margin-top: 10px;
+}
+/* .back-title {
+  width: 5px;
+} */
+.rec-bbtn {
+  width: 100px;
+  display: flex;
+  border: none;
+  background: #ff1050;
+  color: #fff;
+  outline: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  height: 30px;
+  margin: 10px 0;
+  border-radius: 10px;
+  gap: 10px;
+}
+.loading-indicator {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  animation: loadingAnimation 15s linear infinite;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+.active {
+  background-color: white;
+  width: 100%;
+}
+@media only screen and (max-width: 1200px) {
+  .chat-input-field {
+    position: absolute;
+    width: 83%;
+    bottom: 3%;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .postFormModal-container {
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .postFormModal-container {
+    width: 90%;
+    padding: 10px;
+  }
+}
+@media only screen and (max-width: 50px) {
+  .chat-input-field {
+    width: 75%;
+  }
+}

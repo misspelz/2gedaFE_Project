@@ -1,0 +1,106 @@
+.can-vote {
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 14px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+}
+
+.info {
+    align-self: stretch;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.use {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+p {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.poll {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.lylac {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.lylac .egg-bg {
+    width: 35vw;
+    height: 30px;
+    border-radius: 10px;
+    background: #B469EF;
+    position: relative;
+    margin-right: 30px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.lylac .egg-bg.highest {
+    background: #8a2be2;
+}
+
+.lylac .egg-bg-before {
+    border-radius: 10px;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #4F0DA3;
+    display: flex;
+    align-items: center;
+}
+
+.lylac .egg-bg.highest .egg-bg-before {
+    background: #800080;
+}
+
+.lylac .egg-bg .verified-icon {
+    margin-right: 5px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.lylac p {
+    color: white;
+    font-size: 1rem;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+    padding: 0 10px;
+}
+
+.lylac .egg-bg.highest p {
+    color: #fff;
+}

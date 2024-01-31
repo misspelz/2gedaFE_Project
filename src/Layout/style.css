@@ -1,0 +1,391 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.layout-container {
+  display: flex;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+.nav-cild {
+  width: 80%;
+}
+.sidebar-boxxx {
+  width: 20%;
+  background: #4f0da3;
+  min-height: 100vh;
+}
+.sidebar-container {
+  background: #4f0da3;
+  width: 20%;
+  min-height: 100vh;
+  margin-top: 0;
+  padding-top: 60px;
+  z-index: 11;
+}
+.sidebar-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+}
+
+.side-items{
+  margin: 0;
+  padding: 50px !important;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ctrl-btn {
+  width: 40px;
+  height: 40px;
+  background: #4f0da3;
+  position: fixed;
+  font-size: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border: 1px solid #fff;
+  left: 15%;
+  z-index: 3;
+  top: 14%;
+  display: none;
+}
+.side-item {
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  align-items: center;
+  color: #c47efb;
+  gap: 10px;
+  margin-bottom: 15px;
+  text-decoration: none;
+}
+.side-icon {
+  font-size: 23px;
+}
+.active_link {
+  color: #fff;
+}
+li {
+  list-style: none;
+}
+.lout {
+  margin-top: 10rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* Navbar */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  width: 80%;
+  z-index: 1;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 25px;
+  font-weight: 800;
+  color: #4f0da3;
+}
+.logo-container img {
+  width: 60px;
+}
+.searc-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.searc-container {
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  height: 35px;
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  align-items: center;
+  cursor: pointer;
+}
+.searc-inp {
+  border: none;
+  outline: none;
+  width: 80%;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.4);
+}
+.sea-icon {
+  font-size: 20px;
+  color: #0000009f;
+}
+.profile-container {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+}
+.profile-container img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.mobile-searc {
+  display: none;
+}
+.notif-cont {
+  position: relative;
+  cursor: pointer;
+}
+.bell {
+  font-size: 30px;
+}
+.bell-count {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #4f0da3;
+  font-size: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+}
+@media only screen and (max-width: 1150px) {
+  .sidebar-container {
+    background: #4f0da3;
+    width: 25%;
+    min-height: 100vh;
+    margin-top: 0;
+    padding-top: 60px;
+    position: fixed;
+    z-index: 11;
+  }
+
+  
+
+  .nil {
+    display: none;
+  }
+  .ctrl-btn {
+    display: initial;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    left: 23%;
+    z-index: 111;
+  }
+  .lst {
+    left: 0;
+    top: 10%;
+  }
+  .lout {
+    margin-top: 6rem;
+    cursor: pointer;
+    color: #fff;
+  }
+  .navbar-container {
+    width: 100%;
+    padding: 10px 80px;
+  }
+  .sidebar-boxxx {
+    width: 0;
+  }
+}
+@media only screen and (max-width: 940px) {
+
+  
+  .mobile-searc {
+    display: initial;
+  }
+  .mobile-searc .sea-icon {
+    font-size: 25px;
+  }
+  .searc-container {
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    background: #fff;
+  }
+  .lst {
+    left: 0;
+    top: 10%;
+  }
+ .sidebar-box {
+   left: -8%;
+ }
+   
+}
+@media only screen and (max-width: 750px) {
+  .sidebar-container {
+    width: 30%;
+  }
+  .ctrl-btn {
+    left: 28%;
+  }
+  .lst {
+    left: 0;
+  }
+     .sidebar-box {
+       left: -14%;
+     }
+}
+@media only screen and (max-width: 700px) {
+  .navbar-container {
+    padding: 10px 50px;
+  }
+}
+@media only screen and (max-height: 600px) {
+  .sidebar-container {
+    padding-top: 30px;
+  }
+  .side-item {
+    margin-bottom: 10px;
+  }
+  .lout {
+    margin-top: 3rem;
+  }
+}
+@media only screen and (max-height: 500px) {
+  .sidebar-container {
+    padding-top: 10px;
+  }
+  .side-item {
+    margin-bottom: 8px;
+  }
+  .lout {
+    margin-top: 2rem;
+  }
+}
+@media only screen and (max-height: 425px) {
+  .sidebar-container {
+    padding-top: 5px;
+  }
+  .side-item {
+    margin-bottom: 4px;
+  }
+  .lout {
+    margin-top: 0rem;
+  }
+}
+@media only screen and (max-height: 355px) {
+  .sidebar-container {
+    padding-top: 2px;
+  }
+  .side-item {
+    margin-bottom: 5px;
+    font-size: 11px;
+  }
+  .side-icon {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .sidebar-container {
+    width: 35%;
+  }
+  .side-items{
+    margin-left: 80px;
+  }
+  .ctrl-btn {
+    left: 32%;
+  }
+  .lst {
+    left: 0;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .sidebar-container {
+    width: 40%;
+  }
+  .ctrl-btn {
+    left: 37%;
+  }
+  .lst {
+    left: 0;
+  }
+  .navbar-container {
+    padding: 10px 30px;
+  }
+  .logo-container {
+    font-size: 20px;
+  }
+  .logo-container img {
+    width: 50px;
+  }
+  .profile-container img {
+    width: 40px;
+    height: 40px;
+  }
+  .searc-container {
+    width: 75%;
+  }
+  .bell {
+    font-size: 27px;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .navbar-container {
+    padding: 10px 20px;
+  }
+  .sidebar-container {
+    width: 50%;
+  }
+  .ctrl-btn {
+    left: 45%;
+  }
+  .lst {
+    left: 0;
+  }
+}
+@media only screen and (max-width: 340px) {
+  .sidebar-container {
+    width: 58%;
+  }
+  .ctrl-btn {
+    left: 50%;
+  }
+  .lst {
+    left: 0;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .logo-container img {
+    width: 30px;
+  }
+  .logo-text {
+    font-size: 13px;
+  }
+  .mb-red {
+    font-size: 12px;
+  }
+  .profile-container img {
+    width: 30px;
+    height: 30px;
+  }
+  .bell {
+    font-size: 25px;
+  }
+}

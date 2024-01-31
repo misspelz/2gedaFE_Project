@@ -1,0 +1,48 @@
+.grid{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding-top: 40px;
+}
+.pollsBox{
+    margin-bottom: 40px;
+}
+.tabs {
+    display: flex;
+    gap: 50px;
+    padding: 40px;
+}
+
+.col{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.oval {
+    width: 300px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+.oval.purple {
+    background-color: #4f0da3;
+}
+
+.oval:not(.purple) {
+    background-color: #fff;
+    border: 2px solid #ccc;
+    color: black;
+}

@@ -1,0 +1,316 @@
+.cl-upload {
+  font-size: 16px;
+}
+.event-rep {
+  font-size: 17px;
+  font-weight: 500;
+  margin-left: 20px;
+}
+.down-csv-cont {
+  justify-content: space-between;
+}
+.rep-icon-bx {
+  font-size: 20px;
+  background: #48cf3e;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  justify-content: center;
+  color: #fff;
+}
+.rotate-icon {
+  transform: rotate(45deg);
+}
+.name-byr {
+  font-size: 12px;
+  font-weight: 500;
+  color: #5c5c5c;
+}
+.id-buyr {
+  font-size: 10px;
+  color: #5c5c5c;
+  margin-top: 3px;
+}
+.tot-tic-bxb {
+  background: #4f0da3;
+  color: #fff;
+  font-size: 10px;
+  width: 70px;
+  height: 20px;
+  border-radius: 30px;
+  justify-content: center;
+}
+.total-amt-byr {
+  font-size: 10px;
+  color: #48cf3e;
+  margin-top: 3px;
+}
+.rep-col-left {
+  gap: 10px;
+}
+.each-col-rep-cont {
+  justify-content: space-between;
+  margin: 5px 0 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+  cursor: pointer;
+}
+.tick-actual-container {
+  border-radius: 15px;
+  border: 1px solid #e4e4e4;
+  background: #fff;
+  padding: 10px;
+  margin-top: 15px;
+}
+.all-rep-box {
+  margin-top: 15px;
+}
+.tic-cont-det {
+  background: #fff;
+  width: 30%;
+  padding: 15px;
+}
+.rep-tic-det-bx {
+  font-size: 16px;
+  font-weight: 500;
+  justify-content: space-between;
+}
+.byr-ct {
+  font-size: 12px;
+  color: #5c5c5c;
+}
+.det-byr-nm {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+.row-line {
+  justify-content: space-between;
+  border-bottom: 1px solid #5c5c5c;
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+.tic-btnn {
+  background: #4f0da3;
+  width: 23%;
+  height: 20px;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 30px;
+  justify-content: center;
+  gap: 10px;
+}
+.vvip {
+  background: #ed6c30;
+}
+.vip {
+  background: #000000;
+}
+.regular {
+  background: #5c5c5c;
+}
+.all-row-bx {
+  justify-content: space-between;
+  border-bottom: 1px solid #5c5c5c;
+  padding: 10px 0;
+  margin: 10px 0;
+}
+.amount-pric {
+  color: #48cf3e;
+  font-size: 16px;
+}
+.lower-box {
+  border-radius: 5px;
+  border: 0.5px solid #e4e4e4;
+  margin: 20px 0;
+  padding: 10px;
+}
+.eah-tab-bx {
+  font-size: 14px;
+  height: 100%;
+  width: 20%;
+  justify-content: center;
+  cursor: pointer;
+}
+.tab-activ {
+  border-bottom: 3px solid #4f0da3;
+}
+.tab-event-box {
+  height: 30px;
+  justify-content: space-between;
+  border-bottom: 2px solid #e4e4e4;
+  margin-top: 10px;
+}
+.event-intr {
+  font-size: 12px;
+  color: #5c5c5c;
+}
+.cl {
+  color: #000000;
+  margin: 5px 0;
+}
+.cg-bd img {
+  border-radius: 5px;
+  height: 100px;
+  width: 100px;
+}
+.rmv {
+  display: none;
+}
+.act-notin {
+  margin-top: 20px;
+}
+.report-summary-container {
+  width: 40%;
+  border-radius: 10px;
+  background: #fff;
+  position: relative;
+}
+.rep-summ-lay {
+  position: absolute;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  width: 25px;
+  height: 25px;
+  font-size: 16px;
+  color: #fff;
+  justify-content: center;
+  top: 2%;
+  right: 2%;
+  cursor: pointer;
+}
+.report-summary-container img {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.row-flex {
+  justify-content: space-between;
+  margin: 10px 0 15px;
+}
+.cat-tct,
+.sold-pri {
+  font-size: 16px;
+  font-weight: 500;
+}
+.tic-tct {
+  font-size: 12px;
+}
+.sold-boxx {
+  background: #48cf3e;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 30px;
+  height: 20px;
+  justify-content: center;
+  width: 20%;
+}
+.sold-tic-boxx {
+  justify-content: space-between;
+  border-radius: 5px;
+  border: 1px solid #e4e4e4;
+  padding: 10px;
+  margin: 10px 0;
+}
+.dwn-contt {
+  padding: 10px 10px 20px 10px;
+}
+
+@media only screen and (max-width: 1150px) {
+  .tic-cont-det {
+    width: 50%;
+  }
+  .report-summary-container {
+    width: 55%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .tic-cont-det,
+  .report-summary-container {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .tic-cont-det,
+  .report-summary-container {
+    width: 97%;
+  }
+  .eah-tab-bx {
+    font-size: 12px;
+    width: 24%;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .nm-evn {
+    font-size: 12px;
+  }
+  .dt-rd {
+    font-size: 10px;
+  }
+  .loc-rd {
+    font-size: 10px;
+  }
+  .event-intr {
+    font-size: 9px;
+  }
+  .cg-bd img {
+    width: 70px;
+    height: 80px;
+  }
+}
+@media only screen and (max-width: 370px) {
+  .down-csv-cont {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .inb {
+    width: 130px;
+  }
+  .each-col-rep-cont {
+    align-items: flex-end;
+    margin: 8px 0 15px;
+  }
+  .tot-tic-bxb {
+    width: 60px;
+  }
+  .tic-btnn {
+    font-size: 10px;
+    margin-bottom: 10px;
+    width: 45%;
+  }
+  .eah-tab-bx {
+    font-size: 11px;
+    width: 30%;
+  }
+  .all-row-bx {
+    flex-wrap: wrap;
+  }
+  .tic-mm-red {
+    font-size: 12px;
+  }
+  .red-ds {
+    width: 50%;
+  }
+  .sold-boxx {
+    width: 30%;
+  }
+  .sold-pri {
+    font-size: 12px;
+  }
+  .cat-tct {
+    font-size: 12px;
+  }
+  .tic-tct {
+    font-size: 10px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .rd {
+    font-size: 11.5px;
+    gap: 3px;
+  }
+}

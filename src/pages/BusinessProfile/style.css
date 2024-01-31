@@ -1,0 +1,35 @@
+.stick-busi {
+  flex-direction: column;
+}
+.all-stic-bx {
+  width: 60%;
+  background: #4f0da3;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 45px;
+  color: #fff;
+  border-radius: 5px;
+}
+.post-busi-profile-row {
+  margin: 15px 0;
+}
+.orann {
+  background: #ff8a15;
+  color: #662b00;
+  width: 250px;
+}
+.act-n {
+  width: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+@media only screen and (max-width: 300px) {
+  .orann {
+    background: #ff8a15;
+    color: #662b00;
+    width: 220px;
+  }
+}

@@ -1,0 +1,207 @@
+.full-commerce-box {
+  margin-top: 90px;
+  width: 100%;
+  display: flex;
+}
+.left-commerce-cont {
+  width: 73%;
+  padding: 20px 5px 50px 20px;
+}
+.back-left {
+  background: #fff;
+  margin-right: 10px;
+}
+.prod-ads img {
+  width: 100%;
+  margin: 20px 0 0px;
+}
+.rate-buss-row {
+  font-size: 20px;
+  color: #ff5722;
+}
+.buss-details-cont {
+  display: flex;
+  gap: 10px;
+}
+.buss-details-cont img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+}
+.buss-namee {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 500;
+}
+.buss-loc {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.7);
+}
+.avr-rate {
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.7);
+}
+.suggested-buss-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 10px 0;
+  gap: 10px;
+}
+.sugg-buss-card-cont {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+.suggest-bussinss-container {
+  background: #fff;
+  margin: 15px 0;
+  padding: 15px;
+}
+.rightSide-commerce {
+  width: 25%;
+  padding: 20px;
+  background: #fff;
+}
+.sell-item-comm {
+  width: 100%;
+  font-size: 16px;
+  border: none;
+  background: #ff8a15;
+  border-radius: 10px;
+  height: 40px;
+  margin-bottom: 15px;
+  color: #fff;
+  text-align: left;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.mann {
+  background: #f5f5f5;
+  color: #000;
+}
+.sell-manage-cont {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+}
+.inc {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.area-txt {
+  resize: none;
+  padding-top: 5px;
+  min-height: 100px;
+  max-height: 100px;
+}
+.all-row-cat-select {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.people-also-view {
+  margin: 20px 0;
+}
+@media only screen and (max-width: 1150px) {
+  .full-commerce-box {
+    width: 120%;
+    display: flex;
+    padding-left: 25px;
+  }
+  .left-commerce-cont {
+    width: 100%;
+  }
+  .rightSide-commerce {
+    display: none;
+  }
+  .inc {
+    display: initial;
+  }
+  .sell-tem-pro {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .btn-ssel {
+    width: 600px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .sugg-buss-card-cont {
+    width: 45%;
+  }
+  .back-left {
+    margin-right: 0px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .sugg-buss-card-cont {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .full-commerce-box {
+    width: 120%;
+    display: flex;
+    padding-left: 5px;
+  }
+  .left-commerce-cont {
+    width: 100%;
+  }
+  .rightSide-commerce {
+    display: none;
+  }
+  .inc {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .btn-sell-pro {
+    width: 50%;
+    margin-top: -20px;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .buss-namee {
+    font-size: 13px;
+  }
+  .buss-details-cont img {
+    width: 50px;
+    height: 50px;
+  }
+  .buss-loc {
+    font-size: 11px;
+  }
+  .rate-buss-row {
+    font-size: 15px;
+  }
+  .suggest-bussinss-container {
+    padding: 1px;
+  }
+}
+/* @media only screen and (max-width: 356px) {
+  
+} */
+@media only screen and (max-width: 290px) {
+  .buss-namee {
+    font-size: 11px;
+  }
+  .buss-details-cont img {
+    width: 40px;
+    height: 40px;
+  }
+  .buss-loc {
+    font-size: 10px;
+  }
+  .rate-buss-row {
+    font-size: 13px;
+  }
+}
