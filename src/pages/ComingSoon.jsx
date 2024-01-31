@@ -39,7 +39,7 @@ const ComingSoonPage = () => {
       <div style={contentStyle}>
         <h1 style={headingStyle}>Information Coming Soon</h1>
         <p style={paragraphStyle}>
-          We're currently working on this page. Check back soon for updates.
+          We're currently working on this page. Do Check back soon for updates.
         </p>
         <button style={buttonStyle} onClick={goBack}>
           Go Back
