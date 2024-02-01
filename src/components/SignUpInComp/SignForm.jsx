@@ -35,9 +35,9 @@ const SignForm = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleUsePhoneClick = () => {
-    setIsUsingPhone(!isUsingPhone);
-  };
+  // const handleUsePhoneClick = () => {
+  //   setIsUsingPhone(!isUsingPhone);
+  // };
 
   localStorage.setItem("email", email);
 

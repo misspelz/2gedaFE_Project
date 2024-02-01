@@ -28,7 +28,7 @@ import Voted from "./components/Modals/Vote/Cant/Voted";
 import SuccessPoll from "./components/Modals/Vote/SuccessPoll";
 import MyPolls from "./components/Modals/Vote/MyPolls";
 import PollResult from "./components/Modals/Vote/PollResult";
-import NonAuthNavbar from "./Layout/NonAuthNav/NonAuthNavbar";
+// import NonAuthNavbar from "./Layout/NonAuthNav/NonAuthNavbar";
 import CreatePoll from "./components/Modals/Vote/CreatePoll/CreatePoll";
 import ComingSoonPage from "./pages/ComingSoon";
 import PrivacyPolicy from "./components/LandinComp/Privacy";
