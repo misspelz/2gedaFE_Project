@@ -116,6 +116,7 @@ function App() {
           path="/PollResult"
           element={<ProtectedRoutes element={<PollResult />} />}
         />
+         {/* <Route index path="/Voting" element={<Voting />} /> */}
         <Route
           path="/Voting"
           element={<ProtectedRoutes element={<Voting />} />}

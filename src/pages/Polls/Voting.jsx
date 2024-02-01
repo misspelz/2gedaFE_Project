@@ -9,13 +9,18 @@ import SearchBox from "../../components/SearchComp/searchBox";
 import Notify from "../../components/Modals/Vote/Notification/Notify";
 import { Modal } from "react-bootstrap";
 import { url } from "../../utils";
+import { IoIosNotificationsOutline } from "react-icons/io";
 
 const Voting = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [responseData, setResponseData] = useState(null);
   const [promoted, setPromoted] = useState(null);
   const [suggested, setSuggested] = useState(null);
+
+  const userInfoString = localStorage.getItem("2gedaUserInfo");
+
+  const userInfo = JSON.parse(userInfoString);
+  // console.log("userInfo", userInfo);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -127,11 +132,55 @@ const Voting = () => {
   const allPollsArrayString = JSON.parse(allPollsretrieved);
 
   return (
-    <div className="home-container" style={{ background: "whiteSmoke" }}>
-      <MainLayout>
-        <div className="main-containe bus-box-con ">
-          <div className="left-side-container buss-all-container p-4">
-            <h2 className="head-line bus-dir ">Voting</h2>
+    <MainLayout>
+      <div className=" lg:bg-[#f5f5f5] lg:flex  h-screen w-full pt-36 px-6 lg:px-10 lg:gap-6">
+        <div className=" lg:w-[60%] bg-[#fff] py-10 px-6">
+          <h1>Voting</h1>
+          <h2 className="mt-6 block lg:hidden">Hello {userInfo.username}</h2>
+          <span className="text-[14px] block lg:hidden">
+            What do you want to do today ?
+          </span>
+          <div className="hidden lg:flex">
+          <input type="text" placeholder="Find polls" className="text-[14px]" />
+          </div>
+          <img src="images/fifa.png" alt="fifa-image" className="mt-6 w-full" />
+
+          <div className="px-4 mt-12 block lg:hidden">
+            <div className="flex justify-between">
+              <div className="flex items-center gap-6">
+                <img src="images/create.png" alt="create-icon" width={25} />
+                <span className="text-[13px] font-[500]">Create poll</span>
+              </div>
+              <div className="bg-[#D0D5DD] rounded-full flex items-center justify-center relative">
+                <IoIosNotificationsOutline size={20} />
+                <div className="absolute top-[6px] right-4 bg-purple-800 text-white rounded-[45%] w-4 text-center">
+                  3
+                </div>
+              </div>
+            </div>
+            <div className="mt-14 flex justify-between">
+              <div className="flex items-center gap-6">
+                <img src="images/cast.png" alt="create-icon" width={25} />
+                <span className="text-[13px] font-[500]">Cast vote</span>
+              </div>
+
+              <div className="bg-[#FF8A15] p-3 text-white rounded-[30px]">
+                25 new polls
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden lg:block w-[40%] py-10 px-6 bg-[#fff]">
+          <div className="flex items-center gap-6 mt-4 border p-4 rounded-[10px]">
+            <img src="images/create.png" alt="create-icon" width={25} />
+            <p className="text-[13px] font-[500] mt-3">My polls</p>
+          </div>
+        </div>
+      </div>
+      {/* <div className="main-containe bus-box-con "> */}
+      {/* <div className="left-side-container buss-all-container p-4"> */}
+      {/* <h2 className="head-line bus-dir ">Voting</h2>
             <PollsSearch />
             <img src="images/jumia.png" alt="" className="ads-img" />
 
@@ -211,15 +260,15 @@ const Voting = () => {
                   </>
                 )}
               </div>
-            </div>
+            </div> */}
 
-            <div className="tabs">
+      {/* <div className="tabs">
               <div className="oval purple">All</div>
               <div className="oval">Public</div>
               <div className="oval">Private</div>
-            </div>
+            </div> */}
 
-            <div className="col">
+      {/* <div className="col">
               {responseData && responseData.length > 1 ? (
                 responseData.map((item, index) => (
                   <CanVote
@@ -248,16 +297,16 @@ const Voting = () => {
                       />
                     ))}
                 </>
-              )}
+              )} */}
 
-              {/* <img src="images/jumia.png" alt="" className="ads-img" />
+      {/* <img src="images/jumia.png" alt="" className="ads-img" />
               <CanVote />
               <CanVote onClick={openModal} />
               <CanVote /> */}
-            </div>
-          </div>
+      {/* </div> */}
+      {/* </div> */}
 
-          <div
+      {/* <div
             className="left-side-container"
             style={{
               maxWidth: "525px",
@@ -267,9 +316,9 @@ const Voting = () => {
           >
             <SearchBox />
             <Notify />
-          </div>
+          </div> */}
 
-          <Modal
+      {/* <Modal
             isOpen={isModalOpen}
             onRequestClose={closeModal}
             contentLabel="Connect Modal"
@@ -277,9 +326,8 @@ const Voting = () => {
             <CanVote />
             <button onClick={closeModal}>Close Modal</button>
           </Modal>
-        </div>
-      </MainLayout>
-    </div>
+        </div> */}
+    </MainLayout>
   );
 };
 
