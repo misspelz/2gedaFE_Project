@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ActionButton from "../Commons/Button";
 import InputField from "../Commons/InputField";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
@@ -104,13 +104,13 @@ const SigninForm = () => {
       const response = await fetch(`${url}/login/`, requestOptions);
       const result = await response.json();
 
+      console.log("result", result);
+
       if (!response.ok) {
         if (response.status === 400) {
-          // alert(result.error);
           toast.error(result.error);
         } else if (response.status === 401) {
-          // alert(result.error);
-          toast.error(result.error);
+          toast.error(result.data.detail);
         }
       } else {
         localStorage.setItem("authTOken", result.token);
@@ -119,19 +119,20 @@ const SigninForm = () => {
         console.log("userInfo", userInfo);
 
         if (userInfo.status === 200 && userInfo.data.is_verified === true) {
+          localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
+
           toast.success("Log in successful");
           navigate("/Home");
-        } else if (userInfo.data.is_verified !== true) {
+        } else if (
+          userInfo.status === 200 &&
+          userInfo.data.is_verified !== true
+        ) {
+          localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
           setIsEmailVerify(true);
         }
       }
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.error);
-        toast.error(error.response.data.error);
-      } else {
-        console.log("An error occurred during the login process.");
-      }
+      toast.error(error);
     } finally {
       setIsLoading(false);
     }

@@ -1,11 +1,14 @@
-import { FaCheck } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import ActionButton from "../Commons/Button";
 import toast from "react-hot-toast";
 
 export const EmailVerify = ({ setIsEmailVerify }) => {
+  const navigate = useNavigate();
   const HandleOTP = () => {
     toast.success("OTP Sent");
     setIsEmailVerify(false);
+    
+    navigate("/verify", { replace: true });
   };
 
   return (

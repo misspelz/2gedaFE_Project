@@ -2,7 +2,6 @@ import axios from "axios";
 import { url } from "./index";
 
 const token = localStorage.getItem("authTOken");
-console.log("token", token);
 
 export const UserInfoApi = () => {
   let config = {
@@ -23,8 +22,8 @@ export const UserInfoApi = () => {
     })
     .catch((error) => {
       console.log("error", error);
-      // if (error.response.data.detail) {
-      //   throw new Error(error.response.data.detail);
-      // }
+      if (error.response.data.detail) {
+        throw new Error(error.response.data.detail);
+      }
     });
 };
