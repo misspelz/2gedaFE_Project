@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { BsBell } from "react-icons/bs";
-import { IoIosNotifications } from "react-icons/io";
+// import { IoIosNotifications } from "react-icons/io";
 import GeneralSearch from "../components/Dashboard/GeneralSearch";
 
 const Navbar = () => {

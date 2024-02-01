@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import ActionButton from "../Commons/Button";
 import InputField from "../Commons/InputField";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 
 const SigninForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [isUsingPhone, setIsUsingPhone] = useState(false);
+  // const [isUsingPhone, setIsUsingPhone] = useState(false);
   const [isUsingUsername, setIsUsingUsername] = useState(false);
   const [phone, setPhone] = useState("");
   const [username, setUsername] = useState("");
@@ -55,10 +55,10 @@ const SigninForm = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleUsePhoneClick = () => {
-    setIsUsingPhone(!isUsingPhone);
-    setIsUsingUsername(false);
-  };
+  // const handleUsePhoneClick = () => {
+  //   setIsUsingPhone(!isUsingPhone);
+  //   setIsUsingUsername(false);
+  // };
 
   const handleUseUsernameClick = () => {
     setIsUsingUsername(!isUsingUsername);
@@ -148,7 +148,7 @@ const SigninForm = () => {
         </div>
 
         <form action="" onSubmit={handleLogin}>
-          {isUsingPhone && !isUsingUsername && (
+          {/* {isUsingPhone && !isUsingUsername && (
             <div className="inp-phone">
               <PhoneInput
                 defaultCountry="NG"
@@ -160,7 +160,7 @@ const SigninForm = () => {
                 required
               />
             </div>
-          )}
+          )} */}
 
           {!isUsingUsername && (
             <div className="inp-email">
