@@ -134,9 +134,9 @@ const SignForm = () => {
 
   return (
     <div className="sign-form">
-      <div className="create-ead-txt">Create an Account</div>
+      <div className="create-ead-txt text-red-500">Create an Account</div>
       <div className="greet-txt">
-        Welcome to 2geda. To continue, please provide your details
+        Welcome to 2geda! <br /> To continue, please provide your details
       </div>
 
       <form action="" onSubmit={signupUser}>
@@ -170,11 +170,11 @@ const SignForm = () => {
           </div>
         )}
 
-        <div className="use-phone" onClick={handleUsePhoneClick}>
+        {/* <div className="use-phone" onClick={handleUsePhoneClick}>
           {isUsingPhone
             ? "Use Email address instead"
             : "Use Phone number instead"}
-        </div>
+        </div> */}
 
         <InputField
           placeholder={"Username"}
@@ -210,7 +210,7 @@ const SignForm = () => {
             />
           ) : (
             <ActionButton
-              handleLogin={signupUser}
+              onClick={signupUser}
               label={"Continue"}
               bg={"pruplr"}
               type={"submit"}
@@ -218,12 +218,22 @@ const SignForm = () => {
           )}
           {/* <button type="submit">Submit</button> */}
         </div>
-        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-          <NavLink to="/Signin" className="alr-ave" style={{color: "#4f0da3"}} > 
-          Already have an account? &nbsp;
-          <span style={{fontSize: "16px"}}>Sign in</span>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <NavLink
+            to="/Signin"
+            className="alr-ave"
+            style={{ color: "#4f0da3" }}
+          >
+            Already have an account? &nbsp;
+            <span style={{ fontSize: "14px" }}>Sign In</span>
           </NavLink>
-          </div>
+        </div>
       </form>
     </div>
   );

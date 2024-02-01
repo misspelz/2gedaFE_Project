@@ -35,6 +35,7 @@ import ComingSoonPage from "./pages/ComingSoon";
 import PrivacyPolicy from "./components/LandinComp/Privacy";
 // import { EventContextProvider } from "./Context/EventContext/EventContext";
 // import { AuthProvider } from "./Context/AuthContext";
+import { Toaster } from 'react-hot-toast';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -50,6 +51,28 @@ function App() {
   return (
     <div className="App">
       <ScrollToTop />
+      <Toaster
+        toastOptions={{
+          style: {
+            maxWidth: '700px',
+            padding: '12px 16px',
+            fontSize: '17px',
+            fontWeight: '400'
+          },
+          error: {
+            style: {
+              color: 'red'
+            }
+          },
+          success: {
+            style: {
+              color: 'green'
+            }
+          }
+        }}
+        position="top-center"
+        reverseOrder={false}
+      />
       {/* <AuthProvider> */}
       <Routes>
         {/* <Route index path="/" element={<Home />} /> */}
