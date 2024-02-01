@@ -9,6 +9,7 @@ export const isAuthenticated = () => {
   }
 
   // Check if the user is verified
-  return userInfo.is_verified === true;
+  // return userInfo.is_verified === true;
+  return userInfo;
 };
 

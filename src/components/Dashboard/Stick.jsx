@@ -3,18 +3,18 @@ import { useEffect, useState } from "react";
 const Stick = (address, username, cover_image) => {
   const [isClicked, setIsClicked] = useState(false);
 
-  console.log(username);
-  console.log(cover_image);
+  // console.log(username);
+  // console.log(cover_image);
 
   const hanleClick = () => {
     setIsClicked(!isClicked);
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     
-  },[]);
+  // },[]);
 
-  console.log(cover_image);
+  // console.log(cover_image);
   return (
     <div className="stick-cont">
       <div className="post-profile">

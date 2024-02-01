@@ -117,8 +117,8 @@ const SigninForm = () => {
 
         const userInfo = await UserInfoApi();
         console.log("userInfo", userInfo);
-
-        if (userInfo.status === 200 && userInfo.data.is_verified === true) {
+        // && userInfo.data.is_verified === true
+        if (userInfo.status === 200 ) {
           localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
 
           toast.success("Log in successful");
