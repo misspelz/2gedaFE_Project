@@ -17,8 +17,6 @@ const Voting = () => {
   const [promoted, setPromoted] = useState(null);
   const [suggested, setSuggested] = useState(null);
 
-  
-
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -26,16 +24,13 @@ const Voting = () => {
     console.log(`Token ${token}`);
     const makeRequest = async () => {
       try {
-        const promotedResponse = await fetch(
-          `${url}/poll/promoted/`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Token ${token}`,
-            },
-          }
-        );
+        const promotedResponse = await fetch(`${url}/poll/promoted/`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Token ${token}`,
+          },
+        });
 
         const response = await fetch(`${url}/poll/polls/`, {
           method: "GET",
@@ -45,16 +40,13 @@ const Voting = () => {
           },
         });
 
-        const suggestedResponse = await fetch(
-          `${url}/poll/suggested-polls/`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Token ${token}`,
-            },
-          }
-        );
+        const suggestedResponse = await fetch(`${url}/poll/suggested-polls/`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Token ${token}`,
+          },
+        });
 
         if (!response.ok) {
           console.log("Response not ok");
@@ -137,9 +129,9 @@ const Voting = () => {
   return (
     <div className="home-container" style={{ background: "whiteSmoke" }}>
       <MainLayout>
-        <div className="main-containe bus-box-con">
-          <div className="left-side-container buss-all-container">
-            <h2 className="head-line bus-dir">Voting</h2>
+        <div className="main-containe bus-box-con ">
+          <div className="left-side-container buss-all-container p-4">
+            <h2 className="head-line bus-dir ">Voting</h2>
             <PollsSearch />
             <img src="images/jumia.png" alt="" className="ads-img" />
 
@@ -151,7 +143,7 @@ const Voting = () => {
                     <CanVote
                       key={index}
                       voteOptions={item.options_list ? item.options_list : []}
-                      creator={ item.username ? item.username  : "unknown user"}
+                      creator={item.username ? item.username : "unknown user"}
                       question={item.question ? item.question : ""}
                       duration={item.duration ? item.duration : ""}
                       castVote={castVote}
@@ -168,12 +160,13 @@ const Voting = () => {
                           voteOptions={
                             item.options_list ? item.options_list : []
                           }
-                          creator={ item.username ? item.username  : "unknown user"}
+                          creator={
+                            item.username ? item.username : "unknown user"
+                          }
                           question={item.question ? item.question : ""}
                           duration={item.duration ? item.duration : ""}
                           castVote={castVote}
                           voteId={item.vote_id ? item.vote_id : ""}
-                          
                         />
                       ))}
                   </>
@@ -189,7 +182,7 @@ const Voting = () => {
                     <CanVote
                       key={index}
                       voteOptions={item.options_list ? item.options_list : []}
-                      creator={ item.username ? item.username  : "unknown user"}
+                      creator={item.username ? item.username : "unknown user"}
                       question={item.question ? item.question : ""}
                       duration={item.duration ? item.duration : ""}
                       castVote={castVote}
@@ -206,7 +199,9 @@ const Voting = () => {
                           voteOptions={
                             item.options_list ? item.options_list : []
                           }
-                          creator={ item.username ? item.username  : "unknown user"}
+                          creator={
+                            item.username ? item.username : "unknown user"
+                          }
                           question={item.question ? item.question : ""}
                           duration={item.duration ? item.duration : ""}
                           castVote={castVote}
@@ -230,7 +225,7 @@ const Voting = () => {
                   <CanVote
                     key={index}
                     voteOptions={item.options_list ? item.options_list : []}
-                    creator={ item.username ? item.username  : "unknown user"}
+                    creator={item.username ? item.username : "unknown user"}
                     question={item.question ? item.question : ""}
                     duration={item.duration ? item.duration : ""}
                     castVote={castVote}
@@ -245,7 +240,7 @@ const Voting = () => {
                       <CanVote
                         key={index}
                         voteOptions={item.options_list ? item.options_list : []}
-                        creator={ item.username ? item.username  : "unknown user"}
+                        creator={item.username ? item.username : "unknown user"}
                         question={item.question ? item.question : ""}
                         duration={item.duration ? item.duration : ""}
                         castVote={castVote}

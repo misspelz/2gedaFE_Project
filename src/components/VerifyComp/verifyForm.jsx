@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ActionButton from "../Commons/Button";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 import { url } from "../../utils";
 
-const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
+const VerifyForm = ({ setIsVerify, handleVerifyClick, email }) => {
+
   const [inputValues, setInputValues] = useState({
     inputValue1: "",
     inputValue2: "",
@@ -28,6 +29,7 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
     }
   }, [inputRefs]);
   // console.log(authToken);
+
   const handleVerify = (e) => {
     e.preventDefault();
     const otp = Object.values(inputValues).join(""); // Combine all input values to form the OTP
@@ -127,15 +129,17 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
 
   // console.log("inputValues:", inputValues);
   // console.log("allInputsComplete:", allInputsComplete);
+
   return (
     <>
       <div className="verify-form-container">
         <div className="be-condo">Please verify your email</div>
         <div className="ins-tst-dig">
-          We sent a 5 digits code to the email you provided
+          We sent a 5 digits code to this email you provided
         </div>
         <div className="change-email">
-          faithincrease23@gmail.com <span>change</span>
+          {email}
+          {/* <span>change</span> */}
         </div>
         <form action="" onSubmit={handleVerify}>
           <div className="verify-inputs">

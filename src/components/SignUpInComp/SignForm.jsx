@@ -18,8 +18,8 @@ const SignForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  console.log(phone);
   const navigate = useNavigate();
+  
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
@@ -39,7 +39,7 @@ const SignForm = () => {
     setIsUsingPhone(!isUsingPhone);
   };
 
-  localStorage.setItem("username", username);
+  localStorage.setItem("email", email);
 
   const signupUser = async (event) => {
     event.preventDefault();
@@ -76,11 +76,8 @@ const SignForm = () => {
 
       const response = await fetch(`${url}/register/`, requestOptions);
       const responseBody = await response.json();
-      console.log(responseBody);
 
       if (!response.ok) {
-        console.log("response status :", response.status);
-
         if (response.status === 400) {
           if (responseBody.error === undefined) {
             alert(responseBody.username[0]);
@@ -92,11 +89,8 @@ const SignForm = () => {
         const token = responseBody.token;
 
         localStorage.setItem("authTOken", token);
-        console.log("authTOken", token);
 
         navigate("/verify");
-
-        console.log(responseBody);
       }
     } catch (error) {
       console.log(error);
@@ -134,9 +128,9 @@ const SignForm = () => {
 
   return (
     <div className="sign-form">
-      <div className="create-ead-txt">Create an Account</div>
+      <div className="create-ead-txt text-red-500">Create an Account</div>
       <div className="greet-txt">
-        Welcome to 2geda. To continue, please provide your details
+        Welcome to 2geda! <br /> To continue, please provide your details
       </div>
 
       <form action="" onSubmit={signupUser}>
@@ -170,11 +164,11 @@ const SignForm = () => {
           </div>
         )}
 
-        <div className="use-phone" onClick={handleUsePhoneClick}>
+        {/* <div className="use-phone" onClick={handleUsePhoneClick}>
           {isUsingPhone
             ? "Use Email address instead"
             : "Use Phone number instead"}
-        </div>
+        </div> */}
 
         <InputField
           placeholder={"Username"}
@@ -210,7 +204,7 @@ const SignForm = () => {
             />
           ) : (
             <ActionButton
-              handleLogin={signupUser}
+              onClick={signupUser}
               label={"Continue"}
               bg={"pruplr"}
               type={"submit"}
@@ -218,12 +212,22 @@ const SignForm = () => {
           )}
           {/* <button type="submit">Submit</button> */}
         </div>
-        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-          <NavLink to="/Signin" className="alr-ave" style={{color: "#4f0da3"}} > 
-          Already have an account? &nbsp;
-          <span style={{fontSize: "16px"}}>Sign in</span>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <NavLink
+            to="/Signin"
+            className="alr-ave"
+            style={{ color: "#4f0da3" }}
+          >
+            Already have an account? &nbsp;
+            <span style={{ fontSize: "14px" }}>Sign In</span>
           </NavLink>
-          </div>
+        </div>
       </form>
     </div>
   );
