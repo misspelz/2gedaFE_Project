@@ -22,8 +22,17 @@ body {
   height: 100%;
   background: var(--background-main-color);
 }
+
 :root {
   --background-main-color: rgba(251, 248, 255, 0.95);
   --primary: #d23369;
   --primary-deep: #f06292;
+}
+
+::-webkit-scrollbar {
+  width: 0.5em; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Set the color of the thumb (the moving part) to transparent */
 }

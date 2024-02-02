@@ -2,182 +2,242 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 import MainLayout from "../../Layout/MainLayout";
 import PollsSearch from "../../components/PollsComp/PollsSearch";
-// import CantVote from "../../components/Modals/Vote/Cant/CantVote";
 import CanVote from "../../components/Modals/Vote/Can/CanVote";
-// import Poll from "../../components/Modals/Vote/Can/Poll";
 import SearchBox from "../../components/SearchComp/searchBox";
 import Notify from "../../components/Modals/Vote/Notification/Notify";
 import { Modal } from "react-bootstrap";
 import { url } from "../../utils";
-import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoIosNotificationsOutline, IoIosSearch } from "react-icons/io";
+import { Polls } from "../../components/PollsComp/Polls";
+import { Polls2 } from "../../components/PollsComp/Polls2";
+import { PollsNotification } from "../../components/PollsComp/RightComp";
+import { SuggestedPolls } from "../../components/PollsComp/SuggestedPolls";
+import { FindPolls } from "../../components/PollsComp/FindPolls";
+import { Notifications } from "../../components/PollsComp/Notification";
+import { CreateCastActions } from "../../components/PollsComp/CreateCastActions";
+import { PromotedPolls } from "../../components/PollsComp/PromotedPolls";
 
 const Voting = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [responseData, setResponseData] = useState(null);
-  const [promoted, setPromoted] = useState(null);
-  const [suggested, setSuggested] = useState(null);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [responseData, setResponseData] = useState(null);
+  // const [promoted, setPromoted] = useState(null);
+  // const [suggested, setSuggested] = useState(null);
 
   const userInfoString = localStorage.getItem("2gedaUserInfo");
 
   const userInfo = JSON.parse(userInfoString);
   // console.log("userInfo", userInfo);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
 
-    const token = localStorage.getItem("authTOken");
-    console.log(`Token ${token}`);
-    const makeRequest = async () => {
-      try {
-        const promotedResponse = await fetch(`${url}/poll/promoted/`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Token ${token}`,
-          },
-        });
+  //   const token = localStorage.getItem("authTOken");
+  //   console.log(`Token ${token}`);
+  //   const makeRequest = async () => {
+  //     try {
+  //       const promotedResponse = await fetch(`${url}/poll/promoted/`, {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //           Authorization: `Token ${token}`,
+  //         },
+  //       });
 
-        const response = await fetch(`${url}/poll/polls/`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Token ${token}`,
-          },
-        });
+  //       const response = await fetch(`${url}/poll/polls/`, {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //           Authorization: `Token ${token}`,
+  //         },
+  //       });
 
-        const suggestedResponse = await fetch(`${url}/poll/suggested-polls/`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Token ${token}`,
-          },
-        });
+  //       const suggestedResponse = await fetch(`${url}/poll/suggested-polls/`, {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //           Authorization: `Token ${token}`,
+  //         },
+  //       });
 
-        if (!response.ok) {
-          console.log("Response not ok");
-        }
+  //       if (!response.ok) {
+  //         console.log("Response not ok");
+  //       }
 
-        const responseBody = await response.json();
-        console.log(responseBody);
-        setResponseData(responseBody);
-        localStorage.setItem("allPolls", JSON.stringify(responseBody));
+  //       const responseBody = await response.json();
+  //       console.log(responseBody);
+  //       setResponseData(responseBody);
+  //       localStorage.setItem("allPolls", JSON.stringify(responseBody));
 
-        const promotedResponseBody = await promotedResponse.json();
-        setPromoted(promotedResponseBody);
-        localStorage.setItem(
-          "promotedPolls",
-          JSON.stringify(promotedResponseBody)
-        );
+  //       const promotedResponseBody = await promotedResponse.json();
+  //       setPromoted(promotedResponseBody);
+  //       localStorage.setItem(
+  //         "promotedPolls",
+  //         JSON.stringify(promotedResponseBody)
+  //       );
 
-        const suggestedBody = await suggestedResponse.json();
-        setSuggested(suggestedBody);
-        localStorage.setItem("suggestedPolls", JSON.stringify(suggestedBody));
-        // Check if responseData is not null before mapping
-      } catch (error) {
-        console.log(error);
-        // Handle errors as needed
-      } finally {
-        // setIsLoading(true); // Move this line if needed based on your requirement
-        console.log("Finally block executed");
-      }
-    };
+  //       const suggestedBody = await suggestedResponse.json();
+  //       setSuggested(suggestedBody);
+  //       localStorage.setItem("suggestedPolls", JSON.stringify(suggestedBody));
+  //       // Check if responseData is not null before mapping
+  //     } catch (error) {
+  //       console.log(error);
+  //       // Handle errors as needed
+  //     } finally {
+  //       // setIsLoading(true); // Move this line if needed based on your requirement
+  //       console.log("Finally block executed");
+  //     }
+  //   };
 
-    makeRequest();
-  }, []);
+  //   makeRequest();
+  // }, []);
 
   // const openModal = () => {
   //   setIsModalOpen(true);
   // };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
+
+  // const castVote = async (pollsId, content, cost) => {
+  //   const data = {
+  //     post_id: pollsId,
+  //     content: content,
+  //     cost: cost,
+  //   };
+  //   try {
+  //     const token = localStorage.getItem("authTOken");
+  //     const response = await fetch(`${url}/poll/votes/`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Token ${token}`,
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+
+  //     if (!response.ok) {
+  //       console.log("Response not ok");
+  //     }
+
+  //     const responseBody = await response.json();
+  //     console.log(responseBody);
+
+  //     // Check if responseData is not null before mapping
+  //   } catch (error) {
+  //     console.log(error);
+  //     // Handle errors as needed
+  //   } finally {
+  //   }
+  // };
+
+  // const retrieved = localStorage.getItem("suggestedPolls");
+  // const retrievedArrayString = JSON.parse(retrieved);
+  // const promotedPollsretrieved = localStorage.getItem("promotedPolls");
+  // const promotedPollsArrayString = JSON.parse(promotedPollsretrieved);
+  // const allPollsretrieved = localStorage.getItem("allPolls");
+  // const allPollsArrayString = JSON.parse(allPollsretrieved);
+
+  const [Notify, setNotify] = useState(false);
+  const [CastVote, setCastVote] = useState(false);
+  const [viewType, setViewType] = useState("all");
+
+  const HandleNotification = () => {
+    setNotify(true);
   };
 
-  const castVote = async (pollsId, content, cost) => {
-    const data = {
-      post_id: pollsId,
-      content: content,
-      cost: cost,
-    };
-    try {
-      const token = localStorage.getItem("authTOken");
-      const response = await fetch(`${url}/poll/votes/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
+  const HandleCastVote = () => {
+    setCastVote(true);
+  };
 
-      if (!response.ok) {
-        console.log("Response not ok");
-      }
-
-      const responseBody = await response.json();
-      console.log(responseBody);
-
-      // Check if responseData is not null before mapping
-    } catch (error) {
-      console.log(error);
-      // Handle errors as needed
-    } finally {
+  const renderPolls = () => {
+    switch (viewType) {
+      case "private":
+        return (
+          <>
+            <Polls />
+            <Polls />
+          </>
+        );
+      case "public":
+        return <Polls />;
+      case "all":
+      default:
+        return (
+          <>
+            <Polls />
+            <Polls2 />
+            <Polls />
+          </>
+        );
     }
   };
-  const retrieved = localStorage.getItem("suggestedPolls");
-  const retrievedArrayString = JSON.parse(retrieved);
-  const promotedPollsretrieved = localStorage.getItem("promotedPolls");
-  const promotedPollsArrayString = JSON.parse(promotedPollsretrieved);
-  const allPollsretrieved = localStorage.getItem("allPolls");
-  const allPollsArrayString = JSON.parse(allPollsretrieved);
+
+  const onSearch = () => {};
+  const onFilterClick = () => {};
 
   return (
     <MainLayout>
-      <div className=" lg:bg-[#f5f5f5] lg:flex  h-screen w-full pt-36 px-6 lg:px-10 lg:gap-6">
-        <div className=" lg:w-[60%] bg-[#fff] py-10 px-6">
-          <h1>Voting</h1>
-          <h2 className="mt-6 block lg:hidden">Hello {userInfo.username}</h2>
-          <span className="text-[14px] block lg:hidden">
-            What do you want to do today ?
-          </span>
-          <div className="hidden lg:flex">
-          <input type="text" placeholder="Find polls" className="text-[14px]" />
-          </div>
-          <img src="images/fifa.png" alt="fifa-image" className="mt-6 w-full" />
+      <div className=" lg:bg-[#f5f5f5] lg:flex w-full pt-36  lg:px-10 lg:gap-6 ">
+        {!Notify && !CastVote && (
+          <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
+            {/* MOBILE */}
+            <h1>Voting</h1>
+            <h2 className="mt-6 block lg:hidden">Hello {userInfo.username}</h2>
+            <span className="text-[14px] block lg:hidden">
+              What do you want to do today ?
+            </span>
 
-          <div className="px-4 mt-12 block lg:hidden">
-            <div className="flex justify-between">
-              <div className="flex items-center gap-6">
-                <img src="images/create.png" alt="create-icon" width={25} />
-                <span className="text-[13px] font-[500]">Create poll</span>
-              </div>
-              <div className="bg-[#D0D5DD] rounded-full flex items-center justify-center relative">
-                <IoIosNotificationsOutline size={20} />
-                <div className="absolute top-[6px] right-4 bg-purple-800 text-white rounded-[45%] w-4 text-center">
-                  3
-                </div>
-              </div>
-            </div>
-            <div className="mt-14 flex justify-between">
-              <div className="flex items-center gap-6">
-                <img src="images/cast.png" alt="create-icon" width={25} />
-                <span className="text-[13px] font-[500]">Cast vote</span>
-              </div>
+            <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
 
-              <div className="bg-[#FF8A15] p-3 text-white rounded-[30px]">
-                25 new polls
-              </div>
+            <img
+              src="images/fifa.png"
+              alt="fifa-image"
+              className="mt-6 w-full lg:mt-10"
+            />
+
+            {/* MOBILE */}
+            <CreateCastActions
+              HandleNotification={HandleNotification}
+              HandleCastVote={HandleCastVote}
+            />
+
+            {/* WEB */}
+            <div className="pb-[40px] hidden lg:block">
+              <h2 className="mt-4">Suggested Polls</h2>
+              <SuggestedPolls viewType={viewType} setViewType={setViewType} />
+              <h2>Promoted Polls</h2>
+              <PromotedPolls viewType={viewType} setViewType={setViewType} />
+              {renderPolls()}
             </div>
           </div>
-        </div>
+        )}
 
-        <div className="hidden lg:block w-[40%] py-10 px-6 bg-[#fff]">
-          <div className="flex items-center gap-6 mt-4 border p-4 rounded-[10px]">
-            <img src="images/create.png" alt="create-icon" width={25} />
-            <p className="text-[13px] font-[500] mt-3">My polls</p>
+        {/* MOBILE */}
+        {Notify && <Notifications setNotify={setNotify} />}
+
+        {/* MOBILE */}
+        {CastVote && (
+          <div className="px-4 lg:hidden pb-[40px]">
+            <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
+
+            <img
+              src="images/fifa.png"
+              alt="fifa-image"
+              className="mt-6 w-full lg:mt-10"
+            />
+            <h2>Suggested Polls</h2>
+            <SuggestedPolls viewType={viewType} setViewType={setViewType} />
+            <h2>Promoted Polls</h2>
+            <PromotedPolls viewType={viewType} setViewType={setViewType} />
+            {renderPolls()}
           </div>
-        </div>
+        )}
+
+        {/* WEB */}
+        <PollsNotification setNotify={setNotify} />
       </div>
+
       {/* <div className="main-containe bus-box-con "> */}
       {/* <div className="left-side-container buss-all-container p-4"> */}
       {/* <h2 className="head-line bus-dir ">Voting</h2>
