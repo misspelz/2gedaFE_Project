@@ -125,12 +125,9 @@ const PostComp = ({
           )}
         </div>
         <div className="dob-img flex" onClick={handleFeedOpen}>
-          <div className="post-media lay-post">
-            {media && media[1] && <img src={media[1].media} alt="" />}
-            <div className="over-lay-post flex">
-              {media && media.length - 2 > 0 && media.length - 2}
-            </div>
-          </div>
+          {media && <div className="post-media lay-post">
+            <img src={media[1]?.media} alt="" />
+          </div>}
         </div>
         <div className="post-likes-co">
           <div className="likes-per-post">
