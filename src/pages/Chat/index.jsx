@@ -12,9 +12,10 @@ import MainChat from "../../components/ChatComp/MainChat";
 import ChatHeaderPublic from "../../components/ChatComp/ChatHeaderPublic";
 import MainChatPublic from "../../components/ChatComp/MainChatPublic";
 import ActiveSideUser from "../../components/ChatComp/ActiveSideComp";
+import EmptyChat from "../../components/ChatComp/EmptyChat";
 const Data = [
   {
-    name: "Abraham Adesanya",
+    name: "Abraham Public Adesanya",
     text: "How was your flight Joe, i couldnt",
     new: "yes",
   },
@@ -35,7 +36,86 @@ const Data = [
     new: "no",
   },
 ];
+const activeData = [
+  {
+    name: "Django Active Adesanya",
+    text: "How was your flight Joe, i couldnt",
+    new: "yes",
+  },
 
+  {
+    name: "Kolapo Addyjum",
+    text: "How was your flight Joe, i couldnt",
+    new: "yes",
+  },
+  {
+    name: "Oloba Addyjum",
+    text: "How was your flight Joe, i couldnt",
+    new: "no",
+  },
+  {
+    name: "Oloba Addyjum",
+    text: "How was your flight Joe, i couldnt",
+    new: "no",
+  },
+  {
+    name: "Oloba Addyjum",
+    text: "How was your flight Joe, i couldnt",
+    new: "no",
+  },
+  {
+    name: "Oloba Addyjum",
+    text: "How was your flight Joe, i couldnt",
+    new: "no",
+  },
+];
+const privateData = [
+  {
+    name: "Django Private Adesanya",
+    text: "How was your flight Joe, i couldnt",
+    new: "yes",
+  },
+  {
+    name: "Django Tinuade",
+    text: "How was your flight Joe, i couldnt",
+    new: "yes",
+  },
+  {
+    name: "Falana Adesanya",
+    text: "How was your flight Joe, i couldnt",
+    new: "yes",
+  },
+  {
+    name: "Django Anuoluwapo",
+    text: "How was your flight Joe, i couldnt",
+    new: "yes",
+  },
+  {
+    name: "Kolapo Addyjum",
+    text: "How was your flight Joe, i couldnt",
+    new: "no",
+  },
+  {
+    name: "Oloba Addyjum",
+    text: "How was your flight Joe, i couldnt",
+    new: "no",
+  },
+  {
+    name: "Oloba Addyjum",
+    text: "How was your flight Joe, i couldnt",
+    new: "no",
+  },
+  {
+    name: "Oloba Addyjum",
+    text: "How was your flight Joe, i couldnt",
+    new: "no",
+  },
+  {
+    name: "Oloba Addyjum",
+    text: "How was your flight Joe, i couldnt",
+    new: "no",
+  },
+];
 const Chat = () => {
   const [selectedTopCard, setSelectedTopCard] = useState(1);
   const [showMainChatMess, setShowMainChatMess] = useState(false);
@@ -98,7 +178,7 @@ const Chat = () => {
                     <TopCard1
                       bg="your-bg-class"
                       handleTopCard1Click={handleTopCard1Click}
-                      data={Data.length}
+                      data={privateData.length}
                     />
                     <TopCard2
                       bg="your-bg-class"
@@ -108,7 +188,7 @@ const Chat = () => {
                     <TopCard3
                       bg="your-bg-class"
                       handleTopCard3Click={handleTopCard3Click}
-                      data={Data.length}
+                      data={activeData.length}
                     />
                   </div>
                   <div className="ads-mag ">
@@ -118,10 +198,11 @@ const Chat = () => {
                 <div className="all-cart-vv">
                   {selectedTopCard === 1 && (
                     <PrivateMessage
-                      Data={Data}
+                      Data={privateData}
                       handleGotoMessagBox={handleGotoMessagBox}
                     />
                   )}
+
                   {selectedTopCard === 2 && (
                     <PublicMessage
                       Data={Data}
@@ -130,7 +211,7 @@ const Chat = () => {
                   )}
                   {selectedTopCard === 3 && (
                     <ActiveMessage
-                      Data={Data}
+                      Data={activeData}
                       handleGotoMessagBox={handleGotoMessagBox}
                     />
                   )}
