@@ -1,7 +1,7 @@
-import { BiSolidHome  } from "react-icons/bi";
+import { BiSolidHome } from "react-icons/bi";
 // import { CgMediaLive } from "react-icons/cg";
 import { BsPersonCircle, BsTicketFill } from "react-icons/bs";
-import { IoLogOutOutline } from "react-icons/io5";
+import { IoLogOutOutline, IoChatbubbleEllipsesOutline } from "react-icons/io5";
 // import { IoIosPeople, IoMdBook } from "react-icons/io";
 // import { PiBookDuotone } from "react-icons/pi";
 // import { AiOutlineMessage } from "react-icons/ai";
@@ -20,7 +20,7 @@ const Sidebar = ({ isCollapsed }) => {
             to="/Home"
             className={({ isActive }) =>
               isActive ? "active_link side-item" : "side-item"
-            } 
+            }
           >
             <BiSolidHome className="side-icon " />
             <div className="sidebar-text">Home</div>
@@ -62,6 +62,15 @@ const Sidebar = ({ isCollapsed }) => {
             <AiOutlineMessage className="side-icon " />
             <div className="sidebar-text">Chat</div>
           </NavLink> */}
+          <NavLink
+            to="/chat"
+            className={({ isActive }) =>
+              isActive ? "active_link side-item" : "side-item"
+            }
+          >
+            <IoChatbubbleEllipsesOutline className="side-icon " />
+            <div className="sidebar-text">Chats</div>
+          </NavLink>
           <NavLink
             to="/profile"
             className={({ isActive }) =>

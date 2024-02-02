@@ -1,5 +1,5 @@
 import { FaStar } from "react-icons/fa";
-import ProductImage from "assets/images/sample-product.png";
+import ProductImage from "../../assets/images/sample-product.png";
 import "./second.css";
 
 const ProductDash = () => {

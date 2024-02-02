@@ -7,14 +7,14 @@ import PostComp from "../../components/Dashboard/PostComp";
 import SelectCategory from "../../components/Dashboard/SelectCategory";
 import MusicDash from "../../components/Dashboard/MusicDas";
 import Data from "../../utils/datahome.json";
-import FeedDetail from "components/Home/FeedDetail/FeedDetail";
-import SmallTicketPromoteCard from "components/Dashboard/smallTicketsPromoted";
-import PostImage from "assets/images/sample-post-image.png"
-import PostAvatar from "assets/images/sample-avatar.png"
+import FeedDetail from "../../components/Home/FeedDetail/FeedDetail";
+import SmallTicketPromoteCard from "../../components/Dashboard/smallTicketsPromoted";
+import PostImage from "../../assets/images/sample-post-image.png"
+import PostAvatar from "../../assets/images/sample-avatar.png"
 import "./style.css";
-import ProductDash from "components/Dashboard/ProductDAs";
-import MovieSlider from "components/Home/Movieslider/MovieSlider";
-import Stick from "components/Dashboard/Stick";
+import ProductDash from "../../components/Dashboard/ProductDAs";
+import MovieSlider from "../../components/Home/Movieslider/MovieSlider";
+import Stick from "../../components/Dashboard/Stick";
 
 const Home = () => {
 	const [isFeedOpen, setIsFeedOpen] = useState(false);
