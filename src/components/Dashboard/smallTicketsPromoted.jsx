@@ -1,5 +1,5 @@
-import PostImage from "assets/images/sample-post-image.png"
-import ImageLogo from "assets/images/logo-white.png"
+import PostImage from "../../assets/images/sample-post-image.png"
+import ImageLogo from "../../assets/images/logo-white.png"
 
 import "./second.css";
 const SmallTicketPromoteCard = ({

@@ -1,4 +1,4 @@
-import PostFormModal from "components/Modals/PostFormModal";
+import PostFormModal from "../../../components/Modals/PostFormModal";
 
 
 const PostFeedFormCont = ({
