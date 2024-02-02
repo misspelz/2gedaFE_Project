@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"baseUrl": "src",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"target": "ESNext",
+		"jsx": "react-jsx",
+		"outDir": "./dist",
+		"isolatedModules": true
+	},
+	"include": [
+		"src/**/*",
+		"**/*.js",
+		"**/*.jsx",
+		"src/components",
+		"src/assets",
+		"src/utils",
+		"src/layouts",
+		"src/pages"
+	],
+	"exclude": ["node_modules"]
+}

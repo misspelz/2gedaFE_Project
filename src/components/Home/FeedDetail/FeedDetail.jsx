@@ -1,6 +1,6 @@
-import CommentPerPost from "../../components/Dashboard/CommentPerPost";
-import PostComp from "../../components/Dashboard/PostComp";
-import TicketSearchComp from "../../components/TicketComp/TicketSearchComp";
+import CommentPerPost from "../../Dashboard/CommentPerPost";
+import PostComp from "../../Dashboard/PostComp";
+import TicketSearchComp from "../../TicketComp/TicketSearchComp";
 import {
   MdOutlinePhotoSizeSelectActual,
   MdOndemandVideo,
@@ -10,12 +10,12 @@ import { AiOutlineStop } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { BsFileEarmarkText } from "react-icons/bs";
 import { useState } from "react";
-import CommentInputField from "../../components/Modals/CommentInputField";
-import PhotoInputField from "../../components/Modals/PhotoInputField";
-import RecInputField from "../../components/Modals/RecInputField";
+import CommentInputField from "../../Modals/CommentInputField";
+import PhotoInputField from "../../Modals/PhotoInputField";
+import RecInputField from "../../Modals/RecInputField";
 import { useRef } from "react";
-import VideoInputField from "../../components/Modals/VideoInputField";
-import FileInputField from "../../components/Modals/FileInputField";
+import VideoInputField from "../../Modals/VideoInputField";
+import FileInputField from "../../Modals/FileInputField";
 import { useEffect } from "react";
 
 const FeedDetail = ({ handleFeedClose,

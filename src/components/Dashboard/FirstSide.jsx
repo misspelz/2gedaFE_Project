@@ -1,17 +1,12 @@
 import React, { useState, useRef } from "react";
 import {
   BsCardImage,
-  BsMic,
-  BsFillFileEarmarkPdfFill,
-  BsAndroid2,
-  BsFiletypeExe,
+  BsMic
 } from "react-icons/bs";
 import { FaVideo, FaMusic, FaFileAlt } from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
-import { PiMicrosoftPowerpointLogo } from "react-icons/pi";
-import { SiMicrosoftword, SiMicrosoftexcel } from "react-icons/si";
+import PostFeedFormCont from "components/Home/PostFeedForm/index";
 import "./style.css";
-import PostFeedFormCont from "../PostFeedForm";
 
 const FirstSide = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,30 +59,6 @@ const FirstSide = () => {
               <FaFileAlt
                 className="fil"
                 onClick={() => handleIconClick("allfiles")}
-              />
-              <SiMicrosoftword
-                className="word"
-                onClick={() => handleIconClick("word")}
-              />
-              <SiMicrosoftexcel
-                className="excel"
-                onClick={() => handleIconClick("excel")}
-              />
-              <PiMicrosoftPowerpointLogo
-                className="prese"
-                onClick={() => handleIconClick("power")}
-              />
-              <BsFillFileEarmarkPdfFill
-                className="pdf"
-                onClick={() => handleIconClick("pdf")}
-              />
-              <BsAndroid2
-                className="apk"
-                onClick={() => handleIconClick("apk")}
-              />
-              <BsFiletypeExe
-                className="apk"
-                onClick={() => handleIconClick("exe")}
               />
             </div>
             <input type="file" ref={fileInput} style={{ display: "none" }} />
