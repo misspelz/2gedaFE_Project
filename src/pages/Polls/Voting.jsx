@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-import MainLayout from "../../Layout/MainLayout";
-import PollsSearch from "../../components/PollsComp/PollsSearch";
-import CanVote from "../../components/Modals/Vote/Can/CanVote";
-import SearchBox from "../../components/SearchComp/searchBox";
-import Notify from "../../components/Modals/Vote/Notification/Notify";
+import MainLayout from "Layout/MainLayout";
+import PollsSearch from "components/PollsComp/PollsSearch";
+import CanVote from "components/Modals/Vote/Can/CanVote";
+import SearchBox from "components/SearchComp/searchBox";
+import Notify from "components/Modals/Vote/Notification/Notify";
 import { Modal } from "react-bootstrap";
-import { url } from "../../utils";
+import { url } from "utils";
 import { IoIosNotificationsOutline, IoIosSearch } from "react-icons/io";
-import { Polls } from "../../components/PollsComp/Polls";
-import { Polls2 } from "../../components/PollsComp/Polls2";
-import { PollsNotification } from "../../components/PollsComp/RightComp";
-import { SuggestedPolls } from "../../components/PollsComp/SuggestedPolls";
-import { FindPolls } from "../../components/PollsComp/FindPolls";
-import { Notifications } from "../../components/PollsComp/Notification";
-import { CreateCastActions } from "../../components/PollsComp/CreateCastActions";
-import { PromotedPolls } from "../../components/PollsComp/PromotedPolls";
+import { Polls } from "components/PollsComp/Polls";
+import { Polls2 } from "components/PollsComp/Polls2";
+import { PollsNotification } from "components/PollsComp/RightComp";
+import { SuggestedPolls } from "components/PollsComp/SuggestedPolls";
+import { FindPolls } from "components/PollsComp/FindPolls";
+import { Notifications } from "components/PollsComp/Notification";
+import { CreateCastActions } from "components/PollsComp/CreateCastActions";
+import { PromotedPolls } from "components/PollsComp/PromotedPolls";
 
 const Voting = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);

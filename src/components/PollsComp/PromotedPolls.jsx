@@ -6,11 +6,13 @@ import styles from "./Promoted.module.css";
 
 export const PromotedPolls = ({ viewType, setViewType }) => {
   return (
-    <div >
-      <div className={`${styles.container} flex gap-6 min-w-[800px]`}>
-        <Polls />
-        <Polls />
-        <Polls />
+    <>
+      <div className={`${styles.container}`}>
+        <div className={` flex gap-6 min-w-[800px]`}>
+          <Polls />
+          <Polls />
+          <Polls />
+        </div>
       </div>
       <div className="flex justify-between  mt-16 lg:mt-20">
         <button
@@ -38,6 +40,6 @@ export const PromotedPolls = ({ viewType, setViewType }) => {
           Private
         </button>
       </div>
-    </div>
+    </>
   );
 };

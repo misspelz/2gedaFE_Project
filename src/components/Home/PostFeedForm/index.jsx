@@ -1,6 +1,5 @@
 import PostFormModal from "../../../components/Modals/PostFormModal";
 
-
 const PostFeedFormCont = ({
   hdClose,
   isModalOpen,
