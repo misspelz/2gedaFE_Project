@@ -1,8 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
-import MovieImage1 from "assets/images/sample-image-1.png"
-import MovieImage2 from "assets/images/sample-image-2.png"
+import MovieImage1 from "../../../assets/images/sample-image-1.png"
+import MovieImage2 from "../../../assets/images/sample-image-2.png"
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";

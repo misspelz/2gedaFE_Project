@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PostImage from "assets/images/sample-avatar.png"
+import PostImage from "../../assets/images/sample-avatar.png"
 
 const Stick = (address, username, cover_image) => {
   const [isClicked, setIsClicked] = useState(false);

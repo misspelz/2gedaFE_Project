@@ -5,7 +5,7 @@ import {
 } from "react-icons/bs";
 import { FaVideo, FaMusic, FaFileAlt } from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
-import PostFeedFormCont from "components/Home/PostFeedForm/index";
+import PostFeedFormCont from "../../components/Home/PostFeedForm/index";
 import "./style.css";
 
 const FirstSide = () => {
