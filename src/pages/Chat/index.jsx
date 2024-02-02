@@ -155,13 +155,15 @@ const Chat = () => {
     <div className="home-container">
       <MainLayout>
         <div className="main-containe bvc">
-          <div className="left-side-container wvit">
+          <div className="left-side-container wvit  ">
             {showMainChatMess && (
               <div className="main-chat-mess">
                 <ChatHeader handleCloseMessagBox={handleCloseMessagBox} />
                 <MainChat />
               </div>
             )}
+
+            
             {showPublicChatMess && (
               <div className="main-chat-mess">
                 <ChatHeaderPublic

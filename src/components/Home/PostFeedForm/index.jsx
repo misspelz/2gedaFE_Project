@@ -1,5 +1,5 @@
-import PostFormModal from "../Modals/PostFormModal";
-// import PostFormPhotoModal from "../Modals/PostFormPhotoModal";
+import PostFormModal from "components/Modals/PostFormModal";
+
 
 const PostFeedFormCont = ({
   hdClose,

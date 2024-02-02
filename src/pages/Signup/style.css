@@ -2,12 +2,17 @@
   display: flex;
   align-items: center;
 }
+
 @media only screen and (max-width: 940px) {
   .welc-form-containr {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30%;   
+    height: 100vh;
+    /* margin-top: 30%;    */
+    width: 100%;
+    margin: 0 auto;
+    
   }
  
   .ire{
