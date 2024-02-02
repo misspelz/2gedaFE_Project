@@ -13,7 +13,7 @@ const MainLayout = ({ children }) => {
     setIsCollapsed(!isCollapsed);
   };
   return (
-    <div className="layout-container">
+    <div className="layout-container ">
       <div className={isCollapsed ? "ctrl-btn lst" : "ctrl-btn"}  onClick={handleCollapseIcon}>{isCollapsed ? <MdKeyboardArrowRight /> : <MdKeyboardArrowLeft />}</div>
       <div className="sidebar-boxxx">
       <Sidebar isCollapsed={isCollapsed}/>

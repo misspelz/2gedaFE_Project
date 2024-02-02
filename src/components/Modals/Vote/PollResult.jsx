@@ -45,11 +45,11 @@ const PollResult = () => {
         </div>
         <FaChevronDown style={{fontSize: "20px"}} />
       </div>
+      {/* <Stick />
       <Stick />
       <Stick />
       <Stick />
-      <Stick />
-      <Stick />
+      <Stick /> */}
     </div>
           </div>
 

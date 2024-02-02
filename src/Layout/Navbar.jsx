@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { BsBell } from "react-icons/bs";
+// import { IoIosNotifications } from "react-icons/io";
 import GeneralSearch from "../components/Dashboard/GeneralSearch";
 
 const Navbar = () => {
@@ -16,14 +17,14 @@ const Navbar = () => {
     <div className="navbar-container">
       <div className="logo-container">
         <img src="/images/lo2.png" alt="" className="logo-img" />
-        <div className="logo-text">2geda</div>
+        <p className="logo-text hidden lg:flex">2geda</p>
       </div>
       <div className="searc-profile">
         <div
           className={isToggled ? "mobile-searc nol" : "mobile-searc"}
           onClick={handleToggledIcon}
         >
-          <BiSearch className="sea-icon " />
+          <BiSearch className="sea-icon " size={20} />
         </div>
         {isToggled && (
           <GeneralSearch handleCloseToggledIcon={handleCloseToggledIcon} />
@@ -33,11 +34,11 @@ const Navbar = () => {
           <div type="text" className="searc-inp" placeholder="">
             Search Anythings
           </div>
-          <BiSearch className="sea-icon " />
+          <BiSearch className="sea-icon " size={20} />
         </div>
         <div className="notif-cont">
           {/* <div className="bell-count">99+</div> */}
-          <BsBell className="bell" />
+          <BsBell className="bell" size={20} />
         </div>
         <div className="profile-container">
           <img

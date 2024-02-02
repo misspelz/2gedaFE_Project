@@ -9,9 +9,11 @@
   position: relative;
   overflow-x: hidden;
 }
+
 .nav-cild {
-  width: 80%;
+  width: 100%;
 }
+
 .sidebar-boxxx {
   width: 20%;
   background: #4f0da3;
@@ -93,8 +95,9 @@ li {
   background: #fff;
   position: fixed;
   top: 0;
-  width: 80%;
+  width: 84%;
   z-index: 1;
+  border-bottom: 1px solid rgb(238, 233, 233);
 }
 .logo-container {
   display: flex;
@@ -156,7 +159,7 @@ li {
   cursor: pointer;
 }
 .bell {
-  font-size: 30px;
+  font-size: 20px;
 }
 .bell-count {
   width: 17px;
@@ -181,8 +184,6 @@ li {
     position: fixed;
     z-index: 11;
   }
-
-  
 
   .nil {
     display: none;

@@ -8,16 +8,22 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { url } from "../../utils";
 import Lottie from "lottie-react";
 import preloader from "../../pages/Home/Animation - 1703321875032 (1).json";
+import { UserInfoApi } from "../../utils/ApICalls";
+import Modal from "../Modals/Modal";
+import { EmailVerify } from "../Modals/EmailVerify";
+import toast from "react-hot-toast";
 
 const SigninForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [isUsingPhone, setIsUsingPhone] = useState(false);
+  // const [isUsingPhone, setIsUsingPhone] = useState(false);
   const [isUsingUsername, setIsUsingUsername] = useState(false);
   const [phone, setPhone] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [IsEmailVerify, setIsEmailVerify] = useState(false);
+
   const navigate = useNavigate();
 
   const goToForgot = () => {
@@ -49,14 +55,14 @@ const SigninForm = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleUsePhoneClick = () => {
-    setIsUsingPhone(!isUsingPhone);
-    setIsUsingUsername(false);
-  };
+  // const handleUsePhoneClick = () => {
+  //   setIsUsingPhone(!isUsingPhone);
+  //   setIsUsingUsername(false);
+  // };
 
   const handleUseUsernameClick = () => {
     setIsUsingUsername(!isUsingUsername);
-    setIsUsingPhone(false);
+    // setIsUsingPhone(false);
   };
 
   const handleLogin = async (e) => {
@@ -77,11 +83,13 @@ const SigninForm = () => {
       (email && {
         email: email,
         password: password,
-      }) ||
-      (phone && {
-        phone_number: phone,
-        password: password,
       });
+
+    // ||
+    // (phone && {
+    //   phone_number: phone,
+    //   password: password,
+    // });
 
     var raw = JSON.stringify(formData);
     console.log(formData);
@@ -93,144 +101,174 @@ const SigninForm = () => {
     };
 
     try {
-      const response = await fetch(
-        `${url}/login/`,
-        requestOptions
-      );
+      const response = await fetch(`${url}/login/`, requestOptions);
       const result = await response.json();
+
+      console.log("result", result);
 
       if (!response.ok) {
         if (response.status === 400) {
-          alert(result.error);
+          toast.error(result.error);
         } else if (response.status === 401) {
-          alert(result.error);
+          toast.error(result.data.detail);
         }
       } else {
         localStorage.setItem("authTOken", result.token);
-        navigate("/Home");
+
+        const userInfo = await UserInfoApi();
+        console.log("userInfo", userInfo);
+        // && userInfo.data.is_verified === true
+        if (userInfo.status === 200 ) {
+          localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
+
+          toast.success("Log in successful");
+          navigate("/Home");
+        } else if (
+          userInfo.status === 200 &&
+          userInfo.data.is_verified !== true
+        ) {
+          localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
+          setIsEmailVerify(true);
+        }
       }
-      // Handle successful login, e.g., store the token in local storage
     } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.error);
-      } else {
-        console.log("An error occurred during the login process.");
-      }
+      toast.error(error);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="sign-form">
-      <div className="create-ead-txt">Login</div>
-      <div className="greet-txt">
-        Welcome back. Enter your details to continue.
-      </div>
-
-      <form action="" onSubmit={handleLogin}>
-        {isUsingPhone && !isUsingUsername && (
-          <div className="inp-phone">
-            <PhoneInput
-              defaultCountry="NG"
-              className="custom-phone-input"
-              value={phone}
-              style={{ height: "40px" }}
-              onChange={(text) => handlePhoneChange(text)}
-              placeholder="+1 201-555-0123"
-              required
-            />
-          </div>
-        )}
-
-        {!isUsingPhone && !isUsingUsername && (
-          <div className="inp-email">
-            <InputField
-              placeholder={"Input email address"}
-              type={"email"}
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </div>
-        )}
-
-        {isUsingUsername && (
-          <div className="inp-username">
-            <InputField
-              placeholder={"Username"}
-              type={"text"}
-              value={username}
-              onChange={handleUsernameChange}
-            />
-          </div>
-        )}
-
-        <div className="pass-con">
-          <InputField
-            placeholder={"Password"}
-            type={passwordVisible ? "text" : "password"}
-            onChange={handlePasswordChange}
-          />
-          <div className="eye-box" onClick={togglePasswordVisibility}>
-            {passwordVisible ? (
-              <BsEyeSlashFill className="eye-icon" />
-            ) : (
-              <BsEyeFill className="eye-icon" />
-            )}
-          </div>
+    <>
+      {/* {!IsEmailVerify && ( */}
+      <div className="sign-form">
+        <div className="create-ead-txt">Log In to your Account</div>
+        <div className="greet-txt">
+          Welcome back! <br /> Enter your details to continue.
         </div>
-        <div className="forg-pas-contan" onClick={goToForgot}>
-          Forgot password?
-        </div>
-        <div className="use-phone" onClick={handleUsePhoneClick}>
+
+        <form action="" onSubmit={handleLogin}>
+          {/* {isUsingPhone && !isUsingUsername && (
+            <div className="inp-phone">
+              <PhoneInput
+                defaultCountry="NG"
+                className="custom-phone-input"
+                value={phone}
+                style={{ height: "40px" }}
+                onChange={(text) => handlePhoneChange(text)}
+                placeholder="+1 201-555-0123"
+                required
+              />
+            </div>
+          )} */}
+
+          {!isUsingUsername && (
+            <div className="inp-email">
+              <InputField
+                placeholder={"Enter your email address"}
+                type={"email"}
+                value={email}
+                onChange={handleEmailChange}
+              />
+            </div>
+          )}
+
+          {isUsingUsername && (
+            <div className="inp-username">
+              <InputField
+                placeholder={"Enter your username"}
+                type={"text"}
+                value={username}
+                onChange={handleUsernameChange}
+              />
+            </div>
+          )}
+
+          <div className="pass-con">
+            <InputField
+              placeholder={"Enter your password"}
+              type={passwordVisible ? "text" : "password"}
+              onChange={handlePasswordChange}
+            />
+            <div className="eye-box" onClick={togglePasswordVisibility}>
+              {passwordVisible ? (
+                <BsEyeSlashFill className="eye-icon" />
+              ) : (
+                <BsEyeFill className="eye-icon" />
+              )}
+            </div>
+          </div>
+          <div className="forg-pas-contan" onClick={goToForgot}>
+            Forgot password?
+          </div>
+          {/* <div className="use-phone" onClick={handleUsePhoneClick}>
           {isUsingPhone
             ? "Use Email Address Instead"
             : isUsingUsername
             ? "Use Email Address Instead"
-            : "Use Phone Number Instead"}
-        </div>
-        <div
-          className="use-phone"
-          onClick={
-            isUsingUsername ? handleUsePhoneClick : handleUseUsernameClick
-          }
-        >
-          {isUsingUsername
-            ? "Use Phone Number Instead"
-            : "Use Username Instead"}
-        </div>
+            : ""}
+        </div> */}
+          <div className="use-phone" onClick={handleUseUsernameClick}>
+            {isUsingUsername
+              ? "Use Email Address Instead"
+              : "Use Username Instead"}
+          </div>
 
-        <div className="btn-continu">
-          {isLoading ? (
-            <Lottie
-              animationData={preloader}
-              style={{
-                width: "300px",
-                height: "100px",
-              }}
-            />
-          ) : (
-            <ActionButton
-              label={"Continue"}
-              bg={"pruplr"}
-              handleLogin={handleLogin}
-            />
-          )}
-        </div>
-        <div className="alr-ave">
+          <div className="btn-continu">
+            {isLoading ? (
+              <Lottie
+                animationData={preloader}
+                style={{
+                  width: "300px",
+                  height: "100px",
+                }}
+              />
+            ) : (
+              <ActionButton
+                label={"Continue"}
+                bg={"pruplr"}
+                onClick={handleLogin}
+              />
+            )}
+          </div>
+          {/* <div className="alr-ave">
           New user? &nbsp;
           <span>
             <NavLink
               className="goto-link"
               to="/Signup"
-              style={{ color: "#4f0da3" }}
+              style={{ color: "#4f0da3", fontSize: "14px" }}
             >
-              Sign up
+              Sign Up
             </NavLink>
           </span>
-        </div>
-      </form>
-    </div>
+        </div> */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <NavLink
+              to="/Signup"
+              className="alr-ave"
+              style={{ color: "#4f0da3" }}
+            >
+              New user? &nbsp;
+              <span style={{ fontSize: "14px" }}>Sign Up</span>
+            </NavLink>
+          </div>
+        </form>
+      </div>
+      {/* )} */}
+
+      {IsEmailVerify && (
+        <Modal>
+          <EmailVerify setIsEmailVerify={setIsEmailVerify} />
+        </Modal>
+      )}
+    </>
   );
 };
 

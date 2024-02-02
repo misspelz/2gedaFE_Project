@@ -7,6 +7,8 @@ export const AuthProvider = ({ children }) => {
     token: "",
   });
 
+   
+
   const value = { userAuth, setUserAuth };
   return <AuthCtx.Provider value={value}>{children}</AuthCtx.Provider>;
 };
