@@ -5,7 +5,7 @@ import PollsSearch from "components/PollsComp/PollsSearch";
 import CanVote from "components/Modals/Vote/Can/CanVote";
 import SearchBox from "components/SearchComp/searchBox";
 import Notify from "components/Modals/Vote/Notification/Notify";
-import { Modal } from "react-bootstrap";
+// import { Modal } from "react-bootstrap";
 import { url } from "utils";
 import { IoIosNotificationsOutline, IoIosSearch } from "react-icons/io";
 import { Polls } from "components/PollsComp/Polls";
@@ -16,6 +16,8 @@ import { FindPolls } from "components/PollsComp/FindPolls";
 import { Notifications } from "components/PollsComp/Notification";
 import { CreateCastActions } from "components/PollsComp/CreateCastActions";
 import { PromotedPolls } from "components/PollsComp/PromotedPolls";
+import Modal from "components/Modals/Modal";
+import { IoMdClose } from "react-icons/io";
 
 const Voting = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -138,9 +140,11 @@ const Voting = () => {
   // const allPollsretrieved = localStorage.getItem("allPolls");
   // const allPollsArrayString = JSON.parse(allPollsretrieved);
 
+  const [selectedPoll, setSelectedPoll] = useState(null);
   const [Notify, setNotify] = useState(false);
   const [CastVote, setCastVote] = useState(false);
   const [viewType, setViewType] = useState("all");
+  const [pollModal, setPollModal] = useState(true);
 
   const HandleNotification = () => {
     setNotify(true);
@@ -150,24 +154,84 @@ const Voting = () => {
     setCastVote(true);
   };
 
+  const HandlePoll = (pollData) => {
+    setSelectedPoll(pollData);
+    // setPollModal(true);
+  };
+
+  const HandlePollModal = () => {
+    setPollModal(false);
+  };
+
+  const options = [
+    { title: "Python", percentage: "30" },
+    { title: "Java", percentage: "40" },
+  ];
+
   const renderPolls = () => {
     switch (viewType) {
       case "private":
         return (
           <>
-            <Polls />
-            <Polls />
+            <Polls
+              onClick={HandlePoll}
+              authorName="Pelz Adetoye"
+              createdAt="Today @ 12:09pm"
+              question="What is your preferred programming language?"
+              options={options}
+              daysRemaining="2 days remaining"
+              totalVotes="500"
+              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+            />
+            <Polls
+              // onClick={HandlePoll}
+              authorName="Ade Michael"
+              createdAt="Yesterday @ 12:09pm"
+              question="What is your preferred programming language?"
+              options={options}
+              daysRemaining="4 days remaining"
+              totalVotes="200"
+              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+            />
           </>
         );
       case "public":
-        return <Polls />;
+        return (
+          <Polls
+            authorName="Adekola Tony"
+            createdAt="Today @ 10:09am"
+            question="What is your preferred programming language?"
+            options={options}
+            daysRemaining="5 days remaining"
+            totalVotes="500"
+            backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+          />
+        );
       case "all":
       default:
         return (
           <>
-            <Polls />
+            <Polls
+              // onClick={HandlePoll}
+              authorName="Alani David"
+              createdAt="Today @ 2:09pm"
+              question="What is your preferred programming language?"
+              options={options}
+              daysRemaining="1 day remaining"
+              totalVotes="100"
+              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+            />
             <Polls2 />
-            <Polls />
+            <Polls
+              // onClick={HandlePoll}
+              authorName="Joseph Jones"
+              createdAt="Today @ 10:09am"
+              question="What is your preferred programming language?"
+              options={options}
+              daysRemaining="5 days remaining"
+              totalVotes="500"
+              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+            />
           </>
         );
     }
@@ -178,7 +242,74 @@ const Voting = () => {
 
   return (
     <MainLayout>
-      <div className=" lg:bg-[#f5f5f5] lg:flex w-full pt-36  lg:px-10 lg:gap-6 ">
+      {/* MOBILE */}
+      {!selectedPoll && (
+        <div className=" lg:bg-[#f5f5f5]  w-full pt-36  lg:px-10 lg:gap-6 lg:hidden">
+          {!Notify && !CastVote && (
+            <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
+              {/* MOBILE */}
+              <h1>Voting</h1>
+              <h2 className="mt-6 block lg:hidden">
+                Hello {userInfo.username}
+              </h2>
+              <span className="text-[14px] block lg:hidden">
+                What do you want to do today ?
+              </span>
+
+              <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
+
+              <img
+                src="images/fifa.png"
+                alt="fifa-image"
+                className="mt-6 w-full lg:mt-10"
+              />
+
+              {/* MOBILE */}
+              <CreateCastActions
+                HandleNotification={HandleNotification}
+                HandleCastVote={HandleCastVote}
+              />
+
+              {/* WEB */}
+              <div className="pb-[40px] hidden lg:block">
+                <h2 className="mt-4">Suggested Polls</h2>
+                <SuggestedPolls viewType={viewType} setViewType={setViewType} />
+                <h2>Promoted Polls</h2>
+                <PromotedPolls viewType={viewType} setViewType={setViewType} />
+                {renderPolls()}
+              </div>
+            </div>
+          )}
+
+          {/* MOBILE */}
+          {Notify && <Notifications setNotify={setNotify} />}
+
+          {/* MOBILE */}
+          {CastVote && (
+            <div className="px-4 lg:hidden pb-[40px]">
+              <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
+
+              <img
+                src="images/fifa.png"
+                alt="fifa-image"
+                className="mt-6 w-full lg:mt-10"
+              />
+              <h2 className="mt-4">Suggested Polls</h2>
+              <SuggestedPolls viewType={viewType} setViewType={setViewType} />
+              <h2>Promoted Polls</h2>
+              <PromotedPolls viewType={viewType} setViewType={setViewType} />
+              {renderPolls()}
+            </div>
+          )}
+
+          {/* WEB */}
+          <PollsNotification setNotify={setNotify} />
+        </div>
+      )}
+
+      {/* WEB */}
+      {/* {!selectedPoll && ( */}
+      <div className=" lg:bg-[#f5f5f5] lg:flex w-full pt-36  lg:px-10 lg:gap-6 hidden">
         {!Notify && !CastVote && (
           <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
             {/* MOBILE */}
@@ -226,7 +357,7 @@ const Voting = () => {
               alt="fifa-image"
               className="mt-6 w-full lg:mt-10"
             />
-            <h2>Suggested Polls</h2>
+            <h2 className="mt-4">Suggested Polls</h2>
             <SuggestedPolls viewType={viewType} setViewType={setViewType} />
             <h2>Promoted Polls</h2>
             <PromotedPolls viewType={viewType} setViewType={setViewType} />
@@ -237,6 +368,69 @@ const Voting = () => {
         {/* WEB */}
         <PollsNotification setNotify={setNotify} />
       </div>
+      {/* )} */}
+
+      {/* MOBILE */}
+      {selectedPoll && (
+        <div className="pt-36 lg:pt-48 px-4 flex lg:hidden flex-col justify-between w-full h-screen">
+          <div className="lg:hidden w-full">
+            <div
+              className="cursor-pointer lg:hidden flex justify-between w-[60%]"
+              onClick={() => setSelectedPoll(null)}
+            >
+              <img src="images/backarrow.png" alt="result-icon" width={20} />
+              <div className="text-[18px] font-bold">Cast Vote</div>
+            </div>
+
+            <Polls
+              // className="w-full"
+              authorName="Pelz Adetoye"
+              createdAt="Today @ 12:09pm"
+              question="What is your preferred programming language?"
+              options={options}
+              daysRemaining="2 days remaining"
+              totalVotes="500"
+              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+            />
+          </div>
+          <img
+            src="images/fifa.png"
+            alt="fifa-image"
+            className="mb-6 w-full lg:mb-10 lg:hidden"
+          />
+        </div>
+      )}
+
+      {/* WEB */}
+      {selectedPoll && (
+        <div className="hidden lg:flex">
+          <Modal>
+            <div className="bg-white w-[50%] p-14">
+              <div className="w-full flex justify-end">
+                <div
+                  // onClick={HandlePollModal}
+                  onClick={() => setSelectedPoll(null)}
+                  className=" flex justify-between w-[60%] cursor-pointer"
+                >
+                  <div className="text-[20px] font-bold">Cast Vote</div>
+                  <IoMdClose size={25} />
+                </div>
+              </div>
+
+              <Polls
+                className="w-[100%] p-6 mt-4"
+                authorName="Pelz Adetoye"
+                createdAt="Today @ 12:09pm"
+                question="What is your preferred programming language?"
+                options={options}
+                daysRemaining="2 days remaining"
+                totalVotes="500"
+                backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+              />
+            </div>
+          </Modal>
+        </div>
+      )}
 
       {/* <div className="main-containe bus-box-con "> */}
       {/* <div className="left-side-container buss-all-container p-4"> */}
