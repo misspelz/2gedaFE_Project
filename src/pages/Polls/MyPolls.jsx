@@ -18,8 +18,9 @@ import { CreateCastActions } from "components/PollsComp/CreateCastActions";
 import { PromotedPolls } from "components/PollsComp/PromotedPolls";
 import CreatePoll from "components/Modals/Vote/CreatePoll/CreatePoll";
 import { Dialog, DialogContent } from "@mui/material";
+import { MyPollsCategories } from "components/PollsComp/MyPollsCategories";
 
-const Voting = () => {
+const MyPolls = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const [responseData, setResponseData] = useState(null);
   // const [promoted, setPromoted] = useState(null);
@@ -185,7 +186,7 @@ const Voting = () => {
         {!Notify && !CastVote && (
           <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
             {/* MOBILE */}
-            <h1>Voting</h1>
+            <h1>My Polls</h1>
             <h2 className="mt-6 block lg:hidden">Hello {userInfo.username}</h2>
             <span className="text-[14px] block lg:hidden">
               What do you want to do today ?
@@ -208,10 +209,10 @@ const Voting = () => {
 
             {/* WEB */}
             <div className="pb-[40px] hidden lg:block">
-              <h2 className="mt-4">Suggested Polls</h2>
-              <SuggestedPolls viewType={viewType} setViewType={setViewType} />
-              <h2>Promoted Polls</h2>
-              <PromotedPolls viewType={viewType} setViewType={setViewType} />
+              <MyPollsCategories
+                viewType={viewType}
+                setViewType={setViewType}
+              />
               {renderPolls()}
             </div>
             <Dialog
@@ -237,10 +238,7 @@ const Voting = () => {
               alt="fifa"
               className="mt-6 w-full lg:mt-10"
             />
-            <h2>Suggested Polls</h2>
-            <SuggestedPolls viewType={viewType} setViewType={setViewType} />
-            <h2>Promoted Polls</h2>
-            <PromotedPolls viewType={viewType} setViewType={setViewType} />
+            <MyPollsCategories viewType={viewType} setViewType={setViewType} />
             {renderPolls()}
           </div>
         )}
@@ -453,4 +451,4 @@ const Voting = () => {
 //   );
 // };
 
-export default Voting;
+export default MyPolls;

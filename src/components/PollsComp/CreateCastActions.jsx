@@ -1,14 +1,21 @@
 // MobileOptionsComponent.js
 
-import React from 'react';
-import { IoIosNotificationsOutline } from 'react-icons/io'; // Import the IoIosNotificationsOutline component from the appropriate package
-import PropTypes from 'prop-types';
+import React from "react";
+import { IoIosNotificationsOutline } from "react-icons/io"; // Import the IoIosNotificationsOutline component from the appropriate package
+import PropTypes from "prop-types";
 
-export const CreateCastActions = ({ HandleNotification, HandleCastVote }) => {
+export const CreateCastActions = ({
+  HandleNotification,
+  HandleCastVote,
+  showCreateModal,
+}) => {
   return (
     <div className="px-4 mt-12 lg:hidden">
       <div className="flex justify-between">
-        <div className="flex items-center gap-6 cursor-pointer">
+        <div
+          className="flex items-center gap-6 cursor-pointer"
+          onClick={showCreateModal}
+        >
           <img src="images/create.png" alt="create-icon" width={25} />
           <span className="text-[13px] font-[500]">Create poll</span>
         </div>
@@ -45,4 +52,3 @@ CreateCastActions.propTypes = {
   HandleNotification: PropTypes.func.isRequired,
   HandleCastVote: PropTypes.func.isRequired,
 };
-
