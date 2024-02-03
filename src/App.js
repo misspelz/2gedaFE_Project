@@ -28,12 +28,11 @@ import Voted from "./components/Modals/Vote/Cant/Voted";
 import SuccessPoll from "./components/Modals/Vote/SuccessPoll";
 import MyPolls from "./components/Modals/Vote/MyPolls";
 import PollResult from "./components/Modals/Vote/PollResult";
-// import NonAuthNavbar from "./Layout/NonAuthNav/NonAuthNavbar";
 import CreatePoll from "./components/Modals/Vote/CreatePoll/CreatePoll";
 import ComingSoonPage from "./pages/ComingSoon";
 import PrivacyPolicy from "./components/LandinComp/Privacy";
 import { Toaster } from "react-hot-toast";
-import {ProtectedRoutes} from "./routes/ProtectedRoutes"
+import { ProtectedRoutes } from "./routes/ProtectedRoutes";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -107,7 +106,10 @@ function App() {
           path="/ComingSoonPage"
           element={<ProtectedRoutes element={<ComingSoonPage />} />}
         />
-        <Route path="/Voted" element={<ProtectedRoutes element={<Voted />} />} />
+        <Route
+          path="/Voted"
+          element={<ProtectedRoutes element={<Voted />} />}
+        />
         <Route
           path="/MyPolls"
           element={<ProtectedRoutes element={<MyPolls />} />}
@@ -116,7 +118,7 @@ function App() {
           path="/PollResult"
           element={<ProtectedRoutes element={<PollResult />} />}
         />
-         {/* <Route index path="/Voting" element={<Voting />} /> */}
+        {/* <Route index path="/Voting" element={<Voting />} /> */}
         <Route
           path="/Voting"
           element={<ProtectedRoutes element={<Voting />} />}
