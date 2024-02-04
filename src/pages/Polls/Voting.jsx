@@ -18,6 +18,8 @@ import { CreateCastActions } from "components/PollsComp/CreateCastActions";
 import { PromotedPolls } from "components/PollsComp/PromotedPolls";
 import Modal from "components/Modals/Modal";
 import { IoMdClose } from "react-icons/io";
+import InputField from "components/Commons/InputField";
+import ActionButton from "components/Commons/Button";
 
 const Voting = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -144,7 +146,11 @@ const Voting = () => {
   const [Notify, setNotify] = useState(false);
   const [CastVote, setCastVote] = useState(false);
   const [viewType, setViewType] = useState("all");
-  const [pollModal, setPollModal] = useState(true);
+  // const [pollModal, setPollModal] = useState(true);
+  const [PaidPoll, setPaidPoll] = useState(false);
+  const [PayNow, setPayNow] = useState(false);
+  const [Success, setSuccess] = useState(false);
+  const [showPaidVotes, setShowPaidVotes] = useState(false);
 
   const HandleNotification = () => {
     setNotify(true);
@@ -156,12 +162,12 @@ const Voting = () => {
 
   const HandlePoll = (pollData) => {
     setSelectedPoll(pollData);
-    // setPollModal(true);
+    setShowPaidVotes(false);
   };
 
-  const HandlePollModal = () => {
-    setPollModal(false);
-  };
+  // const HandlePollModal = () => {
+  //   setPollModal(false);
+  // };
 
   const options = [
     { title: "Python", percentage: "30" },
@@ -239,6 +245,25 @@ const Voting = () => {
 
   const onSearch = () => {};
   const onFilterClick = () => {};
+
+  const HandlePaidPoll = () => {
+    setPaidPoll(true);
+  };
+
+  const HandlePayNow = () => {
+    setPayNow(true);
+  };
+
+  const HandlePaySuccess = () => {
+    setSuccess(true);
+  };
+
+  const HandleContinue = () => {
+    setSuccess(false);
+    setPayNow(false);
+    setPaidPoll(false);
+    setShowPaidVotes(true);
+  };
 
   return (
     <MainLayout>
@@ -384,7 +409,9 @@ const Voting = () => {
 
             <Polls
               // className="w-full"
-              authorName="Pelz Adetoye"
+
+              onClick={HandlePaidPoll}
+              authorName="Pelz Ade"
               createdAt="Today @ 12:09pm"
               question="What is your preferred programming language?"
               options={options}
@@ -392,6 +419,12 @@ const Voting = () => {
               totalVotes="500"
               backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
             />
+
+            {showPaidVotes && (
+              <div className="mt-20 text-center bg-orange-400 py-3 rounded-[30px] w-[35%] mx-auto text-white ">
+                You have 40 votes
+              </div>
+            )}
           </div>
           <img
             src="images/fifa.png"
@@ -402,23 +435,27 @@ const Voting = () => {
       )}
 
       {/* WEB */}
-      {selectedPoll && (
+      {selectedPoll && !PaidPoll && (
         <div className="hidden lg:flex">
           <Modal>
             <div className="bg-white w-[50%] p-14">
               <div className="w-full flex justify-end">
                 <div
                   // onClick={HandlePollModal}
-                  onClick={() => setSelectedPoll(null)}
-                  className=" flex justify-between w-[60%] cursor-pointer"
+                  className=" flex justify-between w-[60%] "
                 >
                   <div className="text-[20px] font-bold">Cast Vote</div>
-                  <IoMdClose size={25} />
+                  <IoMdClose
+                    size={25}
+                    onClick={() => setSelectedPoll(null)}
+                    className="cursor-pointer"
+                  />
                 </div>
               </div>
 
               <Polls
-                className="w-[100%] p-6 mt-4"
+                onClick={HandlePaidPoll}
+                className="w-[100%] p-6 mt-4 cursor-pointer"
                 authorName="Pelz Adetoye"
                 createdAt="Today @ 12:09pm"
                 question="What is your preferred programming language?"
@@ -427,9 +464,114 @@ const Voting = () => {
                 totalVotes="500"
                 backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
               />
+
+              {showPaidVotes && (
+              <div className="mt-20 text-center bg-orange-400 py-3 rounded-[30px] w-[35%] mx-auto text-white ">
+                You have 40 votes
+              </div>
+            )}
             </div>
           </Modal>
         </div>
+      )}
+
+      {PaidPoll && !PayNow && (
+        <Modal>
+          <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
+            <h3 className="font-bold text-center text-[18px]">Paid Poll</h3>
+
+            <h6 className="mt-8 text-[16px] text-center">
+              This is a paid poll, your contribution ensures meaningful
+              insights. Participate now to support quality content and exclusive
+              results
+            </h6>
+
+            <div className="mt-8 ">
+              <div className="flex gap-4 mb-10">
+                <InputField
+                  placeholder={"Number of votes"}
+                  type={"text"}
+
+                  // onChange={handlePasswordChange}
+                />
+                <select name="" id="" className="w-[40%] rounded-lg mt-[10px] ">
+                  <option value="NGN">NGN</option>
+                  <option value="USD" className="text-[20px]">
+                    USD
+                  </option>
+                </select>
+              </div>
+              <ActionButton
+                label={"Proceed to pay"}
+                bg={"pruplr"}
+                onClick={HandlePayNow}
+              />
+              <ActionButton
+                label={"Go Back"}
+                className="mt-4  rounded-[10px]"
+                // bg={"pruplr"}
+                onClick={() => setPaidPoll(false)}
+              />
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {PayNow && !Success && (
+        <Modal>
+          <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
+            <h6 className="text-[16px] text-center">You are paying</h6>
+
+            <h3 className="text-[30px] text-center text-purple-600 mt-4">
+              NGN16,000.00
+            </h3>
+
+            <h6 className="mt-4 text-[16px] text-center">Being payment for</h6>
+
+            <div className="flex justify-center">
+              <h3 className="mt-4 text-center p-2 w-[100px] rounded-[10px] bg-purple-300">
+                40 votes
+              </h3>
+            </div>
+
+            <div className="mt-8 ">
+              <ActionButton
+                label={"Pay Now"}
+                bg={"pruplr"}
+                onClick={HandlePaySuccess}
+              />
+              <ActionButton
+                label={"Go Back"}
+                className="mt-4  rounded-[10px]"
+                // bg={"pruplr"}
+                onClick={() => setPayNow(false)}
+              />
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {Success && (
+        <Modal>
+          <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
+            <div className="flex justify-center">
+              <img
+                src="images/success.png"
+                alt="payment-success-image"
+                // className="mt-6 w-full lg:mt-10"
+              />
+            </div>
+            <h6 className="mt-8 text-[16px] text-center">Payment Successful</h6>
+
+            <div className="mt-8 ">
+              <ActionButton
+                label={"Continue to Poll"}
+                bg={"pruplr"}
+                onClick={HandleContinue}
+              />
+            </div>
+          </div>
+        </Modal>
       )}
 
       {/* <div className="main-containe bus-box-con "> */}
