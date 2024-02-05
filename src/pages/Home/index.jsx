@@ -1,24 +1,45 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import MainLayout from "../../Layout/MainLayout";
 import DashMessage from "../../components/Dashboard/DasMess";
 import FirstSide from "../../components/Dashboard/FirstSide";
 import Follower from "../../components/Dashboard/Follower";
-import PostComp from "../../components/Dashboard/PostComp";
 import SelectCategory from "../../components/Dashboard/SelectCategory";
-import MusicDash from "../../components/Dashboard/MusicDas";
-import Data from "../../utils/datahome.json";
 import FeedDetail from "../../components/Home/FeedDetail/FeedDetail";
-import SmallTicketPromoteCard from "../../components/Dashboard/smallTicketsPromoted";
-import PostImage from "../../assets/images/sample-post-image.png"
-import PostAvatar from "../../assets/images/sample-avatar.png"
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
 import "./style.css";
-import ProductDash from "../../components/Dashboard/ProductDAs";
-import MovieSlider from "../../components/Home/Movieslider/MovieSlider";
-import Stick from "../../components/Dashboard/Stick";
+import LifestyleStatus from "../../components/Home/Lifestyle-status/LifestyleStatus";
+import FeedLocations from "../../components/Home/Feeds/Locations/Locations";
+import Feedvideos from "../../components/Home/Feeds/Videos/Feedvideos";
+import Feedimages from "../../components/Home/Feeds/Images/Feedimages";
+import FeedsProducts from "../../components/Home/Feeds/Products/Products";
+import Feeds from "components/Home/Feeds/All-feeds/Feeds";
+import FeedsMusic from "components/Home/Feeds/Music/FeedsMusic";
+
+
+const CustomTabPanel = (props) => {
+	const { children, value, index, ...other } = props;
+  
+	return (
+	  <div
+		role="tabpanel"
+		hidden={value !== index}
+		id={`simple-tabpanel-${index}`}
+		aria-labelledby={`simple-tab-${index}`}
+		{...other}
+	  >
+		{value === index && (
+		  <Box sx={{ p: 3 }}>
+			<Box>{children}</Box>
+		  </Box>
+		)}
+	  </div>
+	);
+}
 
 const Home = () => {
 	const [isFeedOpen, setIsFeedOpen] = useState(false);
-	const [activeTab, setActiveTab] = useState("All Posts");
 
 	const handleFeedOpen = () => {
 		setIsFeedOpen(true);
@@ -26,24 +47,12 @@ const Home = () => {
 	const handleFeedClose = () => {
 		setIsFeedOpen(false);
 	};
-	const handleTabClick = (text) => {
-		setActiveTab(text);
+
+	const [activeTab, setActiveTab] = React.useState(0);
+
+	const handleChange = (event, newValue) => {
+		setActiveTab(newValue);
 	};
-
-	const mockCreator = {
-		cover_image: {cover_image: PostAvatar},
-		username: "John Doe",
-		address: {
-			country: "Nigeria",
-			current_city: "Lagos"
-		}
-	}
-
-	const mockReaction = [
-		{ userId: 1, emoji: "👍", user: {username: "user 01"} }
-	]
-
-	const mockMedia = [{}, {media: PostImage}]
 
 	return (
 		<div className="home-container">
@@ -56,144 +65,52 @@ const Home = () => {
 						<div className="left-side-container">
 							<FirstSide />
 							<img src="images/jumia.png" alt="" className="ads-img" />
-							<div className="select-what-display">
-								{Data.map((item, index) => (
-									<div
-										key={index}
-										className={`tab-item ${
-											item.text === activeTab ? "sel-act" : "anot-wid"
-										}`}
-										onClick={() => handleTabClick(item.text)}
+							<LifestyleStatus />
+							<Box>
+								<Box sx={{ maxWidth: { xs: 320, sm: 580 }, bgcolor: 'background.paper' }}>
+									<Tabs
+										value={activeTab}
+										onChange={handleChange}
+										variant="scrollable"
+										scrollButtons="auto"
+										className="custom-tabs"
+										aria-label="scrollable tabs"
 									>
-										<div className="dis-sel-name">{item.text}</div>
-									</div>
-								))}
-							</div>
-							{activeTab === "All Posts" ? (
-								<>
-									<PostComp
-										handleFeedOpen={handleFeedOpen}
-										postID={"item id"}
-										creator={mockCreator}
-										comment={"some random comment"}
-										media={mockMedia}
-										hashtag={"hashtag"}
-										content={"Some random content"}
-										reaction={mockReaction}
-										post_reaction_count={3}
-										post_comment_count={4}
-										time_since={"2hr ago"}
-									/>
-
-									<div className="music-das-row">
-										{
-											[1, 2, 3, 4, 5, 6, 7].map((item) => (
-												<MusicDash key={item} />
-											))
-										}										
-									</div>
-
-									<PostComp
-										handleFeedOpen={handleFeedOpen}
-										postID={"item id"}
-										creator={mockCreator}
-										comment={"some random comment"}
-										media={mockMedia}
-										hashtag={"hashtag"}
-										content={"Some random content"}
-										reaction={mockReaction}
-										post_reaction_count={3}
-										post_comment_count={4}
-										time_since={"2hr ago"}
-									/>
-
-									<div className="ticket-das-row">
-										{
-											[1, 2, 3, 4, 5, 6, 7].map((item) => (
-												<SmallTicketPromoteCard
-													key={item}
-													description={"small description"}
-													eventId={"id123"}
-													formatedDate={"date Feb 24"}
-													location={"Location"}
-													eventImage={PostImage}
-												/>
-											))
-										}
-									</div>
-
-									<PostComp
-										handleFeedOpen={handleFeedOpen}
-										postID={"item id"}
-										creator={mockCreator}
-										comment={"some random comment"}
-										media={mockMedia}
-										hashtag={"hashtag"}
-										content={"Some random content"}
-										reaction={mockReaction}
-										post_reaction_count={3}
-										post_comment_count={4}
-										time_since={"2hr ago"}
-									/>
-
-									<div className="ticket-das-row">
-										{
-											[1, 2, 3, 4, 5, 6, 7].map((item) => (
-												<ProductDash key={item}/>
-											))
-										}
-									</div>
-
-									<PostComp
-										handleFeedOpen={handleFeedOpen}
-										postID={"item id"}
-										creator={mockCreator}
-										comment={"some random comment"}
-										media={mockMedia}
-										hashtag={"hashtag"}
-										content={"Some random content"}
-										reaction={mockReaction}
-										post_reaction_count={3}
-										post_comment_count={4}
-										time_since={"2hr ago"}
-									/>
-
-									<div className="movie-slid-box">
-										<div className="post-ead">Trending movies</div>
-										<MovieSlider />
-									</div>
-									
-									<div className="you-may-know">
-										<div className="post-ead">People you may know</div>
-										<div className="may-know-box">
-											{
-												[1, 2, 3, 4, 5, 6, 7].map((item) => (
-													<Stick key={item}/>
-												))
-											}
-										</div>
-									</div>
-
-									{
-										[1, 2, 3, 4, 5].map((item) => (
-											<PostComp
-												key={item}
-												handleFeedOpen={handleFeedOpen}
-												postID={"item id"}
-												creator={mockCreator}
-												comment={"some random comment"}
-												media={mockMedia}
-												hashtag={"hashtag"}
-												content={"Some random content"}
-												reaction={mockReaction}
-												post_reaction_count={3}
-												post_comment_count={4}
-												time_since={"2hr ago"}
-											/>
-										))
-									}
-								</>
-							) : null}
+										<Tab label="All posts" />
+										<Tab label="Images" />
+										<Tab label="Videos" />
+										<Tab label="Products" />
+										<Tab label="Voice notes" />
+										<Tab label="Location" />
+										<Tab label="Music"/>
+										<Tab label="Files"/>
+									</Tabs>
+								</Box>
+								<CustomTabPanel value={activeTab} index={0}>
+									<Feeds handleFeedOpen={handleFeedOpen}/>
+								</CustomTabPanel>
+								<CustomTabPanel value={activeTab} index={1}>
+									<Feedimages />
+								</CustomTabPanel>
+								<CustomTabPanel value={activeTab} index={2}>
+									<Feedvideos />
+								</CustomTabPanel>
+								<CustomTabPanel value={activeTab} index={3}>
+									<FeedsProducts />
+								</CustomTabPanel>
+								<CustomTabPanel value={activeTab} index={4}>
+									Voice notes
+								</CustomTabPanel>
+								<CustomTabPanel value={activeTab} index={5}>
+									<FeedLocations />
+								</CustomTabPanel>
+								<CustomTabPanel value={activeTab} index={6}>
+									<FeedsMusic />
+								</CustomTabPanel>
+								<CustomTabPanel value={activeTab} index={7}>
+									Files
+								</CustomTabPanel>
+							</Box>						
 						</div>
 					)}
 					<div className="middle-side-container">

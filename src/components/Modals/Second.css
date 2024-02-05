@@ -406,6 +406,7 @@
   background: transparent;
   border: none;
   width: 80%;
+  padding: 2px 6px;
   caret-color: #fff;
   outline: none;
 }
