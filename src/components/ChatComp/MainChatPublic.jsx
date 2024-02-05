@@ -9,7 +9,7 @@ const MainChatPublic = () => {
   const [showChatInput, setShowChatInput] = useState(false);
   const [messages, setMessages] = useState([
     {
-      name: "Wale Addyjum",
+      name: "Wale MainPublic Addyjum",
       text: "You should have sent the details together with the file....... You have sent the details together with the file.......",
       new: "no",
       timestamp: "11:09 PM",
@@ -86,7 +86,7 @@ const MainChatPublic = () => {
             <div className="non-chat-container">
               <img src="images/nom.png" alt="" />
               <div className="in-head-messa">
-                Send a message to everyone on 2geda
+                Send a message to everyone on 2geda 2geda 
               </div>
               <div className="full-ins">
                 Reach all app users instantly with a broadcast message. Start

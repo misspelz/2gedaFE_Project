@@ -14,27 +14,27 @@ import MainChatPublic from "../../components/ChatComp/MainChatPublic";
 import ActiveSideUser from "../../components/ChatComp/ActiveSideComp";
 import EmptyChat from "../../components/ChatComp/EmptyChat";
 const Data = [
-  {
-    name: "Abraham Public Adesanya",
-    text: "How was your flight Joe, i couldnt",
-    new: "yes",
-  },
+  // {
+  //   name: "Abraham Public Adesanya",
+  //   text: "How was your flight Joe, i couldnt",
+  //   new: "yes",
+  // },
 
-  {
-    name: "Wale Addyjum",
-    text: "How was your flight Joe, i couldnt",
-    new: "no",
-  },
-  {
-    name: "Wale Addyjum",
-    text: "How was your flight Joe, i couldnt",
-    new: "no",
-  },
-  {
-    name: "Wale Addyjum",
-    text: "How was your flight Joe, i couldnt",
-    new: "no",
-  },
+  // {
+  //   name: "Wale Addyjum",
+  //   text: "How was your flight Joe, i couldnt",
+  //   new: "no",
+  // },
+  // {
+  //   name: "Wale Addyjum",
+  //   text: "How was your flight Joe, i couldnt",
+  //   new: "no",
+  // },
+  // {
+  //   name: "Wale Addyjum",
+  //   text: "How was your flight Joe, i couldnt",
+  //   new: "no",
+  // },
 ];
 const activeData = [
   {

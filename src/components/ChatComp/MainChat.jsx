@@ -92,7 +92,7 @@ const MainChat = () => {
               </div>
             </div>
           )}
-          <div className="time-mess-ent">Yesterday</div>
+          <div className="time-mess-ent">Yesterday is gone</div>
           {messages.map((message, index) => (
             <div
               className={
