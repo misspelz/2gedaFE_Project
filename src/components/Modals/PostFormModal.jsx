@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import {
   BsCardImage,
-  BsMic,
-  BsFillFileEarmarkPdfFill,
-  BsAndroid2,
-  BsFiletypeExe,
+  BsMic
 } from "react-icons/bs";
 import { FaVideo, FaMusic, FaFileAlt } from "react-icons/fa";
-import { PiMicrosoftPowerpointLogo } from "react-icons/pi";
 import { SiMicrosoftword, SiMicrosoftexcel } from "react-icons/si";
 import { IoLocation, IoCloseSharp } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
@@ -19,17 +15,28 @@ import PostFormMusicModal from "./PostFormMusicModal";
 import PostFormRecModal from "./PostFormRecModal";
 import PostFormWordModal from "./PostFormWordModal";
 import PostFormExcelModal from "./PostFormExcelModal";
-import PostFormPowerModal from "./PostFormPowerModal";
-import PostFormPdfModal from "./PostFormPdfModal";
-import PostFormApkModal from "./PostFormApkModal";
 import PostFormExeModal from "./PostFormExeModal";
 import PostFormLocationModal from "./PostFormLocModal";
 import PostFormFilesModal from "./PostFormFilesModal";
 import HashtagModal from "./HashTagModal";
-import TagFriends from "./TagFriends";    
+import TagFriends from "./TagFriends";   
 import data from "../../utils/tag.json";
 import { url } from "../../utils";
 import axios from "axios";
+import { MdCheckBoxOutlineBlank, MdOutlineCheckBox } from "react-icons/md";
+
+const topFriends = [
+  { name: 'Alice Oghene', id: 1 },
+  { name: 'John doe', id: 2 },
+  { name: 'Simeon Harry', id: 3 },
+  { name: 'Theresa Oliver', id: 4 },
+  { name: 'Idris Haruna', id: 5 },
+]
+
+
+const icon = <MdCheckBoxOutlineBlank size={18} />;
+const checkedIcon = <MdOutlineCheckBox size={18} />;
+
 
 const PostFormModal = ({
   handleCloseMainContainerClick,
@@ -198,18 +205,6 @@ const PostFormModal = ({
           {selectedIcon === "excel" && (
             <PostFormExcelModal setExcel={setExcel} excel={excel} />
           )}
-          {selectedIcon === "power" && (
-            <PostFormPowerModal
-              setPowerpoint={setPowerpoint}
-              powerpoint={powerpoint}
-            />
-          )}
-          {selectedIcon === "pdf" && (
-            <PostFormPdfModal pdf={pdf} setPDF={setPDF} />
-          )}
-          {selectedIcon === "apk" && (
-            <PostFormApkModal apk={apk} setApk={setApk} />
-          )}
           {selectedIcon === "exe" && (
             <PostFormExeModal setExe={setExe} exe={exe} />
           )}
@@ -301,7 +296,7 @@ const PostFormModal = ({
               className="excel"
               onClick={() => handleIconClick("excel")}
             />
-            <PiMicrosoftPowerpointLogo
+            {/* <PiMicrosoftPowerpointLogo
               className="prese"
               onClick={() => handleIconClick("power")}
             />
@@ -312,11 +307,11 @@ const PostFormModal = ({
             <BsAndroid2
               className="apk"
               onClick={() => handleIconClick("apk")}
-            />
-            <BsFiletypeExe
+            /> */}
+            {/* <BsFiletypeExe
               className="apk"
               onClick={() => handleIconClick("exe")}
-            />
+            /> */}
           </div>
           <button className="post-btn" type="submit" onClick={handlePost}>
             Post

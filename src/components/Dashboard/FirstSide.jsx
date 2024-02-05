@@ -5,6 +5,7 @@ import {
 } from "react-icons/bs";
 import { FaVideo, FaMusic, FaFileAlt } from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
+import { GoBriefcase } from "react-icons/go";
 import PostFeedFormCont from "../../components/Home/PostFeedForm/index";
 import "./style.css";
 
@@ -60,6 +61,7 @@ const FirstSide = () => {
                 className="fil"
                 onClick={() => handleIconClick("allfiles")}
               />
+              <GoBriefcase onClick={() => handleIconClick("jobs")}/>
             </div>
             <input type="file" ref={fileInput} style={{ display: "none" }} />
             <button className="post-btn" type="submit">

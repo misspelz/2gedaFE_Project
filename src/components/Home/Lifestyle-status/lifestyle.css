@@ -1,0 +1,27 @@
+.status-container {
+	display: flex;
+	gap: 1.3rem;
+	overflow: scroll;
+	scrollbar-width: none;
+}
+
+.status-container::-webkit-scrollbar {
+	width: 0.4vw;
+}
+
+.add-status-btn >button svg {
+	color: var(--primary-color)
+}
+
+.user-status-item {
+	min-width: 52px !important;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.user-status-item >span {
+	font-size: 11px;
+	color: var(--primary-color);
+}
