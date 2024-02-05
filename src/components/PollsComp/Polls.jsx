@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Poll } from "./Poll";
 
 export const Polls = ({
@@ -10,8 +10,30 @@ export const Polls = ({
   daysRemaining,
   totalVotes,
   backgroundImageUrl,
-  className="border absolut p-3 mt-4 rounded-[25px] cursor-pointer"
+  className = "border absolut p-3 mt-4 rounded-[25px] cursor-pointer",
 }) => {
+  const [optionPercentages, setOptionPercentages] = useState(
+    options.map((option) => parseInt(option.percentage, 10))
+  );
+
+  const updatePercentage = (index, newPercentage) => {
+    const updatedPercentages = [...optionPercentages];
+    updatedPercentages[index] = newPercentage;
+  
+    // Calculate the remaining percentage to distribute among other options
+    const remainingPercentage = 100 - newPercentage;
+  
+    // Decrease other options proportionally
+    updatedPercentages.forEach((percentage, i) => {
+      if (i !== index) {
+        const decreasePercentage = (remainingPercentage / (optionPercentages.length - 1)) * (100 - newPercentage);
+        updatedPercentages[i] = percentage - decreasePercentage;
+      }
+    });
+  
+    setOptionPercentages(updatedPercentages);
+  };
+
   return (
     <div
       className={className}
@@ -39,7 +61,14 @@ export const Polls = ({
       <h6 className="text-[12px] mt-4 text-[#000]">{question}</h6>
 
       {options?.map((option, index) => (
-        <Poll key={index} title={option.title} percentage={option.percentage} />
+        <Poll
+          key={index}
+          title={option.title}
+          percentage={optionPercentages[index]}
+          updatePercentage={(newPercentage) =>
+            updatePercentage(index, newPercentage)
+          }
+        />
       ))}
 
       <div className="flex justify-between mt-4">

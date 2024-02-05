@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
-export const Poll = ({ title, percentage }) => {
-  const [currentPercentage, setCurrentPercentage] = useState(parseInt(percentage, 10));
+export const Poll = ({ title, percentage, updatePercentage }) => {
+  const [currentPercentage, setCurrentPercentage] = useState(
+    parseInt(percentage, 10)
+  );
 
   const handlePollClick = () => {
-    // You can add logic here to update the poll percentage
-    // For now, let's just increase it by 10% on each click
     const newPercentage = currentPercentage + 10;
+
     if (newPercentage <= 100) {
       setCurrentPercentage(newPercentage);
+      updatePercentage(newPercentage);
     }
   };
 
@@ -34,5 +36,3 @@ export const Poll = ({ title, percentage }) => {
     </div>
   );
 };
-
-
