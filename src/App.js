@@ -26,7 +26,7 @@ import PollsSearch from "./components/PollsComp/PollsSearch";
 import Voting from "./pages/Polls/Voting";
 import Voted from "./components/Modals/Vote/Cant/Voted";
 import SuccessPoll from "./components/Modals/Vote/SuccessPoll";
-import MyPolls from "./components/Modals/Vote/MyPolls";
+import MyPolls from "./pages/Polls/MyPolls";
 import PollResult from "./components/Modals/Vote/PollResult";
 import CreatePoll from "./components/Modals/Vote/CreatePoll/CreatePoll";
 import ComingSoonPage from "./pages/ComingSoon";
