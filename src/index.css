@@ -26,6 +26,7 @@ body {
 :root {
   --background-main-color: rgba(251, 248, 255, 0.95);
   --primary: #d23369;
+  --primary-color: #4f0da3;
   --primary-deep: #f06292;
 }
 
