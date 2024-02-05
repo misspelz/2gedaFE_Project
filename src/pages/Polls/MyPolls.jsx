@@ -16,17 +16,11 @@ import { FindPolls } from "components/PollsComp/FindPolls";
 import { Notifications } from "components/PollsComp/Notification";
 import { CreateCastActions } from "components/PollsComp/CreateCastActions";
 import { PromotedPolls } from "components/PollsComp/PromotedPolls";
-
 import CreatePoll from "components/Modals/Vote/CreatePoll/CreatePoll";
 import { Dialog, DialogContent } from "@mui/material";
+import { MyPollsCategories } from "components/PollsComp/MyPollsCategories";
 
-import Modal from "components/Modals/Modal";
-import { IoMdClose } from "react-icons/io";
-import InputField from "components/Commons/InputField";
-import ActionButton from "components/Commons/Button";
-
-
-const Voting = () => {
+const MyPolls = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const [responseData, setResponseData] = useState(null);
   // const [promoted, setPromoted] = useState(null);
@@ -147,19 +141,10 @@ const Voting = () => {
   // const allPollsretrieved = localStorage.getItem("allPolls");
   // const allPollsArrayString = JSON.parse(allPollsretrieved);
 
-  const [selectedPoll, setSelectedPoll] = useState(null);
   const [Notify, setNotify] = useState(false);
   const [CastVote, setCastVote] = useState(false);
   const [viewType, setViewType] = useState("all");
-
   const [showCreateModal, setShowCreateModal] = useState(false);
-
-  // const [pollModal, setPollModal] = useState(true);
-  const [PaidPoll, setPaidPoll] = useState(false);
-  const [PayNow, setPayNow] = useState(false);
-  const [Success, setSuccess] = useState(false);
-  const [showPaidVotes, setShowPaidVotes] = useState(false);
-
 
   const HandleNotification = () => {
     setNotify(true);
@@ -169,84 +154,24 @@ const Voting = () => {
     setCastVote(true);
   };
 
-  const HandlePoll = (pollData) => {
-    setSelectedPoll(pollData);
-    setShowPaidVotes(false);
-  };
-
-  // const HandlePollModal = () => {
-  //   setPollModal(false);
-  // };
-
-  const options = [
-    { title: "Python", percentage: "30" },
-    { title: "Java", percentage: "40" },
-  ];
-
   const renderPolls = () => {
     switch (viewType) {
       case "private":
         return (
           <>
-            <Polls
-              onClick={HandlePoll}
-              authorName="Pelz Adetoye"
-              createdAt="Today @ 12:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="2 days remaining"
-              totalVotes="500"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
-            <Polls
-              // onClick={HandlePoll}
-              authorName="Ade Michael"
-              createdAt="Yesterday @ 12:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="4 days remaining"
-              totalVotes="200"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
+            <Polls />
+            <Polls />
           </>
         );
       case "public":
-        return (
-          <Polls
-            authorName="Adekola Tony"
-            createdAt="Today @ 10:09am"
-            question="What is your preferred programming language?"
-            options={options}
-            daysRemaining="5 days remaining"
-            totalVotes="500"
-            backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-          />
-        );
+        return <Polls />;
       case "all":
       default:
         return (
           <>
-            <Polls
-              // onClick={HandlePoll}
-              authorName="Alani David"
-              createdAt="Today @ 2:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="1 day remaining"
-              totalVotes="100"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
+            <Polls />
             <Polls2 />
-            <Polls
-              // onClick={HandlePoll}
-              authorName="Joseph Jones"
-              createdAt="Today @ 10:09am"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="5 days remaining"
-              totalVotes="500"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
+            <Polls />
           </>
         );
     }
@@ -255,99 +180,13 @@ const Voting = () => {
   const onSearch = () => {};
   const onFilterClick = () => {};
 
-  const HandlePaidPoll = () => {
-    setPaidPoll(true);
-  };
-
-  const HandlePayNow = () => {
-    setPayNow(true);
-  };
-
-  const HandlePaySuccess = () => {
-    setSuccess(true);
-  };
-
-  const HandleContinue = () => {
-    setSuccess(false);
-    setPayNow(false);
-    setPaidPoll(false);
-    setShowPaidVotes(true);
-  };
-
   return (
     <MainLayout>
-      {/* MOBILE */}
-      {!selectedPoll && (
-        <div className=" lg:bg-[#f5f5f5]  w-full pt-36  lg:px-10 lg:gap-6 lg:hidden">
-          {!Notify && !CastVote && (
-            <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
-              {/* MOBILE */}
-              <h1>Voting</h1>
-              <h2 className="mt-6 block lg:hidden">
-                Hello {userInfo.username}
-              </h2>
-              <span className="text-[14px] block lg:hidden">
-                What do you want to do today ?
-              </span>
-
-              <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
-
-              <img
-                src="images/fifa.png"
-                alt="fifa-image"
-                className="mt-6 w-full lg:mt-10"
-              />
-
-              {/* MOBILE */}
-              <CreateCastActions
-                HandleNotification={HandleNotification}
-                HandleCastVote={HandleCastVote}
-              />
-
-              {/* WEB */}
-              <div className="pb-[40px] hidden lg:block">
-                <h2 className="mt-4">Suggested Polls</h2>
-                <SuggestedPolls viewType={viewType} setViewType={setViewType} />
-                <h2>Promoted Polls</h2>
-                <PromotedPolls viewType={viewType} setViewType={setViewType} />
-                {renderPolls()}
-              </div>
-            </div>
-          )}
-
-          {/* MOBILE */}
-          {Notify && <Notifications setNotify={setNotify} />}
-
-          {/* MOBILE */}
-          {CastVote && (
-            <div className="px-4 lg:hidden pb-[40px]">
-              <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
-
-              <img
-                src="images/fifa.png"
-                alt="fifa-image"
-                className="mt-6 w-full lg:mt-10"
-              />
-              <h2 className="mt-4">Suggested Polls</h2>
-              <SuggestedPolls viewType={viewType} setViewType={setViewType} />
-              <h2>Promoted Polls</h2>
-              <PromotedPolls viewType={viewType} setViewType={setViewType} />
-              {renderPolls()}
-            </div>
-          )}
-
-          {/* WEB */}
-          <PollsNotification setNotify={setNotify} />
-        </div>
-      )}
-
-      {/* WEB */}
-      {/* {!selectedPoll && ( */}
-      <div className=" lg:bg-[#f5f5f5] lg:flex w-full pt-36  lg:px-10 lg:gap-6 hidden">
+      <div className=" lg:bg-[#f5f5f5] lg:flex w-full pt-36  lg:px-10 lg:gap-6 ">
         {!Notify && !CastVote && (
           <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
             {/* MOBILE */}
-            <h1>Voting</h1>
+            <h1>My Polls</h1>
             <h2 className="mt-6 block lg:hidden">Hello {userInfo.username}</h2>
             <span className="text-[14px] block lg:hidden">
               What do you want to do today ?
@@ -370,10 +209,10 @@ const Voting = () => {
 
             {/* WEB */}
             <div className="pb-[40px] hidden lg:block">
-              <h2 className="mt-4">Suggested Polls</h2>
-              <SuggestedPolls viewType={viewType} setViewType={setViewType} />
-              <h2>Promoted Polls</h2>
-              <PromotedPolls viewType={viewType} setViewType={setViewType} />
+              <MyPollsCategories
+                viewType={viewType}
+                setViewType={setViewType}
+              />
               {renderPolls()}
             </div>
             <Dialog
@@ -399,10 +238,7 @@ const Voting = () => {
               alt="fifa"
               className="mt-6 w-full lg:mt-10"
             />
-            <h2 className="mt-4">Suggested Polls</h2>
-            <SuggestedPolls viewType={viewType} setViewType={setViewType} />
-            <h2>Promoted Polls</h2>
-            <PromotedPolls viewType={viewType} setViewType={setViewType} />
+            <MyPollsCategories viewType={viewType} setViewType={setViewType} />
             {renderPolls()}
           </div>
         )}
@@ -413,186 +249,6 @@ const Voting = () => {
           showCreateModal={() => setShowCreateModal((prev) => !prev)}
         />
       </div>
-      {/* )} */}
-
-      {/* MOBILE */}
-      {selectedPoll && (
-        <div className="pt-36 lg:pt-48 px-4 flex lg:hidden flex-col justify-between w-full h-screen">
-          <div className="lg:hidden w-full">
-            <div
-              className="cursor-pointer lg:hidden flex justify-between w-[60%]"
-              onClick={() => setSelectedPoll(null)}
-            >
-              <img src="images/backarrow.png" alt="result-icon" width={20} />
-              <div className="text-[18px] font-bold">Cast Vote</div>
-            </div>
-
-            <Polls
-              // className="w-full"
-
-              onClick={HandlePaidPoll}
-              authorName="Pelz Ade"
-              createdAt="Today @ 12:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="2 days remaining"
-              totalVotes="500"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
-
-            {showPaidVotes && (
-              <div className="mt-20 text-center bg-orange-400 py-3 rounded-[30px] w-[35%] mx-auto text-white ">
-                You have 40 votes
-              </div>
-            )}
-          </div>
-          <img
-            src="images/fifa.png"
-            alt="fifa-image"
-            className="mb-6 w-full lg:mb-10 lg:hidden"
-          />
-        </div>
-      )}
-
-      {/* WEB */}
-      {selectedPoll && !PaidPoll && (
-        <div className="hidden lg:flex">
-          <Modal>
-            <div className="bg-white w-[50%] p-14">
-              <div className="w-full flex justify-end">
-                <div
-                  // onClick={HandlePollModal}
-                  className=" flex justify-between w-[60%] "
-                >
-                  <div className="text-[20px] font-bold">Cast Vote</div>
-                  <IoMdClose
-                    size={25}
-                    onClick={() => setSelectedPoll(null)}
-                    className="cursor-pointer"
-                  />
-                </div>
-              </div>
-
-              <Polls
-                onClick={HandlePaidPoll}
-                className="w-[100%] p-6 mt-4 cursor-pointer"
-                authorName="Pelz Adetoye"
-                createdAt="Today @ 12:09pm"
-                question="What is your preferred programming language?"
-                options={options}
-                daysRemaining="2 days remaining"
-                totalVotes="500"
-                backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-              />
-
-              {showPaidVotes && (
-              <div className="mt-20 text-center bg-orange-400 py-3 rounded-[30px] w-[35%] mx-auto text-white ">
-                You have 40 votes
-              </div>
-            )}
-            </div>
-          </Modal>
-        </div>
-      )}
-
-      {PaidPoll && !PayNow && (
-        <Modal>
-          <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
-            <h3 className="font-bold text-center text-[18px]">Paid Poll</h3>
-
-            <h6 className="mt-8 text-[16px] text-center">
-              This is a paid poll, your contribution ensures meaningful
-              insights. Participate now to support quality content and exclusive
-              results
-            </h6>
-
-            <div className="mt-8 ">
-              <div className="flex gap-4 mb-10">
-                <InputField
-                  placeholder={"Number of votes"}
-                  type={"text"}
-
-                  // onChange={handlePasswordChange}
-                />
-                <select name="" id="" className="w-[40%] rounded-lg mt-[10px] ">
-                  <option value="NGN">NGN</option>
-                  <option value="USD" className="text-[20px]">
-                    USD
-                  </option>
-                </select>
-              </div>
-              <ActionButton
-                label={"Proceed to pay"}
-                bg={"pruplr"}
-                onClick={HandlePayNow}
-              />
-              <ActionButton
-                label={"Go Back"}
-                className="mt-4  rounded-[10px]"
-                // bg={"pruplr"}
-                onClick={() => setPaidPoll(false)}
-              />
-            </div>
-          </div>
-        </Modal>
-      )}
-
-      {PayNow && !Success && (
-        <Modal>
-          <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
-            <h6 className="text-[16px] text-center">You are paying</h6>
-
-            <h3 className="text-[30px] text-center text-purple-600 mt-4">
-              NGN16,000.00
-            </h3>
-
-            <h6 className="mt-4 text-[16px] text-center">Being payment for</h6>
-
-            <div className="flex justify-center">
-              <h3 className="mt-4 text-center p-2 w-[100px] rounded-[10px] bg-purple-300">
-                40 votes
-              </h3>
-            </div>
-
-            <div className="mt-8 ">
-              <ActionButton
-                label={"Pay Now"}
-                bg={"pruplr"}
-                onClick={HandlePaySuccess}
-              />
-              <ActionButton
-                label={"Go Back"}
-                className="mt-4  rounded-[10px]"
-                // bg={"pruplr"}
-                onClick={() => setPayNow(false)}
-              />
-            </div>
-          </div>
-        </Modal>
-      )}
-
-      {Success && (
-        <Modal>
-          <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
-            <div className="flex justify-center">
-              <img
-                src="images/success.png"
-                alt="payment-success-image"
-                // className="mt-6 w-full lg:mt-10"
-              />
-            </div>
-            <h6 className="mt-8 text-[16px] text-center">Payment Successful</h6>
-
-            <div className="mt-8 ">
-              <ActionButton
-                label={"Continue to Poll"}
-                bg={"pruplr"}
-                onClick={HandleContinue}
-              />
-            </div>
-          </div>
-        </Modal>
-      )}
 
       {/* <div className="main-containe bus-box-con "> */}
       {/* <div className="left-side-container buss-all-container p-4"> */}
@@ -795,4 +451,4 @@ const Voting = () => {
 //   );
 // };
 
-export default Voting;
+export default MyPolls;
