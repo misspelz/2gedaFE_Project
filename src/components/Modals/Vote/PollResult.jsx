@@ -1,28 +1,18 @@
-import React from 'react'
-import Stick from '../../Dashboard/Stick'
-import { FaArrowLeftLong, FaChevronDown } from 'react-icons/fa6';
-import MainLayout from '../../../Layout/MainLayout';
-import SearchBox from '../../SearchComp/searchBox';
-import Notify from './Notification/Notify';
+import React from "react";
+import Stick from "../../Dashboard/Stick";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaChevronUp } from "react-icons/fa";
 
-const PollResult = () => {
+const PollResult = ({ closeModal }) => {
   return (
-    <div className="home-container" style={{ background: "whiteSmoke" }}>
-      <MainLayout>
-        <div className="main-containe bus-box-con">
-          <div className="left-side-container buss-all-container">
-             <div style={{ maxWidth: "500px"  }}>
-      <div
-        className="createTop"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "40px",
-          paddingBottom: "20px",
-        }}
-      >
-        <FaArrowLeftLong style={{ fontSize: "20px" }} />
-        <span style={{ fontSize: "20px" }}>Poll Result</span>
+    <div className="w-full max-w-[641px] p-3">
+      <div className="flex gap-3 mt-3 mb-5">
+        <FaArrowLeftLong
+          style={{ fontSize: "20px" }}
+          onClick={closeModal}
+          className="cursor-pointer"
+        />
+        <h1 style={{ fontSize: "20px" }}>Poll Result</h1>
       </div>
 
       <div>
@@ -31,45 +21,27 @@ const PollResult = () => {
       </div>
 
       <div
-            style={{
-                border: "1px solid #ccc",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "10px 30px"
+        style={{
+          border: "1px solid #ccc",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "10px",
         }}
       >
         <div>
           <h3>Python</h3>
           <p style={{ textAlign: "start" }}>220 votes</p>
         </div>
-        <FaChevronDown style={{fontSize: "20px"}} />
+        <FaChevronUp style={{ fontSize: "20px" }} />
       </div>
-      {/* <Stick />
       <Stick />
       <Stick />
       <Stick />
-      <Stick /> */}
-    </div>
-          </div>
-
-
-         <div
-            className="left-side-container"
-            style={{
-              maxWidth: "525px",
-              padding: "20px",
-              background: "#fff",
-            }}
-          >
-            <SearchBox />
-            <Notify />
-          </div>
-              </div>
-      </MainLayout>
+      <Stick />
+      <Stick />
     </div>
   );
+};
 
-}
-
-export default PollResult
+export default PollResult;

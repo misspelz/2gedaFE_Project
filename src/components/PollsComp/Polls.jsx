@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Poll } from "./Poll";
+import { BsEye } from "react-icons/bs";
+import { FaVoteYea } from "react-icons/fa";
 
 export const Polls = ({
   onClick,
@@ -11,26 +13,31 @@ export const Polls = ({
   totalVotes,
   backgroundImageUrl,
   className = "border absolut p-3 mt-4 rounded-[25px] cursor-pointer",
+  myPolls,
+  onClose,
+  onView,
 }) => {
   const [optionPercentages, setOptionPercentages] = useState(
-    options.map((option) => parseInt(option.percentage, 10))
+    options?.map((option) => parseInt(option.percentage, 10))
   );
 
   const updatePercentage = (index, newPercentage) => {
     const updatedPercentages = [...optionPercentages];
     updatedPercentages[index] = newPercentage;
-  
+
     // Calculate the remaining percentage to distribute among other options
     const remainingPercentage = 100 - newPercentage;
-  
+
     // Decrease other options proportionally
     updatedPercentages.forEach((percentage, i) => {
       if (i !== index) {
-        const decreasePercentage = (remainingPercentage / (optionPercentages.length - 1)) * (100 - newPercentage);
+        const decreasePercentage =
+          (remainingPercentage / (optionPercentages.length - 1)) *
+          (100 - newPercentage);
         updatedPercentages[i] = percentage - decreasePercentage;
       }
     });
-  
+
     setOptionPercentages(updatedPercentages);
   };
 
@@ -82,6 +89,40 @@ export const Polls = ({
           {totalVotes} votes
         </div>
       </div>
+      {myPolls && (
+        <div className="w-full flex flex-row mt-4">
+          <div className=" flex flex-col w-full gap-4 justify-start">
+            <div className="flex !items-start gap-2  !self-start ">
+              <BsEye className="text-black text-xl" />
+              <div>
+                <h2 className="text-black">24.5K</h2>
+                <span className="text-black">views</span>
+              </div>
+            </div>
+            <button
+              className="bg-black w-full h-[54px] flex justify-center items-center rounded-[60px] text-lg sm:text-xl text-white !font-normal"
+              onClick={onView}
+            >
+              View result
+            </button>
+          </div>
+          <div className="flex flex-col w-full gap-4">
+            <div className="flex !items-start gap-2  !self-start ">
+              <FaVoteYea className="text-black text-xl" />
+              <div>
+                <h2 className="text-black">2.5K</h2>
+                <span className="text-black">votes</span>
+              </div>
+            </div>
+            <button
+              className="bg-[#F5F5F5] w-full h-[54px] flex justify-center items-center rounded-[60px] text-lg sm:text-xl text-[#403f3f] !font-normal"
+              onClick={onClose}
+            >
+              Close poll
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
