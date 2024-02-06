@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./CreatePoll.css";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-hot-toast";
+import { CreatePollApi } from "utils/ApICalls";
 
 const CreatePoll = ({ onClose }) => {
   const [pollData, setPollData] = useState({
@@ -10,37 +11,69 @@ const CreatePoll = ({ onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (field, value) => {
-    setPollData({
-      ...pollData,
+    setPollData((prevData) => ({
+      ...prevData,
       [field]: value,
-    });
+    }));
   };
 
   const handleAddOption = () => {
-    setPollData({
-      ...pollData,
-      options: [...pollData.options, ""],
-    });
+    setPollData((prevData) => ({
+      ...prevData,
+      options: [...prevData.options, ""],
+    }));
   };
+
+  // const handleInputChange = (field, value) => {
+  //   setPollData({
+  //     ...pollData,
+  //     [field]: value,
+  //   });
+  // };
+
+  // const handleAddOption = () => {
+  //   setPollData({
+  //     ...pollData,
+  //     options: [...pollData.options, ""],
+  //   });
+  // };
 
   const handleCreatePoll = async (e) => {
     e.preventDefault();
+
+    // Convert options array to a comma-separated string
+    const optionsString = pollData.options.join(",");
+
+    // Create FormData
     const form = new FormData(e.target);
-    const opts = pollData.options.map((o) => o);
-    form.append("options", opts);
-    const formData = Object.fromEntries(form);
-    console.log(formData);
+    form.set("options_list", optionsString);
+    form.set("question", pollData.question);
+    form.set("privacy", pollData.pollAccess);
+    form.set("duration", pollData.duration);
+    form.set("type", pollData.type);
+
+    // Get the file input element
+    const mediaInput = document.getElementById("media");
+
+    // Check if a file is selected
+    if (mediaInput.files.length > 0) {
+      form.append("media", mediaInput.files[0]);
+    }
+
     try {
       setIsLoading(true);
-      const token = localStorage.getItem("authToken");
-      console.log(token);
+      const res = await CreatePollApi(form);
+      console.log("createpoll", res);
+      if (res.status == 200) {
+        toast.success("Poll created successfully");
+        onClose();
+      }
+      // Make your API request here using formData
+      // Example: await fetch('your-api-endpoint', { method: 'POST', body: formData });
     } catch (error) {
       console.error("Error making API request:", error);
     } finally {
-      setTimeout(() => {
-        setIsLoading(false);
-        toast.success("Poll created successfully");
-      }, 3000);
+      setIsLoading(false);
     }
   };
 
@@ -70,6 +103,7 @@ const CreatePoll = ({ onClose }) => {
           name="question"
           placeholder="Enter your question"
           value={pollData.question}
+          className="outline-none"
           onChange={(e) => handleInputChange("question", e.target.value)}
         />
       </div>
@@ -82,6 +116,7 @@ const CreatePoll = ({ onClose }) => {
             id={`option-${index}`}
             placeholder="Type option"
             value={option}
+             className="outline-none"
             onChange={(e) => {
               const updatedOptions = [...pollData.options];
               updatedOptions[index] = e.target.value;
@@ -101,6 +136,7 @@ const CreatePoll = ({ onClose }) => {
           id="duration"
           name="pollDuration"
           value={pollData.duration}
+           className="outline-none"
           onChange={(e) => handleInputChange("duration", e.target.value)}
         >
           <option value="22 hours">22 hours</option>
@@ -115,6 +151,7 @@ const CreatePoll = ({ onClose }) => {
           id="type"
           name="pollType"
           value={pollData.type}
+           className="outline-none"
           onChange={(e) => handleInputChange("type", e.target.value)}
         >
           <option value="Free">Free</option>
@@ -123,11 +160,25 @@ const CreatePoll = ({ onClose }) => {
       </div>
 
       <div className="form-field">
-        <label htmlFor="media">Add image or video</label>
-        <input type="file" id="media" accept="image/*, video/*" name="media" />
+        <label htmlFor="access">Poll Access</label>
+        <select
+          id="access"
+          name="pollAccess"
+          value={pollData.access}
+           className="outline-none"
+          onChange={(e) => handleInputChange("access", e.target.value)}
+        >
+          <option value="Public">Public</option>
+          <option value="Private">Private</option>
+        </select>
       </div>
 
-      <button className="create-poll-btn" type="sumit" disabled={isLoading}>
+      <div className="form-field">
+        <label htmlFor="media">Add image or video</label>
+        <input type="file" id="media" accept="image/*, video/*" name="media"  className="outline-none" />
+      </div>
+
+      <button className="create-poll-btn outline-none" type="submit" disabled={isLoading}>
         {isLoading ? "Please wait..." : "Create Poll"}
       </button>
     </form>

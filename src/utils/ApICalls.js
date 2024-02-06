@@ -27,3 +27,29 @@ export const UserInfoApi = () => {
       }
     });
 };
+
+export const CreatePollApi = (formData) => {
+  let config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: `${url}/poll/polls`,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Token ${token}`,
+    },
+    redirect: "follow",
+    data: formData,
+  };
+
+  return axios
+    .request(config)
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log("error", error);
+      if (error.response.data.detail) {
+        throw new Error(error.response.data.detail);
+      }
+    });
+};
