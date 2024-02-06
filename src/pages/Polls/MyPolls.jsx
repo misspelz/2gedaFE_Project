@@ -17,8 +17,12 @@ import { Notifications } from "components/PollsComp/Notification";
 import { CreateCastActions } from "components/PollsComp/CreateCastActions";
 import { PromotedPolls } from "components/PollsComp/PromotedPolls";
 import CreatePoll from "components/Modals/Vote/CreatePoll/CreatePoll";
-import { Dialog, DialogContent } from "@mui/material";
+import { Dialog } from "@mui/material";
 import { MyPollsCategories } from "components/PollsComp/MyPollsCategories";
+import ClosePoll from "components/Modals/Vote/ClosePoll";
+import PollResult from "components/Modals/Vote/PollResult";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const MyPolls = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -143,9 +147,17 @@ const MyPolls = () => {
 
   const [Notify, setNotify] = useState(false);
   const [CastVote, setCastVote] = useState(false);
+  const [showMyPolls, setShowMyPolls] = useState(false);
   const [viewType, setViewType] = useState("all");
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [PaidPoll, setPaidPoll] = useState(false);
+  const [selectedPoll, setSelectedPoll] = useState(null);
+  const [showPaidVotes, setShowPaidVotes] = useState(false);
+  const [showCloseModal, setShowCloseModal] = useState(false);
+  const [viewResults, setViewResults] = useState(false);
+  const nav = useNavigate();
 
+  const goBack = () => nav("/Voting");
   const HandleNotification = () => {
     setNotify(true);
   };
@@ -153,25 +165,122 @@ const MyPolls = () => {
   const HandleCastVote = () => {
     setCastVote(true);
   };
+  const handleShowMyPolls = () => {
+    setShowMyPolls((prev) => !prev);
+  };
+
+  const HandlePaidPoll = () => {
+    setPaidPoll(true);
+  };
+
+  const HandlePoll = (pollData) => {
+    setSelectedPoll(pollData);
+    setShowPaidVotes(false);
+  };
+
+  const handleShowcloseModal = () => {
+    setShowCloseModal((prev) => !prev);
+  };
+
+  const handleViewResults = () => {
+    setViewResults((prev) => !prev);
+  };
+
+  const options = [
+    { title: "Python", percentage: "30" },
+    { title: "Java", percentage: "40" },
+  ];
 
   const renderPolls = () => {
     switch (viewType) {
-      case "private":
+      case "active":
         return (
           <>
-            <Polls />
-            <Polls />
+            <Polls
+              onClick={HandlePoll}
+              authorName="Pelz Adetoye"
+              createdAt="Today @ 12:09pm"
+              question="What is your preferred programming language?"
+              options={options}
+              daysRemaining="2 days remaining"
+              totalVotes="500"
+              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+              myPolls={true}
+              onClose={handleShowcloseModal}
+              onView={handleViewResults}
+            />
+            <Polls
+              // onClick={HandlePoll}
+              authorName="Ade Michael"
+              createdAt="Yesterday @ 12:09pm"
+              question="What is your preferred programming language?"
+              options={options}
+              daysRemaining="4 days remaining"
+              totalVotes="200"
+              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+              myPolls={true}
+              onClose={handleShowcloseModal}
+              onView={handleViewResults}
+            />
           </>
         );
-      case "public":
-        return <Polls />;
+      case "ended":
+        return (
+          <Polls
+            authorName="Adekola Tony"
+            createdAt="Today @ 10:09am"
+            question="What is your preferred programming language?"
+            options={options}
+            daysRemaining="5 days remaining"
+            totalVotes="500"
+            backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+            myPolls={true}
+            onClose={handleShowcloseModal}
+            onView={handleViewResults}
+          />
+        );
       case "all":
       default:
         return (
           <>
-            <Polls />
-            <Polls2 />
-            <Polls />
+            <Polls
+              onClick={HandlePoll}
+              authorName="Pelz Adetoye"
+              createdAt="Today @ 12:09pm"
+              question="What is your preferred programming language?"
+              options={options}
+              daysRemaining="2 days remaining"
+              totalVotes="500"
+              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+              myPolls={true}
+              onClose={handleShowcloseModal}
+              onView={handleViewResults}
+            />
+            <Polls
+              authorName="Adekola Tony"
+              createdAt="Today @ 10:09am"
+              question="What is your preferred programming language?"
+              options={options}
+              daysRemaining="5 days remaining"
+              totalVotes="500"
+              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+              myPolls={true}
+              onClose={handleShowcloseModal}
+              onView={handleViewResults}
+            />
+            <Polls
+              // onClick={HandlePoll}
+              authorName="Ade Michael"
+              createdAt="Yesterday @ 12:09pm"
+              question="What is your preferred programming language?"
+              options={options}
+              daysRemaining="4 days remaining"
+              totalVotes="200"
+              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+              myPolls={true}
+              onClose={handleShowcloseModal}
+              onView={handleViewResults}
+            />
           </>
         );
     }
@@ -183,46 +292,63 @@ const MyPolls = () => {
   return (
     <MainLayout>
       <div className=" lg:bg-[#f5f5f5] lg:flex w-full pt-36  lg:px-10 lg:gap-6 ">
-        {!Notify && !CastVote && (
-          <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
-            {/* MOBILE */}
-            <h1>My Polls</h1>
-            <h2 className="mt-6 block lg:hidden">Hello {userInfo.username}</h2>
-            <span className="text-[14px] block lg:hidden">
-              What do you want to do today ?
-            </span>
+        {!Notify && !CastVote && !showMyPolls && (
+          <>
+            <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
+              {/* MOBILE */}
+              <div className="flex gap-3">
+                <FaArrowLeftLong
+                  onClick={goBack}
+                  className="cursor-pointer text-lg"
+                />
+                <h1>My Polls</h1>
+              </div>
+              <h2 className="mt-6 block lg:hidden">
+                Hello {userInfo.username}
+              </h2>
+              <span className="text-[14px] block lg:hidden">
+                What do you want to do today ?
+              </span>
 
-            <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
+              <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
 
-            <img
-              src="images/fifa.png"
-              alt="fifa"
-              className="mt-6 w-full lg:mt-10"
-            />
-
-            {/* MOBILE */}
-            <CreateCastActions
-              HandleNotification={HandleNotification}
-              HandleCastVote={HandleCastVote}
-              showCreateModal={() => setShowCreateModal((prev) => !prev)}
-            />
-
-            {/* WEB */}
-            <div className="pb-[40px] hidden lg:block">
-              <MyPollsCategories
-                viewType={viewType}
-                setViewType={setViewType}
+              <img
+                src="images/fifa.png"
+                alt="fifa"
+                className="mt-6 w-full lg:mt-10"
               />
-              {renderPolls()}
+
+              {/* MOBILE */}
+              <CreateCastActions
+                HandleNotification={HandleNotification}
+                HandleCastVote={HandleCastVote}
+                handleShowMyPolls={handleShowMyPolls}
+                showCreateModal={() => setShowCreateModal((prev) => !prev)}
+              />
+
+              {/* WEB */}
+              <div className="pb-[40px] hidden lg:block">
+                <MyPollsCategories
+                  viewType={viewType}
+                  setViewType={setViewType}
+                />
+                {renderPolls()}
+              </div>
+              <Dialog
+                open={showCreateModal}
+                onClose={() => setShowCreateModal((prev) => !prev)}
+                fullWidth
+              >
+                <CreatePoll onClose={setShowCreateModal} />
+              </Dialog>
+              <Dialog open={showCloseModal} onClose={handleShowcloseModal}>
+                <ClosePoll closeModal={handleShowcloseModal} />
+              </Dialog>
+              <Dialog open={viewResults} onClose={handleViewResults} fullWidth>
+                <PollResult closeModal={handleViewResults} />
+              </Dialog>
             </div>
-            <Dialog
-              open={showCreateModal}
-              onClose={() => setShowCreateModal((prev) => !prev)}
-              fullWidth
-            >
-              <CreatePoll onClose={setShowCreateModal} />
-            </Dialog>
-          </div>
+          </>
         )}
 
         {/* MOBILE */}
@@ -230,6 +356,19 @@ const MyPolls = () => {
 
         {/* MOBILE */}
         {CastVote && (
+          <div className="px-4 lg:hidden pb-[40px]">
+            <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
+
+            <img
+              src="images/fifa.png"
+              alt="fifa"
+              className="mt-6 w-full lg:mt-10"
+            />
+            <MyPollsCategories viewType={viewType} setViewType={setViewType} />
+            {renderPolls()}
+          </div>
+        )}
+        {showMyPolls && (
           <div className="px-4 lg:hidden pb-[40px]">
             <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
 

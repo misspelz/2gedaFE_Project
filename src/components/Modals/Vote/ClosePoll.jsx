@@ -1,13 +1,12 @@
-import React from 'react'
-import { FaTimes } from 'react-icons/fa';
+import React from "react";
+import { FaTimes } from "react-icons/fa";
 
-const ClosePoll = () => {
+const ClosePoll = ({ closeModal }) => {
   return (
     <div
       style={{
         boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
         width: "300px",
-        margin: "20px",
       }}
     >
       <div
@@ -35,9 +34,11 @@ const ClosePoll = () => {
             display: "inline-flex",
           }}
         >
-          <div style={{marginRight: "70px", fontSize: "16px"}}>Close Poll?</div>
-          <div>
-            <FaTimes />
+          <div style={{ marginRight: "70px", fontSize: "16px" }}>
+            Close Poll?
+          </div>
+          <div onClick={closeModal} className="cursor-pointer">
+            <FaTimes className="text-black text-xl" />
           </div>
         </div>
         <div
@@ -46,45 +47,21 @@ const ClosePoll = () => {
             fontSize: 14,
             fontFamily: "Ubuntu",
             fontWeight: "400",
-            wordWrap: "break-word",
+            textAlign: "center",
           }}
         >
           This poll will not be made available anymore and would be marked as
           ended. Are you sure you want to close this poll?
         </div>
-        <div
-          style={{
-            width: 165,
-            height: 40,
-            paddingLeft: 16,
-            paddingRight: 16,
-            paddingTop: 6,
-            paddingBottom: 6,
-            background: "red",
-            borderRadius: 10,
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 10,
-            display: "inline-flex",
-          }}
+        <button
+          className="w-[165px] h-[40px] flex items-center justify-center text-white bg-[#ff0000] rounded-[64px] text-lg"
+          onClick={closeModal}
         >
-          <div
-            style={{
-              textAlign: "center",
-              color: "white",
-              fontSize: 14,
-              fontFamily: "Ubuntu",
-              fontWeight: "400",
-              lineHeight: 29,
-              wordWrap: "break-word",
-            }}
-          >
-            Close
-          </div>
-        </div>
+          Close poll
+        </button>
       </div>
     </div>
   );
-}
+};
 
-export default ClosePoll
+export default ClosePoll;
