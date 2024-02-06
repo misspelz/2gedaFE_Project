@@ -13,19 +13,19 @@ export const MyPollsCategories = ({ viewType, setViewType }) => {
         </button>
         <button
           className={`border-1 border-purple-900 text-purple-900 p-3 rounded-[40px] w-[30%] text-[12px] ${
-            viewType === "public" ? "bg-purple-900 text-white" : ""
+            viewType === "active" ? "bg-purple-900 text-white" : ""
           }`}
-          onClick={() => setViewType("public")}
+          onClick={() => setViewType("active")}
         >
-          Public
+          Active
         </button>
         <button
           className={`border-1 border-purple-900 text-purple-900 p-3 rounded-[40px] w-[30%] text-[12px] ${
-            viewType === "private" ? "bg-purple-900 text-white" : ""
+            viewType === "ended" ? "bg-purple-900 text-white" : ""
           }`}
-          onClick={() => setViewType("private")}
+          onClick={() => setViewType("ended")}
         >
-          Private
+          Ended
         </button>
       </div>
     </>
