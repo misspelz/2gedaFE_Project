@@ -302,6 +302,7 @@ const Voting = () => {
               <CreateCastActions
                 HandleNotification={HandleNotification}
                 HandleCastVote={HandleCastVote}
+                showCreateModal={() => setShowCreateModal((prev) => !prev)}
               />
 
               {/* WEB */}
@@ -337,7 +338,7 @@ const Voting = () => {
           )}
 
           {/* WEB */}
-          <PollsNotification setNotify={setNotify} />
+          <PollsNotification setNotify={setNotify} showCreateModal={() => setShowCreateModal((prev) => !prev)} />
         </div>
       )}
 
