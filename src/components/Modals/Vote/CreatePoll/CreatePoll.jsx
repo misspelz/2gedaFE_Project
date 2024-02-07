@@ -6,7 +6,7 @@ import { CreatePollApi } from "utils/ApICalls";
 
 const CreatePoll = ({ onClose }) => {
   const [pollData, setPollData] = useState({
-    options: ["", ""],
+    content: ["", ""],
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +20,7 @@ const CreatePoll = ({ onClose }) => {
   const handleAddOption = () => {
     setPollData((prevData) => ({
       ...prevData,
-      options: [...prevData.options, ""],
+      content: [...prevData.content, ""],
     }));
   };
 
@@ -42,15 +42,18 @@ const CreatePoll = ({ onClose }) => {
     e.preventDefault();
 
     // Convert options array to a comma-separated string
-    const optionsString = pollData.options.join(",");
+    const optionsString = pollData.content.join(",");
 
     // Create FormData
     const form = new FormData(e.target);
-    form.set("options_list", optionsString);
-    form.set("question", pollData.question);
-    form.set("privacy", pollData.pollAccess);
-    form.set("duration", pollData.duration);
-    form.set("type", pollData.type);
+    form.append("content", optionsString);
+    form.append("question", pollData.question);
+    form.append("privacy", pollData.privacy);
+    form.append("duration", pollData.duration);
+    form.append("type", pollData.type);
+
+    const formDetails = Object.fromEntries(form)
+    console.log("formDetails",formDetails);
 
     // Get the file input element
     const mediaInput = document.getElementById("media");
@@ -59,6 +62,8 @@ const CreatePoll = ({ onClose }) => {
     if (mediaInput.files.length > 0) {
       form.append("media", mediaInput.files[0]);
     }
+
+    console.log(form)
 
     try {
       setIsLoading(true);
@@ -108,19 +113,19 @@ const CreatePoll = ({ onClose }) => {
         />
       </div>
 
-      {pollData.options.map((option, index) => (
+      {pollData.content.map((option, index) => (
         <div className="form-field" key={`option-${index}`}>
-          <label htmlFor={`option-${index}`}>{`Option ${index + 1}`}</label>
+          <label htmlFor={`content`}>{`Option ${index + 1}`}</label>
           <input
             type="text"
-            id={`option-${index}`}
+            id={`content`}
             placeholder="Type option"
             value={option}
              className="outline-none"
             onChange={(e) => {
-              const updatedOptions = [...pollData.options];
+              const updatedOptions = [...pollData.content];
               updatedOptions[index] = e.target.value;
-              handleInputChange("options", updatedOptions);
+              handleInputChange("content", updatedOptions);
             }}
           />
         </div>
@@ -134,7 +139,7 @@ const CreatePoll = ({ onClose }) => {
         <label htmlFor="duration">Poll duration</label>
         <select
           id="duration"
-          name="pollDuration"
+          name="duration"
           value={pollData.duration}
            className="outline-none"
           onChange={(e) => handleInputChange("duration", e.target.value)}
@@ -149,7 +154,7 @@ const CreatePoll = ({ onClose }) => {
         <label htmlFor="type">Poll type</label>
         <select
           id="type"
-          name="pollType"
+          name="type"
           value={pollData.type}
            className="outline-none"
           onChange={(e) => handleInputChange("type", e.target.value)}
@@ -160,13 +165,13 @@ const CreatePoll = ({ onClose }) => {
       </div>
 
       <div className="form-field">
-        <label htmlFor="access">Poll Access</label>
+        <label htmlFor="privacy">Poll Access</label>
         <select
-          id="access"
-          name="pollAccess"
-          value={pollData.access}
+          id="privacy"
+          name="privacy"
+          value={pollData.privacy}
            className="outline-none"
-          onChange={(e) => handleInputChange("access", e.target.value)}
+          onChange={(e) => handleInputChange("privacy", e.target.value)}
         >
           <option value="Public">Public</option>
           <option value="Private">Private</option>
