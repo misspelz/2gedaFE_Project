@@ -5,7 +5,6 @@ import PollsSearch from "components/PollsComp/PollsSearch";
 import CanVote from "components/Modals/Vote/Can/CanVote";
 import SearchBox from "components/SearchComp/searchBox";
 import Notify from "components/Modals/Vote/Notification/Notify";
-// import { Modal } from "react-bootstrap";
 import { url } from "utils";
 import { IoIosNotificationsOutline, IoIosSearch } from "react-icons/io";
 import { Polls } from "components/PollsComp/Polls";
@@ -49,6 +48,7 @@ const MyPolls = () => {
   const [loading, setLoading] = useState(true);
 
   const goBack = () => nav("/Voting");
+
   const HandleNotification = () => {
     setNotify(true);
   };
@@ -86,7 +86,7 @@ const MyPolls = () => {
     switch (viewType) {
       case "active":
         if (!pollsDetails || pollsDetails.length === 0) {
-          return <p className="mt-20">Loading polls...</p>;
+          return <p className="mt-20">Please wait...</p>;
         } else {
           const isActive = pollsDetails.filter((poll) => !poll.is_active);
           return isActive.length > 0 ? (

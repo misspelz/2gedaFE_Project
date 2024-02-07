@@ -12,41 +12,40 @@ export const Polls = ({
   daysRemaining,
   totalVotes,
   backgroundImageUrl,
-  className = "border absolut p-3 mt-4 rounded-[25px] cursor-pointer",
+  className = "border w-[100%] p-3 mt-4 rounded-[25px] cursor-pointer",
   myPolls,
   onClose,
   onView,
 }) => {
-  const [optionPercentages, setOptionPercentages] = useState(
-    options?.map((option) => parseInt(option.percentage.replace("%", ""), 10))
-  );
+  // const [optionPercentages, setOptionPercentages] = useState(
+  //   options?.map((option) => parseInt(option.percentage.replace("%", ""), 10))
+  // );
 
-  const updatePercentage = (index, newPercentage) => {
-    const updatedPercentages = [...optionPercentages];
-    updatedPercentages[index] = newPercentage;
+  // const updatePercentage = (index, newPercentage) => {
+  //   const updatedPercentages = [...optionPercentages];
+  //   updatedPercentages[index] = newPercentage;
 
-    // Calculate the remaining percentage to distribute among other options
-    const remainingPercentage = 100 - newPercentage;
+  //   // Calculate the remaining percentage to distribute among other options
+  //   const remainingPercentage = 100 - newPercentage;
 
-    // Decrease other options proportionally
-    updatedPercentages.forEach((percentage, i) => {
-      if (i !== index) {
-        const decreasePercentage =
-          (remainingPercentage / (optionPercentages.length - 1)) *
-          (100 - newPercentage);
-        updatedPercentages[i] = percentage - decreasePercentage;
-      }
-    });
+  //   // Decrease other options proportionally
+  //   updatedPercentages.forEach((percentage, i) => {
+  //     if (i !== index) {
+  //       const decreasePercentage =
+  //         (remainingPercentage / (optionPercentages.length - 1)) *
+  //         (100 - newPercentage);
+  //       updatedPercentages[i] = percentage - decreasePercentage;
+  //     }
+  //   });
 
-    setOptionPercentages(updatedPercentages);
-  };
+  //   setOptionPercentages(updatedPercentages);
+  // };
 
   const formatCreatedAt = (createdAt) => {
     const date = new Date(createdAt);
     const options = {
       weekday: "short",
       year: "numeric",
-
       month: "short",
       day: "numeric",
       hour: "numeric",
@@ -55,6 +54,7 @@ export const Polls = ({
     };
     return date.toLocaleDateString("en-US", options);
   };
+
   const optionList = [
     {
       id: 17,
