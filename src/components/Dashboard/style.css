@@ -141,22 +141,13 @@
 .post-body-text {
   width: 100%;
 }
-.post-media {
-  margin: 10px 0;
-}
-.post-media img {
-  width: 100%;
-  height: 200px;
-  /* min-height: 100px; */
-}
+
 .dob-img {
   gap: 5px;
   width: 100%;
   justify-content: center;
 }
-.lay-post {
-  position: relative;
-}
+
 .over-lay-post {
   position: absolute;
   top: 0;
@@ -732,17 +723,11 @@
   .post-body-box {
     font-size: 14px;
   }
-  .movie-slid-box {
-    display: none;
-  }
+
 }
 @media only screen and (max-width: 500px) {
   .post-body-box {
     font-size: 12px;
-  }
-  .post-media img {
-    max-height: 300px;
-    min-height: 100%;
   }
   .post-profile-name {
     font-size: 14px;

@@ -29,6 +29,25 @@
   margin-top: 10em;
   position: relative;
 }
+
+.custom-tabs {
+  display: flex !important;
+  align-items: center !important;
+  margin: 1.1rem 0 !important;
+}
+
+.MuiTabs-indicator{
+  background: white !important;
+}
+.Mui-selected {
+  padding: .8rem .6rem !important;
+  margin: auto 0 !important;
+  min-height: fit-content !important;
+  height: fit-content !important;
+  border-radius: 6px !important;
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
 .status-row {
   display: flex;
   width: 100%;
@@ -195,9 +214,14 @@
     width: 58px;
   }
 }
+@media only screen and (max-width: 574px) {
+  .feeds-tabs-main-container {
+    width: 95dvw !important;
+  }
+}
 @media only screen and (max-width: 430px) {
   .left-side-container {
-    margin: 0 18px;
+    /* margin: 0 18px; */
     padding: 0;
     width: 380px;
   }
