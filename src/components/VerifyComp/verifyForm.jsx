@@ -4,7 +4,8 @@ import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 import { url } from "../../utils";
 
-const VerifyForm = ({ setIsVerify, handleVerifyClick, email }) => {
+const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
+  const email = localStorage.getItem("email");
 
   const [inputValues, setInputValues] = useState({
     inputValue1: "",
@@ -58,6 +59,7 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick, email }) => {
         console.error("Error sending OTP:", error);
       });
   };
+
   const handleResend = () => {
     axios
       .post(
@@ -85,6 +87,7 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick, email }) => {
         console.error("Error resending OTP:", error);
       });
   };
+
   const handleInputChange = (e, inputNumber) => {
     const value = e.target.value;
     if (value.length <= 1) {
