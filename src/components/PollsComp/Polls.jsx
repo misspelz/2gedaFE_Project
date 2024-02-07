@@ -18,8 +18,9 @@ export const Polls = ({
   onView,
 }) => {
   const [optionPercentages, setOptionPercentages] = useState(
-    options?.map((option) => parseInt(option.percentage, 10))
+    options?.map((option) => parseInt(option.percentage.replace('%', ''), 10))
   );
+  
 
   const updatePercentage = (index, newPercentage) => {
     const updatedPercentages = [...optionPercentages];
@@ -41,6 +42,21 @@ export const Polls = ({
     setOptionPercentages(updatedPercentages);
   };
 
+  const formatCreatedAt = (createdAt) => {
+    const date = new Date(createdAt);
+    const options = { 
+      weekday: 'short', 
+      year: 'numeric', 
+
+      month: 'short', 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: 'numeric', 
+      hour12: true 
+    };
+    return date.toLocaleDateString('en-US', options);
+  };
+
   return (
     <div
       className={className}
@@ -59,13 +75,13 @@ export const Polls = ({
               height: "40px",
             }}
           ></div>
-          <span className="text-[14px] font-[500] text-[#000]">
+          <span className="text-[14px] font-[500] text-[#000] capitalize">
             {authorName}
           </span>
         </div>
-        <span className="text-[#403F3F]">{createdAt}</span>
+        <span className="text-[#403F3F]">{formatCreatedAt(createdAt)}</span>
       </div>
-      <h6 className="text-[12px] mt-4 text-[#000]">{question}</h6>
+      <h6 className="text-[12px] lg:text-[14px] mt-4 text-[#000]">{question}</h6>
 
       {options?.map((option, index) => (
         <Poll
@@ -90,32 +106,32 @@ export const Polls = ({
         </div>
       </div>
       {myPolls && (
-        <div className="w-full flex flex-row mt-4">
+        <div className="w-full flex flex-row mt-4 gap-6 lg:gap-10">
           <div className=" flex flex-col w-full gap-4 justify-start">
-            <div className="flex !items-start gap-2  !self-start ">
+            <div className="flex  gap-3 self-start  ">
               <BsEye className="text-black text-xl" />
-              <div>
-                <h2 className="text-black">24.5K</h2>
-                <span className="text-black">views</span>
+              <div className="">
+                <h2 className="text-black ">0K</h2>
+                <span className="text-black text-[14px]">views</span>
               </div>
             </div>
             <button
-              className="bg-black w-full h-[54px] flex justify-center items-center rounded-[60px] text-lg sm:text-xl text-white !font-normal"
+              className="bg-black w-full h-[30px] lg:h-[40px] flex justify-center items-center rounded-[15px] text-lg sm:text-xl text-white !font-normal"
               onClick={onView}
             >
               View result
             </button>
           </div>
           <div className="flex flex-col w-full gap-4">
-            <div className="flex !items-start gap-2  !self-start ">
+            <div className="flex  gap-3 self-start  ">
               <FaVoteYea className="text-black text-xl" />
               <div>
-                <h2 className="text-black">2.5K</h2>
-                <span className="text-black">votes</span>
+                <h2 className="text-black">0K</h2>
+                <span className="text-black text-[14px]">votes</span>
               </div>
             </div>
             <button
-              className="bg-[#F5F5F5] w-full h-[54px] flex justify-center items-center rounded-[60px] text-lg sm:text-xl text-[#403f3f] !font-normal"
+              className="bg-[#F5F5F5] w-full h-[30px] lg:h-[40px] flex justify-center items-center rounded-[15px] text-lg sm:text-xl text-[#403f3f] !font-normal"
               onClick={onClose}
             >
               Close poll

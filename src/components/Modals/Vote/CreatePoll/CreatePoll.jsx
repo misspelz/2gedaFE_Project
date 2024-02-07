@@ -8,6 +8,7 @@ const CreatePoll = ({ onClose }) => {
   const [pollData, setPollData] = useState({
     content: ["", ""],
   });
+  
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (field, value) => {

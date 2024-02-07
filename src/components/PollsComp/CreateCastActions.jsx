@@ -9,13 +9,16 @@ export const CreateCastActions = ({
   HandleNotification,
   HandleCastVote,
   showCreateModal,
-  handleShowMyPolls,
+  // handleShowMyPolls,
 }) => {
+
   const nav = useNavigate();
-  const gotoMyPolls = () => {
-    nav("/MyPolls");
-    handleShowMyPolls();
-  };
+
+  // const gotoMyPolls = () => {
+  //   nav("/MyPolls");
+  //   // handleShowMyPolls();
+  // };
+
   return (
     <div className="px-4 mt-12 lg:hidden">
       <div className="flex justify-between">
@@ -39,7 +42,7 @@ export const CreateCastActions = ({
       <div className="flex justify-between mt-14">
         <div
           className="flex items-center gap-6 cursor-pointer"
-          onClick={gotoMyPolls}
+          onClick={() => nav("/MyPolls")}
         >
           <img src="images/create.png" alt="create-icon" width={25} />
           <span className="text-[13px] font-[500]">My Polls</span>
