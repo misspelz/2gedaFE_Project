@@ -38,7 +38,7 @@ export const CreatePollApi = (formData) => {
       Authorization: `Token ${token}`,
     },
     redirect: "follow",
-    data: formData,
+    body: formData,
   };
 
   return axios
