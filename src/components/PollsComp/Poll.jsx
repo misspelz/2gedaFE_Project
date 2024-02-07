@@ -1,30 +1,15 @@
-import React, { useState } from "react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
-export const Poll = ({ title, percentage, updatePercentage }) => {
-  const [currentPercentage, setCurrentPercentage] = useState(
-    parseInt(percentage, 10)
-  );
-
-  const handlePollClick = () => {
-    const newPercentage = currentPercentage + 10;
-
-    if (newPercentage <= 100) {
-      setCurrentPercentage(newPercentage);
-      updatePercentage(newPercentage);
-    }
-  };
-
+export const Poll = ({ title, allVotes, totalVotes }) => {
+  const percent = Math.round((allVotes / totalVotes) * 100);
+  console.log(percent);
   return (
-    <div
-      className="relative flex justify-between bg-[#000] w-full py-3 rounded-[10px] pr-6 mt-4 cursor-pointer "
-      onClick={handlePollClick}
-    >
+    <div className="relative flex justify-between bg-[#000] w-full py-3 rounded-[10px] pr-6 mt-4 cursor-pointer ">
       <div
         className="absolute top-0 w-[75%] py-7 bg-purple-900 rounded-[10px]"
-        style={{ width: `${currentPercentage}%` }}
+        style={{ width: `${percent}%` }}
       >
-        {currentPercentage === 100 && (
+        {percent === 100 && (
           <IoIosCheckmarkCircle
             className="text-green-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
             size={20}
@@ -32,7 +17,7 @@ export const Poll = ({ title, percentage, updatePercentage }) => {
         )}
       </div>
       <span className="text-white font-bold z-50 ml-6">{title}</span>
-      <span className="text-white font-bold z-50">{currentPercentage}%</span>
+      <span className="text-white font-bold z-50">{percent}%</span>
     </div>
   );
 };
