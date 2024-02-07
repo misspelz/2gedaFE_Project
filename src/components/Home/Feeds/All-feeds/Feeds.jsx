@@ -7,6 +7,8 @@ import MovieSlider from "components/Home/Movieslider/MovieSlider";
 import Stick from "components/Dashboard/Stick";
 import PostImage from "assets/images/sample-post-image.png"
 import PostAvatar from "assets/images/sample-avatar.png"
+import ProductImage from "assets/images/sample-product.png";
+import MovieDashCard from "components/Home/Movieslider/MovieCards";
 
 const Feeds = (handleFeedOpen) => {
     const mockCreator = {
@@ -22,11 +24,11 @@ const Feeds = (handleFeedOpen) => {
 		{ userId: 1, emoji: "👍", user: {username: "user 01"} }
 	]
 
-	const mockMedia = [{}, {media: PostImage}]
+	const mockMedia = [{media: PostImage}, {media: ProductImage}, {media: PostImage}, {media: ProductImage}]
 
     
 	return (
-		<div style={{maxWidth: "580px"}}>
+		<div style={{maxWidth: "560px"}}>
 			<PostComp
 				handleFeedOpen={handleFeedOpen}
 				postID={"item id"}
@@ -88,6 +90,27 @@ const Feeds = (handleFeedOpen) => {
 				time_since={"2hr ago"}
 			/>
 
+
+			<div className="ticket-das-row">
+				{[1, 2, 3, 4, 5, 6, 7].map((item) => (
+					<MovieDashCard key={item} />
+				))}
+			</div>
+
+			<PostComp
+				handleFeedOpen={handleFeedOpen}
+				postID={"item id"}
+				creator={mockCreator}
+				comment={"some random comment"}
+				media={mockMedia}
+				hashtag={"hashtag"}
+				content={"Some random content"}
+				reaction={mockReaction}
+				post_reaction_count={3}
+				post_comment_count={4}
+				time_since={"2hr ago"}
+			/>
+			
 			<div className="ticket-das-row">
 				{[1, 2, 3, 4, 5, 6, 7].map((item) => (
 					<ProductDash key={item} />

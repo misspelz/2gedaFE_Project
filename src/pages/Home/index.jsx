@@ -16,6 +16,8 @@ import Feedimages from "../../components/Home/Feeds/Images/Feedimages";
 import FeedsProducts from "../../components/Home/Feeds/Products/Products";
 import Feeds from "components/Home/Feeds/All-feeds/Feeds";
 import FeedsMusic from "components/Home/Feeds/Music/FeedsMusic";
+import Feedfiles from "components/Home/Feeds/Files/Feedfiles";
+import FeedsVoice from "components/Home/Feeds/voice-notes/FeedsVoice";
 
 
 const CustomTabPanel = (props) => {
@@ -30,9 +32,7 @@ const CustomTabPanel = (props) => {
 		{...other}
 	  >
 		{value === index && (
-		  <Box sx={{ p: 3 }}>
 			<Box>{children}</Box>
-		  </Box>
 		)}
 	  </div>
 	);
@@ -66,8 +66,8 @@ const Home = () => {
 							<FirstSide />
 							<img src="images/jumia.png" alt="" className="ads-img" />
 							<LifestyleStatus />
-							<Box>
-								<Box sx={{ maxWidth: { xs: 320, sm: 580 }, bgcolor: 'background.paper' }}>
+							<Box className="feeds-tabs-main-container">
+								<Box sx={{ maxWidth: { xs: 320, sm: 580 }, bgcolor: 'background.paper', alignItems: "center" }}>
 									<Tabs
 										value={activeTab}
 										onChange={handleChange}
@@ -99,7 +99,7 @@ const Home = () => {
 									<FeedsProducts />
 								</CustomTabPanel>
 								<CustomTabPanel value={activeTab} index={4}>
-									Voice notes
+									<FeedsVoice />
 								</CustomTabPanel>
 								<CustomTabPanel value={activeTab} index={5}>
 									<FeedLocations />
@@ -108,7 +108,7 @@ const Home = () => {
 									<FeedsMusic />
 								</CustomTabPanel>
 								<CustomTabPanel value={activeTab} index={7}>
-									Files
+									<Feedfiles />
 								</CustomTabPanel>
 							</Box>						
 						</div>
