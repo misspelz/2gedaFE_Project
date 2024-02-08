@@ -1,0 +1,17 @@
+.quick-dial-container {
+    position: fixed;
+    top: 88dvh;
+    right: 30%;
+}
+
+@media screen and (max-width: 1150px){
+    .quick-dial-container{
+        right: 40%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .quick-dial-container{
+        right: 6%;
+    }
+}

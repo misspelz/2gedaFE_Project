@@ -10,7 +10,7 @@ import PostAvatar from "assets/images/sample-avatar.png"
 import ProductImage from "assets/images/sample-product.png";
 import MovieDashCard from "components/Home/Movieslider/MovieCards";
 
-const Feeds = (handleFeedOpen) => {
+const Feeds = ({handleFeedOpen}) => {
     const mockCreator = {
 		cover_image: {cover_image: PostAvatar},
 		username: "John Doe",

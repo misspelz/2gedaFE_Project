@@ -67,7 +67,13 @@ const Home = () => {
 							<img src="images/jumia.png" alt="" className="ads-img" />
 							<LifestyleStatus />
 							<Box className="feeds-tabs-main-container">
-								<Box sx={{ maxWidth: { xs: 320, sm: 580 }, bgcolor: 'background.paper', alignItems: "center" }}>
+								<Box
+									sx={{
+										maxWidth: { xs: 320, sm: 580 },
+										bgcolor: "background.paper",
+										alignItems: "center",
+									}}
+								>
 									<Tabs
 										value={activeTab}
 										onChange={handleChange}
@@ -82,12 +88,12 @@ const Home = () => {
 										<Tab label="Products" />
 										<Tab label="Voice notes" />
 										<Tab label="Location" />
-										<Tab label="Music"/>
-										<Tab label="Files"/>
+										<Tab label="Music" />
+										<Tab label="Files" />
 									</Tabs>
 								</Box>
 								<CustomTabPanel value={activeTab} index={0}>
-									<Feeds handleFeedOpen={handleFeedOpen}/>
+									<Feeds handleFeedOpen={handleFeedOpen} />
 								</CustomTabPanel>
 								<CustomTabPanel value={activeTab} index={1}>
 									<Feedimages />
@@ -110,7 +116,7 @@ const Home = () => {
 								<CustomTabPanel value={activeTab} index={7}>
 									<Feedfiles />
 								</CustomTabPanel>
-							</Box>						
+							</Box>
 						</div>
 					)}
 					<div className="middle-side-container">
@@ -125,6 +131,16 @@ const Home = () => {
 							<DashMessage />
 						</div>
 					</div>
+					{/* <div
+						className="quick-dial-container"
+						style={{
+							border: "1px solid red",
+							position: "fixed",
+							top: "50dvh",
+						}}
+					>
+						some text
+					</div> */}
 				</div>
 			</MainLayout>
 		</div>

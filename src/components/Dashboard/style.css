@@ -159,8 +159,9 @@
   justify-content: center;
 }
 .posted-likes-cont {
-  font-size: 25px;
+  font-size: 22px;
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 .like {
