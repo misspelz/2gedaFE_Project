@@ -8,6 +8,7 @@ const CreatePoll = ({ onClose }) => {
   const [pollData, setPollData] = useState({
     content: ["", ""],
   });
+
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (field, value) => {
@@ -41,35 +42,19 @@ const CreatePoll = ({ onClose }) => {
   const handleCreatePoll = async (e) => {
     e.preventDefault();
 
-    // Convert options array to a comma-separated string
-    const optionsString = pollData.content.join(",");
-
     // Create FormData
     const form = new FormData(e.target);
-    form.append("content", optionsString);
-    form.append("question", pollData.question);
-    form.append("privacy", pollData.privacy);
-    form.append("duration", pollData.duration);
-    form.append("type", pollData.type);
+    form.append("content", pollData.content);
 
-    const formDetails = Object.fromEntries(form)
-    console.log("formDetails",formDetails);
-
-    // Get the file input element
-    const mediaInput = document.getElementById("media");
-
-    // Check if a file is selected
-    if (mediaInput.files.length > 0) {
-      form.append("media", mediaInput.files[0]);
-    }
-
-    console.log(form)
+    const formDetails = Object.fromEntries(form);
+    console.log("formDetails", formDetails);
 
     try {
       setIsLoading(true);
       const res = await CreatePollApi(form);
-      console.log("createpoll", res);
-      if (res.status == 200) {
+
+      console.log("createpoll", res?.data[0]);
+      if (res.status === 200) {
         toast.success("Poll created successfully");
         onClose();
       }
@@ -107,7 +92,6 @@ const CreatePoll = ({ onClose }) => {
           id="question"
           name="question"
           placeholder="Enter your question"
-          value={pollData.question}
           className="outline-none"
           onChange={(e) => handleInputChange("question", e.target.value)}
         />
@@ -121,7 +105,7 @@ const CreatePoll = ({ onClose }) => {
             id={`content`}
             placeholder="Type option"
             value={option}
-             className="outline-none"
+            className="outline-none"
             onChange={(e) => {
               const updatedOptions = [...pollData.content];
               updatedOptions[index] = e.target.value;
@@ -140,8 +124,7 @@ const CreatePoll = ({ onClose }) => {
         <select
           id="duration"
           name="duration"
-          value={pollData.duration}
-           className="outline-none"
+          className="outline-none"
           onChange={(e) => handleInputChange("duration", e.target.value)}
         >
           <option value="22 hours">22 hours</option>
@@ -155,8 +138,7 @@ const CreatePoll = ({ onClose }) => {
         <select
           id="type"
           name="type"
-          value={pollData.type}
-           className="outline-none"
+          className="outline-none"
           onChange={(e) => handleInputChange("type", e.target.value)}
         >
           <option value="Free">Free</option>
@@ -169,8 +151,7 @@ const CreatePoll = ({ onClose }) => {
         <select
           id="privacy"
           name="privacy"
-          value={pollData.privacy}
-           className="outline-none"
+          className="outline-none"
           onChange={(e) => handleInputChange("privacy", e.target.value)}
         >
           <option value="Public">Public</option>
@@ -180,10 +161,20 @@ const CreatePoll = ({ onClose }) => {
 
       <div className="form-field">
         <label htmlFor="media">Add image or video</label>
-        <input type="file" id="media" accept="image/*, video/*" name="media"  className="outline-none" />
+        <input
+          type="file"
+          id="media"
+          accept="image/*, video/*"
+          name="media"
+          className="outline-none"
+        />
       </div>
 
-      <button className="create-poll-btn outline-none" type="submit" disabled={isLoading}>
+      <button
+        className="create-poll-btn outline-none"
+        type="submit"
+        disabled={isLoading}
+      >
         {isLoading ? "Please wait..." : "Create Poll"}
       </button>
     </form>

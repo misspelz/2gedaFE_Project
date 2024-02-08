@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { url } from "../../utils";
 import Lottie from "lottie-react";
 import preloader from "../../pages/Home/Animation - 1703321875032 (1).json";
+import toast from "react-hot-toast";
 
 const SignForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -19,7 +20,7 @@ const SignForm = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  
+
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
@@ -80,9 +81,11 @@ const SignForm = () => {
       if (!response.ok) {
         if (response.status === 400) {
           if (responseBody.error === undefined) {
-            alert(responseBody.username[0]);
+            // alert(responseBody.username[0]);
+            toast.error(responseBody.username[0]);
           } else {
-            alert(responseBody.error);
+            // alert(responseBody.error);
+            toast.error(responseBody.error);
           }
         }
       } else {
@@ -93,7 +96,7 @@ const SignForm = () => {
         navigate("/verify");
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     } finally {
       setIsLoading(false);
     }

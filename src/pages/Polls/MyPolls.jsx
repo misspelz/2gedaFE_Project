@@ -5,7 +5,6 @@ import PollsSearch from "components/PollsComp/PollsSearch";
 import CanVote from "components/Modals/Vote/Can/CanVote";
 import SearchBox from "components/SearchComp/searchBox";
 import Notify from "components/Modals/Vote/Notification/Notify";
-// import { Modal } from "react-bootstrap";
 import { url } from "utils";
 import { IoIosNotificationsOutline, IoIosSearch } from "react-icons/io";
 import { Polls } from "components/PollsComp/Polls";
@@ -23,127 +22,13 @@ import ClosePoll from "components/Modals/Vote/ClosePoll";
 import PollResult from "components/Modals/Vote/PollResult";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { MyPollsApi } from "utils/ApICalls";
+import toast from "react-hot-toast";
 
 const MyPolls = () => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [responseData, setResponseData] = useState(null);
-  // const [promoted, setPromoted] = useState(null);
-  // const [suggested, setSuggested] = useState(null);
-
   const userInfoString = localStorage.getItem("2gedaUserInfo");
 
   const userInfo = JSON.parse(userInfoString);
-  // console.log("userInfo", userInfo);
-
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-
-  //   const token = localStorage.getItem("authTOken");
-  //   console.log(`Token ${token}`);
-  //   const makeRequest = async () => {
-  //     try {
-  //       const promotedResponse = await fetch(`${url}/poll/promoted/`, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //           Authorization: `Token ${token}`,
-  //         },
-  //       });
-
-  //       const response = await fetch(`${url}/poll/polls/`, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //           Authorization: `Token ${token}`,
-  //         },
-  //       });
-
-  //       const suggestedResponse = await fetch(`${url}/poll/suggested-polls/`, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //           Authorization: `Token ${token}`,
-  //         },
-  //       });
-
-  //       if (!response.ok) {
-  //         console.log("Response not ok");
-  //       }
-
-  //       const responseBody = await response.json();
-  //       console.log(responseBody);
-  //       setResponseData(responseBody);
-  //       localStorage.setItem("allPolls", JSON.stringify(responseBody));
-
-  //       const promotedResponseBody = await promotedResponse.json();
-  //       setPromoted(promotedResponseBody);
-  //       localStorage.setItem(
-  //         "promotedPolls",
-  //         JSON.stringify(promotedResponseBody)
-  //       );
-
-  //       const suggestedBody = await suggestedResponse.json();
-  //       setSuggested(suggestedBody);
-  //       localStorage.setItem("suggestedPolls", JSON.stringify(suggestedBody));
-  //       // Check if responseData is not null before mapping
-  //     } catch (error) {
-  //       console.log(error);
-  //       // Handle errors as needed
-  //     } finally {
-  //       // setIsLoading(true); // Move this line if needed based on your requirement
-  //       console.log("Finally block executed");
-  //     }
-  //   };
-
-  //   makeRequest();
-  // }, []);
-
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-
-  // const castVote = async (pollsId, content, cost) => {
-  //   const data = {
-  //     post_id: pollsId,
-  //     content: content,
-  //     cost: cost,
-  //   };
-  //   try {
-  //     const token = localStorage.getItem("authTOken");
-  //     const response = await fetch(`${url}/poll/votes/`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Token ${token}`,
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-
-  //     if (!response.ok) {
-  //       console.log("Response not ok");
-  //     }
-
-  //     const responseBody = await response.json();
-  //     console.log(responseBody);
-
-  //     // Check if responseData is not null before mapping
-  //   } catch (error) {
-  //     console.log(error);
-  //     // Handle errors as needed
-  //   } finally {
-  //   }
-  // };
-
-  // const retrieved = localStorage.getItem("suggestedPolls");
-  // const retrievedArrayString = JSON.parse(retrieved);
-  // const promotedPollsretrieved = localStorage.getItem("promotedPolls");
-  // const promotedPollsArrayString = JSON.parse(promotedPollsretrieved);
-  // const allPollsretrieved = localStorage.getItem("allPolls");
-  // const allPollsArrayString = JSON.parse(allPollsretrieved);
 
   const [Notify, setNotify] = useState(false);
   const [CastVote, setCastVote] = useState(false);
@@ -157,7 +42,13 @@ const MyPolls = () => {
   const [viewResults, setViewResults] = useState(false);
   const nav = useNavigate();
 
+  const [pollsDetails, setPollsDetails] = useState([]);
+  console.log("pollsDetails", pollsDetails);
+
+  const [loading, setLoading] = useState(true);
+
   const goBack = () => nav("/Voting");
+
   const HandleNotification = () => {
     setNotify(true);
   };
@@ -187,107 +78,113 @@ const MyPolls = () => {
   };
 
   const options = [
-    { title: "Python", percentage: "30" },
-    { title: "Java", percentage: "40" },
+    { title: "Python", percentage: "20" },
+    { title: "Java", percentage: "10" },
   ];
 
   const renderPolls = () => {
     switch (viewType) {
       case "active":
-        return (
-          <>
-            <Polls
-              onClick={HandlePoll}
-              authorName="Pelz Adetoye"
-              createdAt="Today @ 12:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="2 days remaining"
-              totalVotes="500"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-              myPolls={true}
-              onClose={handleShowcloseModal}
-              onView={handleViewResults}
-            />
-            <Polls
-              // onClick={HandlePoll}
-              authorName="Ade Michael"
-              createdAt="Yesterday @ 12:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="4 days remaining"
-              totalVotes="200"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-              myPolls={true}
-              onClose={handleShowcloseModal}
-              onView={handleViewResults}
-            />
-          </>
-        );
+        if (!pollsDetails || pollsDetails.length === 0) {
+          return <p className="mt-20">Please wait...</p>;
+        } else {
+          const isActive = pollsDetails.filter((poll) => !poll.is_active);
+          return isActive.length > 0 ? (
+            isActive?.map((poll, index) => (
+              <Polls
+                key={index}
+                onClick={HandlePoll}
+                authorName={poll.username}
+                createdAt={poll.created_at}
+                question={poll.question}
+                options={options} // take note
+                daysRemaining={poll.duration}
+                totalVotes={poll.vote_count}
+                backgroundImageUrl={
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                } // take note
+                myPolls={true}
+                onClose={handleShowcloseModal}
+                onView={handleViewResults}
+              />
+            ))
+          ) : (
+            <p className="mt-20">No active polls</p>
+          );
+        }
       case "ended":
-        return (
-          <Polls
-            authorName="Adekola Tony"
-            createdAt="Today @ 10:09am"
-            question="What is your preferred programming language?"
-            options={options}
-            daysRemaining="5 days remaining"
-            totalVotes="500"
-            backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-            myPolls={true}
-            onClose={handleShowcloseModal}
-            onView={handleViewResults}
-          />
-        );
+        if (!pollsDetails || pollsDetails.length === 0) {
+          return <p className="mt-20">Loading polls...</p>;
+        } else {
+          const isEnded = pollsDetails.filter((poll) => poll.is_ended);
+          return isEnded.length > 0 ? (
+            isEnded?.map((poll, index) => (
+              <Polls
+                key={index}
+                onClick={HandlePoll}
+                authorName={poll.username}
+                createdAt={poll.created_at}
+                question={poll.question}
+                options={options} // take note
+                daysRemaining={poll.duration}
+                totalVotes={poll.vote_count}
+                backgroundImageUrl={
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                } // take note
+                myPolls={true}
+                onClose={handleShowcloseModal}
+                onView={handleViewResults}
+              />
+            ))
+          ) : (
+            <p className="mt-20">No polls to display</p>
+          );
+        }
       case "all":
       default:
-        return (
-          <>
+        if (!pollsDetails || pollsDetails.length === 0) {
+          return <p className="mt-20">Loading polls...</p>;
+        } else {
+          return pollsDetails.map((poll, index) => (
             <Polls
+              key={index}
               onClick={HandlePoll}
-              authorName="Pelz Adetoye"
-              createdAt="Today @ 12:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="2 days remaining"
-              totalVotes="500"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+              authorName={poll.username}
+              createdAt={poll.created_at}
+              question={poll.question}
+              options={options} // take note
+              daysRemaining={poll.duration}
+              totalVotes={poll.vote_count}
+              backgroundImageUrl={
+                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+              } // take note
               myPolls={true}
               onClose={handleShowcloseModal}
               onView={handleViewResults}
             />
-            <Polls
-              authorName="Adekola Tony"
-              createdAt="Today @ 10:09am"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="5 days remaining"
-              totalVotes="500"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-              myPolls={true}
-              onClose={handleShowcloseModal}
-              onView={handleViewResults}
-            />
-            <Polls
-              // onClick={HandlePoll}
-              authorName="Ade Michael"
-              createdAt="Yesterday @ 12:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="4 days remaining"
-              totalVotes="200"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-              myPolls={true}
-              onClose={handleShowcloseModal}
-              onView={handleViewResults}
-            />
-          </>
-        );
+          ));
+        }
     }
   };
 
   const onSearch = () => {};
   const onFilterClick = () => {};
+
+  const handleMyPolls = async (e) => {
+    try {
+      const response = await MyPollsApi();
+      console.log("pollsresponse", response);
+      console.log("pollsdata", response?.data);
+      setPollsDetails(response?.data);
+      setLoading(false);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
+  useEffect(() => {
+    handleMyPolls();
+  }, []);
 
   return (
     <MainLayout>
@@ -295,7 +192,6 @@ const MyPolls = () => {
         {!Notify && !CastVote && !showMyPolls && (
           <>
             <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
-              {/* MOBILE */}
               <div className="flex gap-3">
                 <FaArrowLeftLong
                   onClick={goBack}
@@ -303,14 +199,10 @@ const MyPolls = () => {
                 />
                 <h1>My Polls</h1>
               </div>
-              <h2 className="mt-6 block lg:hidden">
-                Hello {userInfo.username}
-              </h2>
-              <span className="text-[14px] block lg:hidden">
-                What do you want to do today ?
-              </span>
 
-              <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
+              <div className="hidden lg:block">
+                <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
+              </div>
 
               <img
                 src="images/fifa.png"
@@ -318,16 +210,7 @@ const MyPolls = () => {
                 className="mt-6 w-full lg:mt-10"
               />
 
-              {/* MOBILE */}
-              <CreateCastActions
-                HandleNotification={HandleNotification}
-                HandleCastVote={HandleCastVote}
-                handleShowMyPolls={handleShowMyPolls}
-                showCreateModal={() => setShowCreateModal((prev) => !prev)}
-              />
-
-              {/* WEB */}
-              <div className="pb-[40px] hidden lg:block">
+              <div className="pb-[40px] ">
                 <MyPollsCategories
                   viewType={viewType}
                   setViewType={setViewType}
@@ -352,9 +235,6 @@ const MyPolls = () => {
         )}
 
         {/* MOBILE */}
-        {Notify && <Notifications setNotify={setNotify} />}
-
-        {/* MOBILE */}
         {CastVote && (
           <div className="px-4 lg:hidden pb-[40px]">
             <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
@@ -368,6 +248,7 @@ const MyPolls = () => {
             {renderPolls()}
           </div>
         )}
+
         {showMyPolls && (
           <div className="px-4 lg:hidden pb-[40px]">
             <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />

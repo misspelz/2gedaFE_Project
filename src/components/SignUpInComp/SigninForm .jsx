@@ -110,7 +110,7 @@ const SigninForm = () => {
         if (response.status === 400) {
           toast.error(result.error);
         } else if (response.status === 401) {
-          toast.error(result.data.detail);
+          toast.error(result.error);
         }
       } else {
         localStorage.setItem("authTOken", result.token);
@@ -118,7 +118,7 @@ const SigninForm = () => {
         const userInfo = await UserInfoApi();
         console.log("userInfo", userInfo);
         // && userInfo.data.is_verified === true
-        if (userInfo.status === 200 ) {
+        if (userInfo.status === 200) {
           localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
 
           toast.success("Log in successful");
@@ -132,7 +132,8 @@ const SigninForm = () => {
         }
       }
     } catch (error) {
-      toast.error(error);
+      console.log(error);
+      toast.error(error.message || "An error occurred");
     } finally {
       setIsLoading(false);
     }
