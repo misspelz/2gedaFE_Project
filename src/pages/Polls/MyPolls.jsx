@@ -78,8 +78,8 @@ const MyPolls = () => {
   };
 
   const options = [
-    { title: "Python", percentage: "20" },
-    { title: "Java", percentage: "10" },
+    { title: "C#", percentage: "20" },
+    { title: "Kotlin", percentage: "10" },
   ];
 
   const renderPolls = () => {
@@ -88,7 +88,7 @@ const MyPolls = () => {
         if (!pollsDetails || pollsDetails.length === 0) {
           return <p className="mt-20">Please wait...</p>;
         } else {
-          const isActive = pollsDetails.filter((poll) => !poll.is_active);
+          const isActive = pollsDetails.filter((poll) => poll.is_active);
           return isActive.length > 0 ? (
             isActive?.map((poll, index) => (
               <Polls
@@ -106,6 +106,7 @@ const MyPolls = () => {
                 myPolls={true}
                 onClose={handleShowcloseModal}
                 onView={handleViewResults}
+                className="border p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0"
               />
             ))
           ) : (
@@ -134,6 +135,7 @@ const MyPolls = () => {
                 myPolls={true}
                 onClose={handleShowcloseModal}
                 onView={handleViewResults}
+                className="border p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0"
               />
             ))
           ) : (
@@ -161,6 +163,7 @@ const MyPolls = () => {
               myPolls={true}
               onClose={handleShowcloseModal}
               onView={handleViewResults}
+              className="border p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0"
             />
           ));
         }

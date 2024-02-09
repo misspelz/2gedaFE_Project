@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import MainLayout from "Layout/MainLayout";
-import PollsSearch from "components/PollsComp/PollsSearch";
-import CanVote from "components/Modals/Vote/Can/CanVote";
-import SearchBox from "components/SearchComp/searchBox";
-import Notify from "components/Modals/Vote/Notification/Notify";
-// import { Modal } from "react-bootstrap";
-import { url } from "utils";
-import { IoIosNotificationsOutline, IoIosSearch } from "react-icons/io";
 import { Polls } from "components/PollsComp/Polls";
 import { Polls2 } from "components/PollsComp/Polls2";
 import { PollsNotification } from "components/PollsComp/RightComp";
@@ -16,150 +9,83 @@ import { FindPolls } from "components/PollsComp/FindPolls";
 import { Notifications } from "components/PollsComp/Notification";
 import { CreateCastActions } from "components/PollsComp/CreateCastActions";
 import { PromotedPolls } from "components/PollsComp/PromotedPolls";
-
 import CreatePoll from "components/Modals/Vote/CreatePoll/CreatePoll";
 import { Dialog, DialogContent } from "@mui/material";
-
 import Modal from "components/Modals/Modal";
 import { IoMdClose } from "react-icons/io";
 import InputField from "components/Commons/InputField";
 import ActionButton from "components/Commons/Button";
-
+import { MyPollsApi } from "utils/ApICalls";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Voting = () => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [responseData, setResponseData] = useState(null);
-  // const [promoted, setPromoted] = useState(null);
-  // const [suggested, setSuggested] = useState(null);
-
   const userInfoString = localStorage.getItem("2gedaUserInfo");
 
   const userInfo = JSON.parse(userInfoString);
-  // console.log("userInfo", userInfo);
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
+  const [selectedPoll, setSelectedPoll] = useState(false);
+  // console.log("singlePoll", selectedPoll);
 
-  //   const token = localStorage.getItem("authTOken");
-  //   console.log(`Token ${token}`);
-  //   const makeRequest = async () => {
-  //     try {
-  //       const promotedResponse = await fetch(`${url}/poll/promoted/`, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //           Authorization: `Token ${token}`,
-  //         },
-  //       });
-
-  //       const response = await fetch(`${url}/poll/polls/`, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //           Authorization: `Token ${token}`,
-  //         },
-  //       });
-
-  //       const suggestedResponse = await fetch(`${url}/poll/suggested-polls/`, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //           Authorization: `Token ${token}`,
-  //         },
-  //       });
-
-  //       if (!response.ok) {
-  //         console.log("Response not ok");
-  //       }
-
-  //       const responseBody = await response.json();
-  //       console.log(responseBody);
-  //       setResponseData(responseBody);
-  //       localStorage.setItem("allPolls", JSON.stringify(responseBody));
-
-  //       const promotedResponseBody = await promotedResponse.json();
-  //       setPromoted(promotedResponseBody);
-  //       localStorage.setItem(
-  //         "promotedPolls",
-  //         JSON.stringify(promotedResponseBody)
-  //       );
-
-  //       const suggestedBody = await suggestedResponse.json();
-  //       setSuggested(suggestedBody);
-  //       localStorage.setItem("suggestedPolls", JSON.stringify(suggestedBody));
-  //       // Check if responseData is not null before mapping
-  //     } catch (error) {
-  //       console.log(error);
-  //       // Handle errors as needed
-  //     } finally {
-  //       // setIsLoading(true); // Move this line if needed based on your requirement
-  //       console.log("Finally block executed");
-  //     }
-  //   };
-
-  //   makeRequest();
-  // }, []);
-
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-
-  // const castVote = async (pollsId, content, cost) => {
-  //   const data = {
-  //     post_id: pollsId,
-  //     content: content,
-  //     cost: cost,
-  //   };
-  //   try {
-  //     const token = localStorage.getItem("authTOken");
-  //     const response = await fetch(`${url}/poll/votes/`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Token ${token}`,
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-
-  //     if (!response.ok) {
-  //       console.log("Response not ok");
-  //     }
-
-  //     const responseBody = await response.json();
-  //     console.log(responseBody);
-
-  //     // Check if responseData is not null before mapping
-  //   } catch (error) {
-  //     console.log(error);
-  //     // Handle errors as needed
-  //   } finally {
-  //   }
-  // };
-
-  // const retrieved = localStorage.getItem("suggestedPolls");
-  // const retrievedArrayString = JSON.parse(retrieved);
-  // const promotedPollsretrieved = localStorage.getItem("promotedPolls");
-  // const promotedPollsArrayString = JSON.parse(promotedPollsretrieved);
-  // const allPollsretrieved = localStorage.getItem("allPolls");
-  // const allPollsArrayString = JSON.parse(allPollsretrieved);
-
-  const [selectedPoll, setSelectedPoll] = useState(null);
   const [Notify, setNotify] = useState(false);
   const [CastVote, setCastVote] = useState(false);
   const [viewType, setViewType] = useState("all");
 
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  // const [pollModal, setPollModal] = useState(true);
   const [PaidPoll, setPaidPoll] = useState(false);
   const [PayNow, setPayNow] = useState(false);
   const [Success, setSuccess] = useState(false);
   const [showPaidVotes, setShowPaidVotes] = useState(false);
+  const [pollsDetails, setPollsDetails] = useState([]);
+  console.log("pollsDetails", pollsDetails);
 
+  const [singlePoll, setSinglePoll] = useState({});
+  console.log("singlePoll", singlePoll);
+
+  const [loading, setLoading] = useState(true);
+
+  const [showCloseModal, setShowCloseModal] = useState(false);
+  const [viewResults, setViewResults] = useState(false);
+  const [numberOfVotes, setNumberOfVotes] = useState("");
+  const [selectedCurrency, setSelectedCurrency] = useState("NGN");
+  const [conversionRate, setConversionRate] = useState(1);
+  const [amount, setAmount] = useState(0);
+
+  const [payNowAmount, setPayNowAmount] = useState(0); // Amount to be paid
+
+  const handleNumberOfVotesChange = (e) => {
+    const votes = parseFloat(e.target.value);
+    setNumberOfVotes(votes);
+    // Calculate amount based on the number of votes and rate per vote (2000 per vote)
+    setPayNowAmount(
+      numberOfVotes * 2000 * (selectedCurrency === "USD" ? 1 / 1900 : 1)
+    );
+  };
+
+  const handleCurrencyChange = (e) => {
+    const currency = e.target.value;
+    setSelectedCurrency(currency);
+    // Update payment amount based on the selected currency
+    setPayNowAmount(numberOfVotes * 2000 * (currency === "USD" ? 1 / 1900 : 1));
+  };
+
+  useEffect(() => {
+    // Fetch conversion rate from API based on selected currency
+    const fetchConversionRate = async () => {
+      try {
+        const response = await fetch(
+          `API_URL?base=${selectedCurrency}&symbols=USD`
+        );
+        const data = await response.json();
+        setConversionRate(data.rates.USD);
+      } catch (error) {
+        console.error("Error fetching conversion rate: ", error);
+      }
+    };
+
+    fetchConversionRate();
+  }, [selectedCurrency]);
 
   const HandleNotification = () => {
     setNotify(true);
@@ -170,85 +96,130 @@ const Voting = () => {
   };
 
   const HandlePoll = (pollData) => {
-    setSelectedPoll(pollData);
+    console.log("pollData", pollData);
+    setSinglePoll(pollData);
+    setSelectedPoll(true);
     setShowPaidVotes(false);
   };
 
-  // const HandlePollModal = () => {
-  //   setPollModal(false);
-  // };
+  const handleShowcloseModal = () => {
+    setShowCloseModal((prev) => !prev);
+  };
+
+  const handleViewResults = () => {
+    setViewResults((prev) => !prev);
+  };
 
   const options = [
     { title: "Python", percentage: "30" },
     { title: "Java", percentage: "40" },
   ];
 
+  const handleMyPolls = async (e) => {
+    try {
+      const response = await MyPollsApi();
+      console.log("pollsresponse", response);
+      console.log("pollsdata", response?.data);
+      setPollsDetails(response?.data);
+      setLoading(false);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
+  useEffect(() => {
+    handleMyPolls();
+  }, []);
+
   const renderPolls = () => {
     switch (viewType) {
       case "private":
-        return (
-          <>
-            <Polls
-              onClick={HandlePoll}
-              authorName="Pelz Adetoye"
-              createdAt="Today @ 12:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="2 days remaining"
-              totalVotes="500"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
-            <Polls
-              // onClick={HandlePoll}
-              authorName="Ade Michael"
-              createdAt="Yesterday @ 12:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="4 days remaining"
-              totalVotes="200"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
-          </>
-        );
+        if (!pollsDetails || pollsDetails.length === 0) {
+          return <p className="mt-20">Please wait...</p>;
+        } else {
+          const isPrivate = pollsDetails.filter(
+            (poll) => poll.privacy.toLowerCase() === "private"
+          );
+          return isPrivate.length > 0 ? (
+            isPrivate?.map((poll, index) => (
+              <Polls
+                key={index}
+                onClick={() => HandlePoll(poll)}
+                authorName={poll.username}
+                createdAt={poll.created_at}
+                question={poll.question}
+                options={options} // take note
+                daysRemaining={poll.duration}
+                totalVotes={poll.vote_count}
+                backgroundImageUrl={
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                } // take note
+                // myPolls={true}
+                // onClose={handleShowcloseModal}
+                // onView={handleViewResults}
+                className="border p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0"
+              />
+            ))
+          ) : (
+            <p className="mt-20">No polls to display</p>
+          );
+        }
       case "public":
-        return (
-          <Polls
-            authorName="Adekola Tony"
-            createdAt="Today @ 10:09am"
-            question="What is your preferred programming language?"
-            options={options}
-            daysRemaining="5 days remaining"
-            totalVotes="500"
-            backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-          />
-        );
+        if (!pollsDetails || pollsDetails.length === 0) {
+          return <p className="mt-20">Loading polls...</p>;
+        } else {
+          const isPublic = pollsDetails.filter(
+            (poll) => poll.privacy.toLowerCase() === "public"
+          );
+          return isPublic.length > 0 ? (
+            isPublic?.map((poll, index) => (
+              <Polls
+                key={index}
+                onClick={() => HandlePoll(poll)}
+                authorName={poll.username}
+                createdAt={poll.created_at}
+                question={poll.question}
+                options={options} // take note
+                daysRemaining={poll.duration}
+                totalVotes={poll.vote_count}
+                backgroundImageUrl={
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                } // take note
+                // myPolls={true}
+                // onClose={handleShowcloseModal}
+                // onView={handleViewResults}
+                className="border p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0"
+              />
+            ))
+          ) : (
+            <p className="mt-20">No polls to display</p>
+          );
+        }
       case "all":
       default:
-        return (
-          <>
+        if (!pollsDetails || pollsDetails.length === 0) {
+          return <p className="mt-20">Loading polls...</p>;
+        } else {
+          return pollsDetails.map((poll, index) => (
             <Polls
-              // onClick={HandlePoll}
-              authorName="Alani David"
-              createdAt="Today @ 2:09pm"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="1 day remaining"
-              totalVotes="100"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+              key={index}
+              onClick={() => HandlePoll(poll)}
+              authorName={poll.username}
+              createdAt={poll.created_at}
+              question={poll.question}
+              options={options} // take note
+              daysRemaining={poll.duration}
+              totalVotes={poll.vote_count}
+              backgroundImageUrl={
+                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+              } // take note
+              // myPolls={true}
+              // onClose={handleShowcloseModal}
+              // onView={handleViewResults}
+              className="border p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0"
             />
-            <Polls2 />
-            <Polls
-              // onClick={HandlePoll}
-              authorName="Joseph Jones"
-              createdAt="Today @ 10:09am"
-              question="What is your preferred programming language?"
-              options={options}
-              daysRemaining="5 days remaining"
-              totalVotes="500"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
-          </>
-        );
+          ));
+        }
     }
   };
 
@@ -256,7 +227,9 @@ const Voting = () => {
   const onFilterClick = () => {};
 
   const HandlePaidPoll = () => {
-    setPaidPoll(true);
+    if (singlePoll.type.toLowerCase() === "paid") {
+      setPaidPoll(true);
+    }
   };
 
   const HandlePayNow = () => {
@@ -304,15 +277,6 @@ const Voting = () => {
                 HandleCastVote={HandleCastVote}
                 showCreateModal={() => setShowCreateModal((prev) => !prev)}
               />
-
-              {/* WEB */}
-              <div className="pb-[40px] hidden lg:block">
-                <h2 className="mt-4">Suggested Polls</h2>
-                <SuggestedPolls viewType={viewType} setViewType={setViewType} />
-                <h2>Promoted Polls</h2>
-                <PromotedPolls viewType={viewType} setViewType={setViewType} />
-                {renderPolls()}
-              </div>
             </div>
           )}
 
@@ -330,20 +294,51 @@ const Voting = () => {
                 className="mt-6 w-full lg:mt-10"
               />
               <h2 className="mt-4">Suggested Polls</h2>
-              <SuggestedPolls viewType={viewType} setViewType={setViewType} />
+              <SuggestedPolls HandlePoll={HandlePoll} />
               <h2>Promoted Polls</h2>
-              <PromotedPolls viewType={viewType} setViewType={setViewType} />
+              <PromotedPolls HandlePoll={HandlePoll} />
+
+              {/* tabs */}
+              <div className="flex justify-between  mt-16 lg:mt-20">
+                <button
+                  className={`border-1 border-purple-900 text-purple-900 p-3 rounded-[40px] w-[30%] text-[12px] ${
+                    viewType === "all" ? "bg-purple-900 text-white" : ""
+                  }`}
+                  onClick={() => setViewType("all")}
+                >
+                  All
+                </button>
+                <button
+                  className={`border-1 border-purple-900 text-purple-900 p-3 rounded-[40px] w-[30%] text-[12px] ${
+                    viewType === "public" ? "bg-purple-900 text-white" : ""
+                  }`}
+                  onClick={() => setViewType("public")}
+                >
+                  Public
+                </button>
+                <button
+                  className={`border-1 border-purple-900 text-purple-900 p-3 rounded-[40px] w-[30%] text-[12px] ${
+                    viewType === "private" ? "bg-purple-900 text-white" : ""
+                  }`}
+                  onClick={() => setViewType("private")}
+                >
+                  Private
+                </button>
+              </div>
               {renderPolls()}
             </div>
           )}
 
           {/* WEB */}
-          <PollsNotification setNotify={setNotify} showCreateModal={() => setShowCreateModal((prev) => !prev)} />
+          <PollsNotification
+            setNotify={setNotify}
+            showCreateModal={() => setShowCreateModal((prev) => !prev)}
+          />
         </div>
       )}
 
       {/* WEB */}
-      {/* {!selectedPoll && ( */}
+
       <div className=" lg:bg-[#f5f5f5] lg:flex w-full pt-36  lg:px-10 lg:gap-6 hidden">
         {!Notify && !CastVote && (
           <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
@@ -372,9 +367,37 @@ const Voting = () => {
             {/* WEB */}
             <div className="pb-[40px] hidden lg:block">
               <h2 className="mt-4">Suggested Polls</h2>
-              <SuggestedPolls viewType={viewType} setViewType={setViewType} />
+              <SuggestedPolls HandlePoll={HandlePoll} />
               <h2>Promoted Polls</h2>
-              <PromotedPolls viewType={viewType} setViewType={setViewType} />
+              <PromotedPolls HandlePoll={HandlePoll} />
+
+              {/* tabs */}
+              <div className="flex justify-between  mt-16 lg:mt-20">
+                <button
+                  className={`border-1 border-purple-900 text-purple-900 p-3 rounded-[40px] w-[30%] text-[12px] ${
+                    viewType === "all" ? "bg-purple-900 text-white" : ""
+                  }`}
+                  onClick={() => setViewType("all")}
+                >
+                  All
+                </button>
+                <button
+                  className={`border-1 border-purple-900 text-purple-900 p-3 rounded-[40px] w-[30%] text-[12px] ${
+                    viewType === "public" ? "bg-purple-900 text-white" : ""
+                  }`}
+                  onClick={() => setViewType("public")}
+                >
+                  Public
+                </button>
+                <button
+                  className={`border-1 border-purple-900 text-purple-900 p-3 rounded-[40px] w-[30%] text-[12px] ${
+                    viewType === "private" ? "bg-purple-900 text-white" : ""
+                  }`}
+                  onClick={() => setViewType("private")}
+                >
+                  Private
+                </button>
+              </div>
               {renderPolls()}
             </div>
             <Dialog
@@ -401,9 +424,9 @@ const Voting = () => {
               className="mt-6 w-full lg:mt-10"
             />
             <h2 className="mt-4">Suggested Polls</h2>
-            <SuggestedPolls viewType={viewType} setViewType={setViewType} />
+            <SuggestedPolls HandlePoll={HandlePoll} />
             <h2>Promoted Polls</h2>
-            <PromotedPolls viewType={viewType} setViewType={setViewType} />
+            <PromotedPolls HandlePoll={HandlePoll} />
             {renderPolls()}
           </div>
         )}
@@ -414,7 +437,6 @@ const Voting = () => {
           showCreateModal={() => setShowCreateModal((prev) => !prev)}
         />
       </div>
-      {/* )} */}
 
       {/* MOBILE */}
       {selectedPoll && (
@@ -429,16 +451,15 @@ const Voting = () => {
             </div>
 
             <Polls
-              // className="w-full"
-
+              // className="w-full" singlePoll
               onClick={HandlePaidPoll}
-              authorName="Pelz Ade"
-              createdAt="Today @ 12:09pm"
-              question="What is your preferred programming language?"
+              authorName={singlePoll.username}
+              createdAt={singlePoll.created_at}
+              question={singlePoll.question}
               options={options}
-              daysRemaining="2 days remaining"
-              totalVotes="500"
-              backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+              daysRemaining={singlePoll.daysRemaining || "No duration"}
+              totalVotes={singlePoll.vote_count}
+              backgroundImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
             />
 
             {showPaidVotes && (
@@ -461,10 +482,7 @@ const Voting = () => {
           <Modal>
             <div className="bg-white w-[50%] p-14">
               <div className="w-full flex justify-end">
-                <div
-                  // onClick={HandlePollModal}
-                  className=" flex justify-between w-[60%] "
-                >
+                <div className=" flex justify-between w-[60%]">
                   <div className="text-[20px] font-bold">Cast Vote</div>
                   <IoMdClose
                     size={25}
@@ -477,30 +495,73 @@ const Voting = () => {
               <Polls
                 onClick={HandlePaidPoll}
                 className="w-[100%] p-6 mt-4 cursor-pointer"
-                authorName="Pelz Adetoye"
-                createdAt="Today @ 12:09pm"
-                question="What is your preferred programming language?"
+                authorName={singlePoll.username}
+                createdAt={singlePoll.created_at}
+                question={singlePoll.question}
                 options={options}
-                daysRemaining="2 days remaining"
-                totalVotes="500"
-                backgroundImageUrl="https://images.pexels.com/photos/4063861/pexels-photo-4063861.jpeg?auto=compress&cs=tinysrgb&w=600"
+                daysRemaining={singlePoll.daysRemaining || "No duration"}
+                totalVotes={singlePoll.vote_count}
+                backgroundImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
               />
 
               {showPaidVotes && (
-              <div className="mt-20 text-center bg-orange-400 py-3 rounded-[30px] w-[35%] mx-auto text-white ">
-                You have 40 votes
-              </div>
-            )}
+                <div className="mt-20 text-center bg-orange-400 py-3 rounded-[30px] w-[35%] mx-auto text-white ">
+                  You have {numberOfVotes} votes
+                </div>
+              )}
             </div>
           </Modal>
         </div>
       )}
 
       {PaidPoll && !PayNow && (
+        // <Modal>
+        //   <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
+        //     <h3 className="font-bold text-center text-[18px]">Paid Poll</h3>
+
+        //     <h6 className="mt-8 text-[16px] text-center">
+        //       This is a paid poll, your contribution ensures meaningful
+        //       insights. Participate now to support quality content and exclusive
+        //       results
+        //     </h6>
+
+        //     <div className="mt-8 ">
+        //       <div className="flex gap-4 mb-10">
+        //         <InputField
+        //           placeholder={"Number of votes"}
+        //           type={"text"}
+        //           value={numberOfVotes}
+        //           onChange={(e) => setNumberOfVotes(e.target.value)}
+        //         />
+
+        //         <select
+        //           name=""
+        //           id=""
+        //           className="w-[40%] rounded-lg mt-[10px] outline-none"
+        //         >
+        //           <option value="NGN">NGN</option>
+        //           <option value="USD" className="text-[20px]">
+        //             USD
+        //           </option>
+        //         </select>
+        //       </div>
+        //       <ActionButton
+        //         label={"Proceed to Pay"}
+        //         bg={"pruplr"}
+        //         onClick={HandlePayNow}
+        //         className="font-semibold"
+        //       />
+        //       <ActionButton
+        //         label={"Go Back"}
+        //         className="mt-4 rounded-[10px] hover:text-[#fff] hover:bg-[pruplr] border-[1px] border-purple-600 text-purple-600 font-semibold"
+        //         onClick={() => setPaidPoll(false)}
+        //       />
+        //     </div>
+        //   </div>
+        // </Modal>
         <Modal>
           <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
             <h3 className="font-bold text-center text-[18px]">Paid Poll</h3>
-
             <h6 className="mt-8 text-[16px] text-center">
               This is a paid poll, your contribution ensures meaningful
               insights. Participate now to support quality content and exclusive
@@ -512,25 +573,28 @@ const Voting = () => {
                 <InputField
                   placeholder={"Number of votes"}
                   type={"text"}
-
-                  // onChange={handlePasswordChange}
+                  value={numberOfVotes}
+                  onChange={handleNumberOfVotesChange}
                 />
-                <select name="" id="" className="w-[40%] rounded-lg mt-[10px] ">
+                <select
+                  name="currency"
+                  value={selectedCurrency}
+                  onChange={handleCurrencyChange}
+                  className="w-[40%] rounded-lg mt-[10px] outline-none"
+                >
                   <option value="NGN">NGN</option>
-                  <option value="USD" className="text-[20px]">
-                    USD
-                  </option>
+                  <option value="USD">USD</option>
                 </select>
               </div>
               <ActionButton
-                label={"Proceed to pay"}
+                label={"Proceed to Pay"}
                 bg={"pruplr"}
                 onClick={HandlePayNow}
+                className="font-semibold"
               />
               <ActionButton
                 label={"Go Back"}
-                className="mt-4  rounded-[10px]"
-                // bg={"pruplr"}
+                className="mt-4 rounded-[10px] hover:text-[#fff] hover:bg-[pruplr] border-[1px] border-purple-600 text-purple-600 font-semibold"
                 onClick={() => setPaidPoll(false)}
               />
             </div>
@@ -544,14 +608,18 @@ const Voting = () => {
             <h6 className="text-[16px] text-center">You are paying</h6>
 
             <h3 className="text-[30px] text-center text-purple-600 mt-4">
-              NGN16,000.00
+              {selectedCurrency === "NGN" ? "NGN" : "$"}
+              {payNowAmount.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </h3>
 
             <h6 className="mt-4 text-[16px] text-center">Being payment for</h6>
 
             <div className="flex justify-center">
               <h3 className="mt-4 text-center p-2 w-[100px] rounded-[10px] bg-purple-300">
-                40 votes
+                {numberOfVotes} votes
               </h3>
             </div>
 
@@ -564,7 +632,6 @@ const Voting = () => {
               <ActionButton
                 label={"Go Back"}
                 className="mt-4  rounded-[10px]"
-                // bg={"pruplr"}
                 onClick={() => setPayNow(false)}
               />
             </div>
@@ -576,11 +643,7 @@ const Voting = () => {
         <Modal>
           <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
             <div className="flex justify-center">
-              <img
-                src="images/success.png"
-                alt="payment-success-image"
-                // className="mt-6 w-full lg:mt-10"
-              />
+              <img src="images/success.png" alt="payment-success-image" />
             </div>
             <h6 className="mt-8 text-[16px] text-center">Payment Successful</h6>
 
@@ -594,206 +657,7 @@ const Voting = () => {
           </div>
         </Modal>
       )}
-
-      {/* <div className="main-containe bus-box-con "> */}
-      {/* <div className="left-side-container buss-all-container p-4"> */}
-      {/* <h2 className="head-line bus-dir ">Voting</h2>
-            <PollsSearch />
-            <img src="images/jumia.png" alt="" className="ads-img" />
-
-            <div className="pollsBox">
-              <h2 className="head-line bus-dir">Suggested polls</h2>
-              <div className="grid" style={{ overflowX: "auto" }}>
-                {suggested && suggested.length > 1 ? (
-                  suggested.map((item, index) => (
-                    <CanVote
-                      key={index}
-                      voteOptions={item.options_list ? item.options_list : []}
-                      creator={item.username ? item.username : "unknown user"}
-                      question={item.question ? item.question : ""}
-                      duration={item.duration ? item.duration : ""}
-                      castVote={castVote}
-                      voteId={item.vote_id ? item.vote_id : ""}
-                    />
-                  ))
-                ) : (
-                  <>
-                    {retrievedArrayString &&
-                      retrievedArrayString.length > 1 &&
-                      retrievedArrayString.map((item, index) => (
-                        <CanVote
-                          key={index}
-                          voteOptions={
-                            item.options_list ? item.options_list : []
-                          }
-                          creator={
-                            item.username ? item.username : "unknown user"
-                          }
-                          question={item.question ? item.question : ""}
-                          duration={item.duration ? item.duration : ""}
-                          castVote={castVote}
-                          voteId={item.vote_id ? item.vote_id : ""}
-                        />
-                      ))}
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="pollsBox">
-              <h2 className="head-line bus-dir">Promoted polls</h2>
-              <div className="grid" style={{ overflowX: "auto" }}>
-                {promoted && promoted.length > 1 ? (
-                  promoted.map((item, index) => (
-                    <CanVote
-                      key={index}
-                      voteOptions={item.options_list ? item.options_list : []}
-                      creator={item.username ? item.username : "unknown user"}
-                      question={item.question ? item.question : ""}
-                      duration={item.duration ? item.duration : ""}
-                      castVote={castVote}
-                      voteId={item.vote_id ? item.vote_id : ""}
-                    />
-                  ))
-                ) : (
-                  <>
-                    {promotedPollsArrayString &&
-                      promotedPollsArrayString.length > 1 &&
-                      promotedPollsArrayString.map((item, index) => (
-                        <CanVote
-                          key={index}
-                          voteOptions={
-                            item.options_list ? item.options_list : []
-                          }
-                          creator={
-                            item.username ? item.username : "unknown user"
-                          }
-                          question={item.question ? item.question : ""}
-                          duration={item.duration ? item.duration : ""}
-                          castVote={castVote}
-                          voteId={item.vote_id ? item.vote_id : ""}
-                        />
-                      ))}
-                  </>
-                )}
-              </div>
-            </div> */}
-
-      {/* <div className="tabs">
-              <div className="oval purple">All</div>
-              <div className="oval">Public</div>
-              <div className="oval">Private</div>
-            </div> */}
-
-      {/* <div className="col">
-              {responseData && responseData.length > 1 ? (
-                responseData.map((item, index) => (
-                  <CanVote
-                    key={index}
-                    voteOptions={item.options_list ? item.options_list : []}
-                    creator={item.username ? item.username : "unknown user"}
-                    question={item.question ? item.question : ""}
-                    duration={item.duration ? item.duration : ""}
-                    castVote={castVote}
-                    voteId={item.vote_id ? item.vote_id : ""}
-                  />
-                ))
-              ) : (
-                <>
-                  {allPollsArrayString &&
-                    allPollsArrayString.length > 1 &&
-                    allPollsArrayString.map((item, index) => (
-                      <CanVote
-                        key={index}
-                        voteOptions={item.options_list ? item.options_list : []}
-                        creator={item.username ? item.username : "unknown user"}
-                        question={item.question ? item.question : ""}
-                        duration={item.duration ? item.duration : ""}
-                        castVote={castVote}
-                        voteId={item.vote_id ? item.vote_id : ""}
-                      />
-                    ))}
-                </>
-              )} */}
-
-      {/* <img src="images/jumia.png" alt="" className="ads-img" />
-              <CanVote />
-              <CanVote onClick={openModal} />
-              <CanVote /> */}
-      {/* </div> */}
-      {/* </div> */}
-
-      {/* <div
-            className="left-side-container"
-            style={{
-              maxWidth: "525px",
-              padding: "20px",
-              background: "#fff",
-            }}
-          >
-            <SearchBox />
-            <Notify />
-          </div> */}
-
-      {/* <Modal
-            isOpen={isModalOpen}
-            onRequestClose={closeModal}
-            contentLabel="Connect Modal"
-          >
-            <CanVote />
-            <button onClick={closeModal}>Close Modal</button>
-          </Modal>
-        </div> */}
     </MainLayout>
   );
 };
-
-// const Votingg = () => {
-//   const [responseData, setResponseData] = useState(null);
-
-//   useEffect(() => {
-//     window.scrollTo(0, 0);
-
-//     const token = localStorage.getItem("authTOken");
-//     console.log(`Token ${token}`);
-//     const makeRequest = async () => {
-//       try {
-//         const response = await fetch(`${url}/poll/polls/`, {
-//           method: "GET",
-//           headers: {
-//             "Content-Type": "multipart/form-data",
-//             Authorization: `Token ${token}`,
-//           },
-//         });
-
-//         if (!response.ok) {
-//           console.log("Response not ok");
-//         }
-
-//         const responseBody = await response.json();
-//         console.log(responseBody);
-//         setResponseData(responseBody);
-
-//         // Check if responseData is not null before mapping
-//       } catch (error) {
-//         console.log(error);
-//         // Handle errors as needed
-//       } finally {
-//         // setIsLoading(true); // Move this line if needed based on your requirement
-//         console.log("Finally block executed");
-//       }
-//     };
-
-//     makeRequest();
-//   }, []);
-
-//   return (
-//     <>
-//       {responseData &&
-//         responseData.length > 1 &&
-//         responseData.map((item, index) => <p>Voting</p>)}
-//     </>
-//   );
-// };
-
 export default Voting;

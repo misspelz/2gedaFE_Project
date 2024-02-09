@@ -2,6 +2,7 @@ import axios from "axios";
 import { url } from "./index";
 
 const token = localStorage.getItem("authTOken");
+console.log("token", token)
 
 export const UserInfoApi = () => {
   let config = {

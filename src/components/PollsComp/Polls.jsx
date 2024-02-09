@@ -12,35 +12,12 @@ export const Polls = ({
   daysRemaining,
   totalVotes,
   backgroundImageUrl,
-  className = "border w-[100%] p-3 mt-4 rounded-[25px] cursor-pointer",
+  className = "border w-full max-w-[360px] p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0",
   myPolls,
   onClose,
   onView,
 }) => {
-  // const [optionPercentages, setOptionPercentages] = useState(
-  //   options?.map((option) => parseInt(option.percentage.replace("%", ""), 10))
-  // );
-
-  // const updatePercentage = (index, newPercentage) => {
-  //   const updatedPercentages = [...optionPercentages];
-  //   updatedPercentages[index] = newPercentage;
-
-  //   // Calculate the remaining percentage to distribute among other options
-  //   const remainingPercentage = 100 - newPercentage;
-
-  //   // Decrease other options proportionally
-  //   updatedPercentages.forEach((percentage, i) => {
-  //     if (i !== index) {
-  //       const decreasePercentage =
-  //         (remainingPercentage / (optionPercentages.length - 1)) *
-  //         (100 - newPercentage);
-  //       updatedPercentages[i] = percentage - decreasePercentage;
-  //     }
-  //   });
-
-  //   setOptionPercentages(updatedPercentages);
-  // };
-
+  
   const formatCreatedAt = (createdAt) => {
     const date = new Date(createdAt);
     const options = {
@@ -134,6 +111,7 @@ export const Polls = ({
           {totalNumVotes} votes
         </div>
       </div>
+
       {myPolls && (
         <div className="w-full flex flex-row mt-4 gap-6 lg:gap-10">
           <div className=" flex flex-col w-full gap-4 justify-start">
