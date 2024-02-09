@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 import MainLayout from "Layout/MainLayout";
 import { Polls } from "components/PollsComp/Polls";
-import { Polls2 } from "components/PollsComp/Polls2";
 import { PollsNotification } from "components/PollsComp/RightComp";
 import { SuggestedPolls } from "components/PollsComp/SuggestedPolls";
 import { FindPolls } from "components/PollsComp/FindPolls";
@@ -17,7 +16,6 @@ import InputField from "components/Commons/InputField";
 import ActionButton from "components/Commons/Button";
 import { MyPollsApi } from "utils/ApICalls";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 const Voting = () => {
   const userInfoString = localStorage.getItem("2gedaUserInfo");
@@ -50,18 +48,31 @@ const Voting = () => {
   const [numberOfVotes, setNumberOfVotes] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState("NGN");
   const [conversionRate, setConversionRate] = useState(1);
-  const [amount, setAmount] = useState(0);
 
-  const [payNowAmount, setPayNowAmount] = useState(0); // Amount to be paid
+  const [payNowAmount, setPayNowAmount] = useState(0); 
 
   const handleNumberOfVotesChange = (e) => {
-    const votes = parseFloat(e.target.value);
-    setNumberOfVotes(votes);
-    // Calculate amount based on the number of votes and rate per vote (2000 per vote)
-    setPayNowAmount(
-      numberOfVotes * 2000 * (selectedCurrency === "USD" ? 1 / 1900 : 1)
-    );
+    const input = e.target.value;
+    // Check if input is a valid number
+    if (!isNaN(input)) {
+      const votes = parseFloat(input);
+      setNumberOfVotes(votes);
+      // Calculate amount based on the number of votes and rate per vote (2000 per vote)
+      setPayNowAmount(votes * 2000 * (selectedCurrency === "USD" ? 1 / 1900 : 1));
+    } else {
+      // Handle invalid input, for example, clear the input field or show an error message
+      // For now, setting the number of votes to empty string
+      setNumberOfVotes("");
+    }
   };
+  
+
+  // const handleNumberOfVotesChange = (e) => {
+  //   const votes = parseFloat(e.target.value);
+  //   setNumberOfVotes(votes);
+  //   // Calculate amount based on the number of votes and rate per vote (2000 per vote)
+  //   setPayNowAmount(votes * 2000 * (selectedCurrency === "USD" ? 1 / 1900 : 1));
+  // };
 
   const handleCurrencyChange = (e) => {
     const currency = e.target.value;
@@ -71,7 +82,6 @@ const Voting = () => {
   };
 
   useEffect(() => {
-    // Fetch conversion rate from API based on selected currency
     const fetchConversionRate = async () => {
       try {
         const response = await fetch(
@@ -247,6 +257,26 @@ const Voting = () => {
     setShowPaidVotes(true);
   };
 
+  const [castVotes, setCastVotes] = useState(false);
+
+  const CastPaidVotes = () => {
+    setCastVotes(true);
+  };
+
+  const [allVotesValue, setAllVotesValue] = useState(0);
+
+  const handleAll = () => {
+    setAllVotesValue(numberOfVotes);
+  };
+
+  const HandleVoteSubmit = () => {
+    toast.success("Vote Casted Successfully")
+    setAllVotesValue(null)
+    setCastVotes(false) 
+    setNumberOfVotes(""); 
+    setSelectedPoll(null)        
+  };
+
   return (
     <MainLayout>
       {/* MOBILE */}
@@ -338,7 +368,6 @@ const Voting = () => {
       )}
 
       {/* WEB */}
-
       <div className=" lg:bg-[#f5f5f5] lg:flex w-full pt-36  lg:px-10 lg:gap-6 hidden">
         {!Notify && !CastVote && (
           <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
@@ -481,33 +510,50 @@ const Voting = () => {
         <div className="hidden lg:flex">
           <Modal>
             <div className="bg-white w-[50%] p-14">
-              <div className="w-full flex justify-end">
-                <div className=" flex justify-between w-[60%]">
-                  <div className="text-[20px] font-bold">Cast Vote</div>
-                  <IoMdClose
-                    size={25}
-                    onClick={() => setSelectedPoll(null)}
-                    className="cursor-pointer"
+              {!castVotes && (
+                <div className="w-full flex justify-end">
+                  <div className=" flex justify-between w-[60%]">
+                    <div className="text-[20px] font-bold">Cast Vote</div>
+                    <IoMdClose
+                      size={25}
+                      onClick={() => setSelectedPoll(null)}
+                      className="cursor-pointer"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {!showPaidVotes &&  (
+                <Polls
+                  onClick={HandlePaidPoll}
+                  className="w-[100%] p-6 mt-4 cursor-pointer"
+                  authorName={singlePoll.username}
+                  createdAt={singlePoll.created_at}
+                  question={singlePoll.question}
+                  options={options}
+                  daysRemaining={singlePoll.daysRemaining || "No duration"}
+                  totalVotes={singlePoll.vote_count}
+                  backgroundImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                />
+              )}
+
+              {showPaidVotes && !castVotes && (
+                <>
+                  <Polls
+                    onClick={CastPaidVotes}
+                    className="w-[100%] p-6 mt-4 cursor-pointer"
+                    authorName={singlePoll.username}
+                    createdAt={singlePoll.created_at}
+                    question={singlePoll.question}
+                    options={options}
+                    daysRemaining={singlePoll.daysRemaining || "No duration"}
+                    totalVotes={singlePoll.vote_count}
+                    backgroundImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                   />
-                </div>
-              </div>
-
-              <Polls
-                onClick={HandlePaidPoll}
-                className="w-[100%] p-6 mt-4 cursor-pointer"
-                authorName={singlePoll.username}
-                createdAt={singlePoll.created_at}
-                question={singlePoll.question}
-                options={options}
-                daysRemaining={singlePoll.daysRemaining || "No duration"}
-                totalVotes={singlePoll.vote_count}
-                backgroundImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              />
-
-              {showPaidVotes && (
-                <div className="mt-20 text-center bg-orange-400 py-3 rounded-[30px] w-[35%] mx-auto text-white ">
-                  You have {numberOfVotes} votes
-                </div>
+                  <div className="mt-20 text-center bg-orange-400 py-3 rounded-[30px] w-[35%] mx-auto text-white ">
+                    You have {numberOfVotes} votes
+                  </div>
+                </>
               )}
             </div>
           </Modal>
@@ -515,50 +561,6 @@ const Voting = () => {
       )}
 
       {PaidPoll && !PayNow && (
-        // <Modal>
-        //   <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
-        //     <h3 className="font-bold text-center text-[18px]">Paid Poll</h3>
-
-        //     <h6 className="mt-8 text-[16px] text-center">
-        //       This is a paid poll, your contribution ensures meaningful
-        //       insights. Participate now to support quality content and exclusive
-        //       results
-        //     </h6>
-
-        //     <div className="mt-8 ">
-        //       <div className="flex gap-4 mb-10">
-        //         <InputField
-        //           placeholder={"Number of votes"}
-        //           type={"text"}
-        //           value={numberOfVotes}
-        //           onChange={(e) => setNumberOfVotes(e.target.value)}
-        //         />
-
-        //         <select
-        //           name=""
-        //           id=""
-        //           className="w-[40%] rounded-lg mt-[10px] outline-none"
-        //         >
-        //           <option value="NGN">NGN</option>
-        //           <option value="USD" className="text-[20px]">
-        //             USD
-        //           </option>
-        //         </select>
-        //       </div>
-        //       <ActionButton
-        //         label={"Proceed to Pay"}
-        //         bg={"pruplr"}
-        //         onClick={HandlePayNow}
-        //         className="font-semibold"
-        //       />
-        //       <ActionButton
-        //         label={"Go Back"}
-        //         className="mt-4 rounded-[10px] hover:text-[#fff] hover:bg-[pruplr] border-[1px] border-purple-600 text-purple-600 font-semibold"
-        //         onClick={() => setPaidPoll(false)}
-        //       />
-        //     </div>
-        //   </div>
-        // </Modal>
         <Modal>
           <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
             <h3 className="font-bold text-center text-[18px]">Paid Poll</h3>
@@ -631,15 +633,20 @@ const Voting = () => {
               />
               <ActionButton
                 label={"Go Back"}
-                className="mt-4  rounded-[10px]"
-                onClick={() => setPayNow(false)}
+                className="mt-4 rounded-[10px] hover:text-[#fff] hover:bg-[pruplr] border-[1px] border-purple-600 text-purple-600 font-semibold"
+                onClick={() => {
+                  setNumberOfVotes("");
+                  setSelectedCurrency("NGN");
+                  setPayNowAmount(0);
+                  setPayNow(false);
+                }}
               />
             </div>
           </div>
         </Modal>
       )}
 
-      {Success && (
+      {Success && !castVotes && (
         <Modal>
           <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
             <div className="flex justify-center">
@@ -652,6 +659,48 @@ const Voting = () => {
                 label={"Continue to Poll"}
                 bg={"pruplr"}
                 onClick={HandleContinue}
+              />
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {castVotes && (
+        <Modal>
+          <div className="w-[90%] lg:w-[30%] mx-auto bg-white px-16 py-20">
+            <div className="flex justify-end">
+              <IoMdClose
+                size={25}
+                onClick={() =>{
+                   setCastVotes(false)
+                   setAllVotesValue(null)
+                  }}
+                className="cursor-pointer"
+              />
+            </div>
+            <h6 className="mt-8 text-[16px] text-center">
+              How many votes do you want to cast for this selection?
+            </h6>
+            <div className="relative">
+              <InputField
+                placeholder={"Enter amount"}
+                type="text"
+                value={allVotesValue}
+                className="text-red-500"
+                onChange={(e) => setAllVotesValue(e.target.value)}
+              />
+              <button
+                className="absolute top-[28%] right-2 text-[13px] rounded-[5px] py-2 px-4 font-bold bg-[#D0D5DD]"
+                onClick={handleAll}
+              >
+                All
+              </button>
+            </div>
+            <div className="mt-8 ">
+              <ActionButton
+                label={"Vote"}
+                bg={"pruplr"}
+                onClick={HandleVoteSubmit}
               />
             </div>
           </div>
