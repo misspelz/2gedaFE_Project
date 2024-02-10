@@ -33,8 +33,6 @@ export const Polls = ({
     return date.toLocaleDateString("en-US", options);
   };
 
-
-
   const totalNumVotes = optionList?.reduce(
     (total, option) => total + option.all_vote,
     0
