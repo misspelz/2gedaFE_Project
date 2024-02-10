@@ -3,9 +3,11 @@ import { Polls } from "./Polls";
 import styles from "./SuggestedPolls.module.css";
 import { SuggestedPollsApi } from "utils/ApICalls";
 import toast from "react-hot-toast";
+import optionss from "utils/options.json";
 
-export const SuggestedPolls = () => {
+export const SuggestedPolls = ({ HandlePoll }) => {
   const [suggestedPolls, setSuggestedPolls] = useState([]);
+  console.log("suggestedPolls", suggestedPolls);
   const [loading, setLoading] = useState(true);
 
   const initialOptions = [
@@ -40,23 +42,25 @@ export const SuggestedPolls = () => {
   }
 
   return (
-    <div className={`${styles.container} mt-8 lg:mt-2`}>
-      <div className="flex gap-6 min-w-[800px]">
-        {suggestedPolls.slice(0, 3).map((poll, index) => (
-          <Polls
-            key={index}
-            authorName={poll.username}
-            createdAt={poll.created_at}
-            question={poll.question}
-            options={initialOptions}
-            daysRemaining={poll.daysRemaining}
-            totalVotes={poll.vote_count}
-            backgroundImageUrl={
-              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-            }
-          />
-        ))}
-      </div>
+    <div className="flex w-full gap-6  overflow-auto">
+      {suggestedPolls.slice(0, 4).map((poll, index) => (
+        <Polls
+          key={index}
+          onClick={() => HandlePoll(poll)}
+          authorName={poll.username}
+          createdAt={poll.created_at}
+          question={poll.question}
+          // options={initialOptions}
+          optionList={
+            poll?.options_list?.length > 0 ? poll?.options_list : optionss
+          }
+          daysRemaining={poll.daysRemaining || "No duration"}
+          totalVotes={poll.vote_count}
+          backgroundImageUrl={
+            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          }
+        />
+      ))}
     </div>
   );
 };
