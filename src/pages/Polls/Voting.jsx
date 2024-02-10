@@ -16,6 +16,7 @@ import InputField from "components/Commons/InputField";
 import ActionButton from "components/Commons/Button";
 import { MyPollsApi } from "utils/ApICalls";
 import toast from "react-hot-toast";
+import optionss from "utils/options.json";
 
 const Voting = () => {
   const userInfoString = localStorage.getItem("2gedaUserInfo");
@@ -49,7 +50,7 @@ const Voting = () => {
   const [selectedCurrency, setSelectedCurrency] = useState("NGN");
   const [conversionRate, setConversionRate] = useState(1);
 
-  const [payNowAmount, setPayNowAmount] = useState(0); 
+  const [payNowAmount, setPayNowAmount] = useState(0);
 
   const handleNumberOfVotesChange = (e) => {
     const input = e.target.value;
@@ -58,14 +59,15 @@ const Voting = () => {
       const votes = parseFloat(input);
       setNumberOfVotes(votes);
       // Calculate amount based on the number of votes and rate per vote (2000 per vote)
-      setPayNowAmount(votes * 2000 * (selectedCurrency === "USD" ? 1 / 1900 : 1));
+      setPayNowAmount(
+        votes * 2000 * (selectedCurrency === "USD" ? 1 / 1900 : 1)
+      );
     } else {
       // Handle invalid input, for example, clear the input field or show an error message
       // For now, setting the number of votes to empty string
       setNumberOfVotes("");
     }
   };
-  
 
   // const handleNumberOfVotesChange = (e) => {
   //   const votes = parseFloat(e.target.value);
@@ -158,7 +160,8 @@ const Voting = () => {
                 authorName={poll.username}
                 createdAt={poll.created_at}
                 question={poll.question}
-                options={options} // take note
+                // options={options}
+                optionList={poll.options_list.length > 0 ? poll.options_list : optionss}
                 daysRemaining={poll.duration}
                 totalVotes={poll.vote_count}
                 backgroundImageUrl={
@@ -189,7 +192,8 @@ const Voting = () => {
                 authorName={poll.username}
                 createdAt={poll.created_at}
                 question={poll.question}
-                options={options} // take note
+                // options={options}
+                optionList={poll.options_list.length > 0 ? poll.options_list : optionss}
                 daysRemaining={poll.duration}
                 totalVotes={poll.vote_count}
                 backgroundImageUrl={
@@ -217,15 +221,14 @@ const Voting = () => {
               authorName={poll.username}
               createdAt={poll.created_at}
               question={poll.question}
-              options={options} // take note
+              optionList={
+                poll.options_list.length > 0 ? poll.options_list : optionss
+              }
               daysRemaining={poll.duration}
               totalVotes={poll.vote_count}
               backgroundImageUrl={
                 "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              } // take note
-              // myPolls={true}
-              // onClose={handleShowcloseModal}
-              // onView={handleViewResults}
+              }
               className="border p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0"
             />
           ));
@@ -270,11 +273,11 @@ const Voting = () => {
   };
 
   const HandleVoteSubmit = () => {
-    toast.success("Vote Casted Successfully")
-    setAllVotesValue(null)
-    setCastVotes(false) 
-    setNumberOfVotes(""); 
-    setSelectedPoll(null)        
+    toast.success("Vote Casted Successfully");
+    setAllVotesValue(null);
+    setCastVotes(false);
+    setNumberOfVotes("");
+    setSelectedPoll(null);
   };
 
   return (
@@ -486,6 +489,7 @@ const Voting = () => {
               createdAt={singlePoll.created_at}
               question={singlePoll.question}
               options={options}
+              optionList={singlePoll?.options_list}
               daysRemaining={singlePoll.daysRemaining || "No duration"}
               totalVotes={singlePoll.vote_count}
               backgroundImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
@@ -523,14 +527,15 @@ const Voting = () => {
                 </div>
               )}
 
-              {!showPaidVotes &&  (
+              {!showPaidVotes && (
                 <Polls
                   onClick={HandlePaidPoll}
                   className="w-[100%] p-6 mt-4 cursor-pointer"
                   authorName={singlePoll.username}
                   createdAt={singlePoll.created_at}
                   question={singlePoll.question}
-                  options={options}
+                  // options={options}
+                  optionList={singlePoll.options_list}
                   daysRemaining={singlePoll.daysRemaining || "No duration"}
                   totalVotes={singlePoll.vote_count}
                   backgroundImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
@@ -545,7 +550,8 @@ const Voting = () => {
                     authorName={singlePoll.username}
                     createdAt={singlePoll.created_at}
                     question={singlePoll.question}
-                    options={options}
+                    // options={options}
+                    optionList={singlePoll.options_list}
                     daysRemaining={singlePoll.daysRemaining || "No duration"}
                     totalVotes={singlePoll.vote_count}
                     backgroundImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
@@ -574,7 +580,7 @@ const Voting = () => {
               <div className="flex gap-4 mb-10">
                 <InputField
                   placeholder={"Number of votes"}
-                  type={"text"}
+                  type={"number"}
                   value={numberOfVotes}
                   onChange={handleNumberOfVotesChange}
                 />
@@ -671,10 +677,10 @@ const Voting = () => {
             <div className="flex justify-end">
               <IoMdClose
                 size={25}
-                onClick={() =>{
-                   setCastVotes(false)
-                   setAllVotesValue(null)
-                  }}
+                onClick={() => {
+                  setCastVotes(false);
+                  setAllVotesValue(null);
+                }}
                 className="cursor-pointer"
               />
             </div>

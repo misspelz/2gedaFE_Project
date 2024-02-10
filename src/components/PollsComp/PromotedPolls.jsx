@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Polls } from "./Polls";
 import { MyPollsApi } from "utils/ApICalls";
 import toast from "react-hot-toast";
+import optionss from "utils/options.json";
 
 export const PromotedPolls = ({ HandlePoll }) => {
   const [polls, setPolls] = useState([]);
@@ -46,7 +47,8 @@ export const PromotedPolls = ({ HandlePoll }) => {
               authorName={poll.username}
               createdAt={poll.created_at}
               question={poll.question}
-              options={options}
+              // options={options}
+              optionList={poll?.options_list?.length > 0 ? poll?.options_list : optionss}
               daysRemaining={poll.daysRemaining || "No duration"}
               totalVotes={poll.vote_count}
               backgroundImageUrl={

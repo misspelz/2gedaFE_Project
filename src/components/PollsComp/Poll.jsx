@@ -1,8 +1,9 @@
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
 export const Poll = ({ title, allVotes, totalVotes }) => {
-  const percent = Math.round((allVotes / totalVotes) * 100);
-  console.log(percent);
+  const percent = totalVotes !== 0 ? Math.round((allVotes / totalVotes) * 100) : 0;
+
+  // console.log(percent);
   return (
     <div className="relative flex justify-between bg-[#000] w-full py-3 rounded-[10px] pr-6 mt-4 cursor-pointer ">
       <div
