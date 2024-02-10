@@ -287,7 +287,6 @@ const Voting = () => {
         <div className=" lg:bg-[#f5f5f5]  w-full pt-36  lg:px-10 lg:gap-6 lg:hidden">
           {!Notify && !CastVote && (
             <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
-              {/* MOBILE */}
               <h1>Voting</h1>
               <h2 className="mt-6 block lg:hidden">
                 Hello {userInfo.username}
@@ -304,7 +303,6 @@ const Voting = () => {
                 className="mt-6 w-full lg:mt-10"
               />
 
-              {/* MOBILE */}
               <CreateCastActions
                 HandleNotification={HandleNotification}
                 HandleCastVote={HandleCastVote}
@@ -313,10 +311,8 @@ const Voting = () => {
             </div>
           )}
 
-          {/* MOBILE */}
           {Notify && <Notifications setNotify={setNotify} />}
 
-          {/* MOBILE */}
           {CastVote && (
             <div className="px-4 lg:hidden pb-[40px]">
               <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
@@ -362,11 +358,10 @@ const Voting = () => {
             </div>
           )}
 
-          {/* WEB */}
-          <PollsNotification
+          {/* <PollsNotification
             setNotify={setNotify}
             showCreateModal={() => setShowCreateModal((prev) => !prev)}
-          />
+          /> */}
         </div>
       )}
 
@@ -374,29 +369,6 @@ const Voting = () => {
       <div className=" lg:bg-[#f5f5f5] lg:flex w-full pt-36  lg:px-10 lg:gap-6 hidden">
         {!Notify && !CastVote && (
           <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
-            {/* MOBILE */}
-            <h1>Voting</h1>
-            <h2 className="mt-6 block lg:hidden">Hello {userInfo.username}</h2>
-            <span className="text-[14px] block lg:hidden">
-              What do you want to do today ?
-            </span>
-
-            <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
-
-            <img
-              src="images/fifa.png"
-              alt="fifa"
-              className="mt-6 w-full lg:mt-10"
-            />
-
-            {/* MOBILE */}
-            <CreateCastActions
-              HandleNotification={HandleNotification}
-              HandleCastVote={HandleCastVote}
-              showCreateModal={() => setShowCreateModal((prev) => !prev)}
-            />
-
-            {/* WEB */}
             <div className="pb-[40px] hidden lg:block">
               <h2 className="mt-4">Suggested Polls</h2>
               <SuggestedPolls HandlePoll={HandlePoll} />
@@ -442,11 +414,9 @@ const Voting = () => {
           </div>
         )}
 
-        {/* MOBILE */}
-        {Notify && <Notifications setNotify={setNotify} />}
+        {/* {Notify && <Notifications setNotify={setNotify} />} */}
 
-        {/* MOBILE */}
-        {CastVote && (
+        {/* {CastVote && (
           <div className="px-4 lg:hidden pb-[40px]">
             <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
 
@@ -461,9 +431,8 @@ const Voting = () => {
             <PromotedPolls HandlePoll={HandlePoll} />
             {renderPolls()}
           </div>
-        )}
+        )} */}
 
-        {/* WEB */}
         <PollsNotification
           setNotify={setNotify}
           showCreateModal={() => setShowCreateModal((prev) => !prev)}
@@ -483,7 +452,7 @@ const Voting = () => {
             </div>
 
             <Polls
-              // className="w-full" singlePoll
+              // className="w-full"
               onClick={HandlePaidPoll}
               authorName={singlePoll.username}
               createdAt={singlePoll.created_at}
