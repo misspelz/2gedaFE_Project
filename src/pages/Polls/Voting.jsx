@@ -48,7 +48,7 @@ const Voting = () => {
   const [viewResults, setViewResults] = useState(false);
   const [numberOfVotes, setNumberOfVotes] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState("NGN");
-  const [conversionRate, setConversionRate] = useState(1);
+  // const [conversionRate, setConversionRate] = useState(1);
 
   const [payNowAmount, setPayNowAmount] = useState(0);
 
@@ -83,21 +83,21 @@ const Voting = () => {
     setPayNowAmount(numberOfVotes * 2000 * (currency === "USD" ? 1 / 1900 : 1));
   };
 
-  useEffect(() => {
-    const fetchConversionRate = async () => {
-      try {
-        const response = await fetch(
-          `API_URL?base=${selectedCurrency}&symbols=USD`
-        );
-        const data = await response.json();
-        setConversionRate(data.rates.USD);
-      } catch (error) {
-        console.error("Error fetching conversion rate: ", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchConversionRate = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `API_URL?base=${selectedCurrency}&symbols=USD`
+  //       );
+  //       const data = await response.json();
+  //       setConversionRate(data.rates.USD);
+  //     } catch (error) {
+  //       console.error("Error fetching conversion rate: ", error);
+  //     }
+  //   };
 
-    fetchConversionRate();
-  }, [selectedCurrency]);
+  //   fetchConversionRate();
+  // }, [selectedCurrency]);
 
   const HandleNotification = () => {
     setNotify(true);
