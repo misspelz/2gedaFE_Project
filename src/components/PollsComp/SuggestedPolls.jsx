@@ -22,8 +22,8 @@ export const SuggestedPolls = ({ HandlePoll }) => {
         setSuggestedPolls(res?.data);
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.message || "An error occurred");
+      console.log("error", error);
+      toast.error(error.response.data.error || "An error occurred");
     } finally {
       setLoading(false);
     }

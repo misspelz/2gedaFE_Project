@@ -75,7 +75,7 @@ function App() {
         <Route index path="/Signin" element={<Signin />} />
         <Route index path="/" element={<Landing />} />
         <Route index path="/Home" element={<Home />} />
-        <Route index path="/forgot" element={<ForgotPassword />} />
+        <Route index path="/reset-password" element={<ForgotPassword />} />
         <Route index path="/verify" element={<Verify />} />
         {/* <Route
           path="/verify"
