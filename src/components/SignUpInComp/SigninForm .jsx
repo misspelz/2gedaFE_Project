@@ -2,7 +2,6 @@ import { useState } from "react";
 import ActionButton from "../Commons/Button";
 import InputField from "../Commons/InputField";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
-import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { url } from "../../utils";
@@ -15,9 +14,7 @@ import toast from "react-hot-toast";
 
 const SigninForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  // const [isUsingPhone, setIsUsingPhone] = useState(false);
   const [isUsingUsername, setIsUsingUsername] = useState(false);
-  const [phone, setPhone] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,23 +24,16 @@ const SigninForm = () => {
   const navigate = useNavigate();
 
   const goToForgot = () => {
-    navigate("/forgot");
+    navigate("/reset-password");
   };
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
     setEmail("");
-    setPhone("");
   };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-    setPhone("");
-    setUsername("");
-  };
-  const handlePhoneChange = (event) => {
-    setEmail("");
-    setPhone(event);
     setUsername("");
   };
 
@@ -55,85 +45,71 @@ const SigninForm = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  // const handleUsePhoneClick = () => {
-  //   setIsUsingPhone(!isUsingPhone);
-  //   setIsUsingUsername(false);
-  // };
-
   const handleUseUsernameClick = () => {
     setIsUsingUsername(!isUsingUsername);
-    // setIsUsingPhone(false);
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append(
-      "Cookie",
-      "__cf_bm=oS1dmDeDMkQpDAPnlYg28Ix3zAE6SZbWA.1_IWkWXJw-1701779685-0-AfxEpp6d9SR7CMo1RCgu8/uDjkq3F/XguwuQK8Z13CXc1XP9eFdnCnLnzNRBySwPokOEN0xgG4Q0pfx7xyVLv74=; csrftoken=0tQF8jDzX38l95IB6wx5xqAxebxqHdM2; sessionid=si1y25m97ctl3faemkc2aby35ejiti6x"
-    );
-
-    let formData =
-      (username && {
-        username: username,
-        password: password,
-      }) ||
-      (email && {
-        email: email,
-        password: password,
-      });
-
-    // ||
-    // (phone && {
-    //   phone_number: phone,
-    //   password: password,
-    // });
-
-    var raw = JSON.stringify(formData);
-    console.log(formData);
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
 
     try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      let formData = {};
+
+      if (isUsingUsername && username) {
+        formData = {
+          username: username,
+          password: password,
+        };
+      } else if (!isUsingUsername && email) {
+        formData = {
+          email: email,
+          password: password,
+        };
+      } else {
+        throw new Error("Please provide valid credentials.");
+      }
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify(formData),
+        redirect: "follow",
+      };
+
       const response = await fetch(`${url}/login/`, requestOptions);
       const result = await response.json();
-
-      console.log("result", result);
+      console.log("login", result);
 
       if (!response.ok) {
-        if (response.status === 400) {
-          toast.error(result.error);
-        } else if (response.status === 401) {
-          toast.error(result.error);
+        if (response.status === 400 || response.status === 401) {
+          toast.error(result.error || "Invalid credentials.");
+        } else {
+          throw new Error(result.error || "An error occurred.");
         }
       } else {
         localStorage.setItem("authTOken", result.token);
 
-        const userInfo = await UserInfoApi();
+        const userInfo = await UserInfoApi(result.token);
         console.log("userInfo", userInfo);
-        // && userInfo.data.is_verified === true
-        if (userInfo.status === 200) {
+        if (userInfo.status === 200 && userInfo.data?.is_verified === true) {
           localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
-
           toast.success("Log in successful");
           navigate("/Home");
         } else if (
           userInfo.status === 200 &&
-          userInfo.data.is_verified !== true
+          userInfo?.data.is_verified !== true
         ) {
           localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
           setIsEmailVerify(true);
         }
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.message || "An error occurred");
+      console.error("Login error:", error);
+      toast.error(error.message || "An error occurred.");
     } finally {
       setIsLoading(false);
     }
@@ -141,7 +117,6 @@ const SigninForm = () => {
 
   return (
     <>
-      {/* {!IsEmailVerify && ( */}
       <div className="sign-form">
         <div className="create-ead-txt">Log In to your Account</div>
         <div className="greet-txt">
@@ -149,20 +124,6 @@ const SigninForm = () => {
         </div>
 
         <form action="" onSubmit={handleLogin}>
-          {/* {isUsingPhone && !isUsingUsername && (
-            <div className="inp-phone">
-              <PhoneInput
-                defaultCountry="NG"
-                className="custom-phone-input"
-                value={phone}
-                style={{ height: "40px" }}
-                onChange={(text) => handlePhoneChange(text)}
-                placeholder="+1 201-555-0123"
-                required
-              />
-            </div>
-          )} */}
-
           {!isUsingUsername && (
             <div className="inp-email">
               <InputField
@@ -202,13 +163,6 @@ const SigninForm = () => {
           <div className="forg-pas-contan" onClick={goToForgot}>
             Forgot password?
           </div>
-          {/* <div className="use-phone" onClick={handleUsePhoneClick}>
-          {isUsingPhone
-            ? "Use Email Address Instead"
-            : isUsingUsername
-            ? "Use Email Address Instead"
-            : ""}
-        </div> */}
           <div className="use-phone" onClick={handleUseUsernameClick}>
             {isUsingUsername
               ? "Use Email Address Instead"
@@ -232,18 +186,6 @@ const SigninForm = () => {
               />
             )}
           </div>
-          {/* <div className="alr-ave">
-          New user? &nbsp;
-          <span>
-            <NavLink
-              className="goto-link"
-              to="/Signup"
-              style={{ color: "#4f0da3", fontSize: "14px" }}
-            >
-              Sign Up
-            </NavLink>
-          </span>
-        </div> */}
           <div
             style={{
               display: "flex",
@@ -256,13 +198,12 @@ const SigninForm = () => {
               className="alr-ave"
               style={{ color: "#4f0da3" }}
             >
-              New user? &nbsp;
+              New User? &nbsp;
               <span style={{ fontSize: "14px" }}>Sign Up</span>
             </NavLink>
           </div>
         </form>
       </div>
-      {/* )} */}
 
       {IsEmailVerify && (
         <Modal>

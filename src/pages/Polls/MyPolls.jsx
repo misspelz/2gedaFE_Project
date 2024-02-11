@@ -181,7 +181,8 @@ const MyPolls = () => {
       setPollsDetails(response?.data);
       setLoading(false);
     } catch (error) {
-      toast.error(error);
+      console.log("error", error);
+      toast.error(error.response.data.error || "An error occurred");
     }
   };
 

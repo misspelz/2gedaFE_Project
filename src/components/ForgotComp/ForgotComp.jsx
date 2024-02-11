@@ -1,74 +1,119 @@
 import { useState } from "react";
 import { HiOutlineKey } from "react-icons/hi";
-import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import InputField from "../Commons/InputField";
 import ActionButton from "../Commons/Button";
 import "./style.css";
-import NewPassword from "./NewPassword";
+import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
+import toast from "react-hot-toast";
+import { url } from "utils/index";
+import { useNavigate } from "react-router-dom";
 
 const ForgotComponent = () => {
-  const [phone, setPhone] = useState("");
-  const [isUsingPhone, setIsUsingPhone] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
+  const nav = useNavigate()
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handleUsePhoneClick = () => {
-    setIsUsingPhone(!isUsingPhone);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
-  const handleSendCodeClick = () => {
-    setShowNewPassword(true);
-    console.log("oky");
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const HandleResetPassword = async (e) => {
+    setLoading(true);
+
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      let formData = {};
+
+      formData = {
+        email: email,
+        password: password,
+      };
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify(formData),
+        redirect: "follow",
+      };
+
+      const response = await fetch(`${url}/forget-password/`, requestOptions);
+      const result = await response.json();
+      console.log("forgetpassres", result);
+
+      if (!response.ok) {
+        if (response.status === 400 || response.status === 401) {
+          toast.error(result.error);
+        } else {
+          throw new Error(result.error || "An error occurred.");
+        }
+      } else {
+        toast.success(result.response);
+        setTimeout(() => {
+          nav("/Signin");
+        }, 3000);
+      }
+    } catch (error) {
+      console.error("error:", error);
+      toast.error(error.message || "An error occurred.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="for-pass-comp-cont">
-      <div className="key-cont">
-        <HiOutlineKey />
+      <div className="key-cont ">
+        <HiOutlineKey size={20} />
       </div>
-      <div className="for-head-mai">Reset your password</div>
-      {showNewPassword ? (
-        <NewPassword />
-      ) : (
-        <>
-          {isUsingPhone ? (
-            <div className="inp-phone">
-              <PhoneInput
-                defaultCountry="NG"
-                className="custom-phone-input"
-                value={phone}
-                style={{ height: "40px" }}
-                onChange={(phone) => setPhone(phone)}
-                placeholder="+234 80 2015 5501"
-                required
-              />
-              {/* <InputField placeholder={"Input Phone Number"} type={"tel"} /> */}
-              <div className="ins-bx-txt">
-                We’ll send a verification code to your Phone number or email
-                address to verify that you are 2geda with us.
-              </div>
-            </div>
-          ) : (
-            <div className="inp-email">
-              <InputField placeholder={"Input email address"} type={"text"} />
-              <div className="ins-bx-txt">
-                We’ll send a verification code to your Phone number or email
-                address to verify that you are 2geda with us.
-              </div>
-            </div>
-          )}
-
-          <div className="use-phone left" onClick={handleUsePhoneClick}>
-            {isUsingPhone
-              ? "Use Email address instead"
-              : "Use Phone number instead"}
+      <h2 className="text-center my-8 lg:text-[18px]">Reset your Password</h2>
+      <div className="ins-bx-txt text-center text-purple-800 font-bold lg:text-[30px]">
+        Input your email address and your new password
+      </div>
+      <div className="inp-email">
+        <InputField
+          placeholder={"Enter email address"}
+          type={"text"}
+          value={email}
+          onChange={handleEmailChange}
+        />
+        <div className="pass-con">
+          <InputField
+            placeholder={"Enter new password"}
+            type={passwordVisible ? "text" : "password"}
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <div className="eye-box" onClick={togglePasswordVisibility}>
+            {passwordVisible ? (
+              <BsEyeSlashFill className="eye-icon" />
+            ) : (
+              <BsEyeFill className="eye-icon" />
+            )}
           </div>
-          <div className="btn-continu" onClick={handleSendCodeClick}>
-            <ActionButton label={"Send code"} bg={"ma-d"} />
-          </div>
-          <div className="btn-continu upp">
-            <ActionButton label={"Back to Login"} bg={"ash"} />
-          </div>
-        </>
-      )}
+        </div>
+      </div>
+      <div className="btn-continu upp">
+        <ActionButton
+          onClick={HandleResetPassword}
+          label={"Submit"}
+          bg={"pruplr"}
+          className="mt-6 w-full"
+          loading={loading}
+        />
+      </div>
     </div>
   );
 };

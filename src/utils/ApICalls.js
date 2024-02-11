@@ -1,106 +1,163 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { url } from "./index";
 
-const token = localStorage.getItem("authTOken");
-console.log("token", token)
+const signToken = localStorage.getItem("authTOken");
+console.log("signToken", signToken);
 
-export const UserInfoApi = () => {
-  let config = {
-    method: "get",
-    maxBodyLength: Infinity,
-    url: `${url}/userinfo/`,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Token ${token}`,
-    },
-    redirect: "follow",
-  };
+export const Login = async (payload) => {
+  const res = await axios.post(`${url}/login/`, { ...payload });
+  return res;
+  // let userData = JSON.stringify(payload);
+  // console.log("login_api", userData);
+  // let config = {
+  //   method: "POST",
+  //   maxBodyLength: Infinity,
+  //   url: `${url}/login/`,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   redirect: "follow",
+  //   body: userData,
+  // };
 
-  return axios
-    .request(config)
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      console.log("error", error);
-      if (error.response.data.detail) {
-        throw new Error(error.response.data.detail);
-      }
-    });
+  // return axios
+  //   .request(config)
+  //   .then((response) => {
+  //     return response;
+  //   })
+  //   .catch((error) => {
+  //     console.log("error", error);
+  //     if (error.response.data.error) {
+  //       throw new Error(error.response.data.error);
+  //     }
+  //   });
 };
 
-export const CreatePollApi = (formData) => {
-  let config = {
-    method: "post",
-    maxBodyLength: Infinity,
-    url: `${url}/poll/polls`,
+export const UserInfoApi = async (userToken) => {
+  const res = await axios.get(`${url}/userinfo/`, {
     headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Token ${token}`,
+      Authorization: `Token ${userToken}`,
     },
-    redirect: "follow",
-    body: formData,
-  };
-
-  return axios
-    .request(config)
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      console.log("error", error);
-      if (error.response.data.detail) {
-        throw new Error(error.response.data.detail);
-      }
-    });
+  });
+  return res;
 };
 
-export const MyPollsApi = () => {
-  let config = {
-    method: "get",
-    maxBodyLength: Infinity,
-    url: `${url}/poll/polls`,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Token ${token}`,
-    },
-    redirect: "follow",
-  };
+export const GetOTP = async (emailData) => {
+  console.log("emailData", emailData);
 
-  return axios
-    .request(config)
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      console.log("error", error);
-      if (error.response.data.detail) {
-        throw new Error(error.response.data.detail);
-      }
-    });
+  const res = await axios.post(`${url}/get-otp/`, { ...emailData });
+  return res;
 };
 
-export const SuggestedPollsApi = () => {
-  let config = {
-    method: "get",
-    maxBodyLength: Infinity,
-    url: `${url}/poll/suggested-polls/`,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Token ${token}`,
-    },
-    redirect: "follow",
-  };
+export const VerifyOTP = async (otp) => {
+  console.log("otp", otp);
 
-  return axios
-    .request(config)
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      console.log("error", error);
-      if (error.response.data.detail) {
-        throw new Error(error.response.data.detail);
-      }
-    });
+  const res = await axios.post(
+    `${url}/verify-otp/`,
+    { ...otp },
+    {
+      headers: {
+        Authorization: `Token ${signToken}`,
+      },
+    }
+  );
+  return res;
+};
+
+export const CreatePollApi = async (formData) => {
+  const res = await axios.post(
+    `${url}/poll/polls`,
+    { ...formData },
+    {
+      headers: {
+        Authorization: `Token ${signToken}`,
+      },
+    }
+  );
+  return res;
+  // let config = {
+  //   method: "post",
+  //   maxBodyLength: Infinity,
+  //   url: `${url}/poll/polls`,
+  //   headers: {
+  //     "Content-Type": "multipart/form-data",
+  //     Authorization: `Token ${signToken}`,
+  //   },
+  //   redirect: "follow",
+  //   body: formData,
+  // };
+
+  // return axios
+  //   .request(config)
+  //   .then((response) => {
+  //     return response;
+  //   })
+  //   .catch((error) => {
+  //     console.log("error", error);
+  //     if (error.response.data.error) {
+  //       throw new Error(error.response.data.error);
+  //     }
+  //   });
+};
+
+export const MyPollsApi = async () => {
+  const res = await axios.get(`${url}/poll/polls`, {
+    headers: {
+      Authorization: `Token ${signToken}`,
+    },
+  });
+  return res;
+  // let config = {
+  //   method: "get",
+  //   maxBodyLength: Infinity,
+  //   url: `${url}/poll/polls`,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Token ${signToken}`,
+  //   },
+  //   redirect: "follow",
+  // };
+
+  // return axios
+  //   .request(config)
+  //   .then((response) => {
+  //     return response;
+  //   })
+  //   .catch((error) => {
+  //     console.log("error", error);
+  //     if (error.response.data.error) {
+  //       throw new Error(error.response.data.error);
+  //     }
+  //   });
+};
+
+export const SuggestedPollsApi = async () => {
+  const res = await axios.get(`${url}/poll/suggested-polls/`, {
+    headers: {
+      Authorization: `Token ${signToken}`,
+    },
+  });
+  return res;
+  // let config = {
+  //   method: "get",
+  //   maxBodyLength: Infinity,
+  //   url: `${url}/poll/suggested-polls/`,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Token ${signToken}`,
+  //   },
+  //   redirect: "follow",
+  // };
+
+  // return axios
+  //   .request(config)
+  //   .then((response) => {
+  //     return response;
+  //   })
+  //   .catch((error) => {
+  //     console.log("error", error);
+  //     if (error.response.data.error) {
+  //       throw new Error(error.response.data.error);
+  //     }
+  //   });
 };
