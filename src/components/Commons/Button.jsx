@@ -1,8 +1,11 @@
+import React from "react";
+
 const ActionButton = ({
   bg,
   label,
   type,
   onClick,
+  loading,
   className = "act-btn-cont w-full",
   disabled,
 }) => {
@@ -11,10 +14,12 @@ const ActionButton = ({
       <button
         onClick={onClick}
         type={type}
-        className={`action-btn ${bg} w-full hover:bg-purple-700 disabled:opacity-55 disabled:cursor-not-allowed transition duration-500`}
-        disabled={disabled}
+
+        disabled={loading} // Disable the button while loading
+        className={`action-btn ${bg} w-full hover:bg-purple-700 transition duration-500 text-[16px]`}
+
       >
-        {label}
+        {loading ? "Loading..." : label} {/* Display loading text when loading */}
       </button>
     </div>
   );

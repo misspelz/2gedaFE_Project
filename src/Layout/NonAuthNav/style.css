@@ -1,7 +1,7 @@
 .non-navbar-container {
   display: flex;
   justify-content: space-between;
-  padding: 0px 60px;
+  padding: 10px 20px;
   align-items: center;
   position: fixed;
   width: 100%;

@@ -324,6 +324,11 @@ const Voting = () => {
     setSelectedPoll(null);
   };
 
+  const updatePollsDetails = (newPoll) => {
+    // Update the state with the newly created poll data
+    setPollsDetails([...pollsDetails, newPoll]);
+  };
+
   return (
     <MainLayout>
       {/* MOBILE */}
@@ -333,7 +338,7 @@ const Voting = () => {
             <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
               <h1>Voting</h1>
               <h2 className="mt-6 block lg:hidden">
-                Hello {userInfo.username}
+                Hello, {userInfo.username}
               </h2>
               <span className="text-[14px] block lg:hidden">
                 What do you want to do today ?
@@ -453,7 +458,7 @@ const Voting = () => {
               onClose={() => setShowCreateModal((prev) => !prev)}
               fullWidth
             >
-              <CreatePoll onClose={setShowCreateModal} />
+              <CreatePoll onClose={setShowCreateModal} updatePollsDetails={updatePollsDetails} />
             </Dialog>
           </div>
         )}
