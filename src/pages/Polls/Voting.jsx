@@ -8,7 +8,9 @@ import { FindPolls } from "components/PollsComp/FindPolls";
 import { Notifications } from "components/PollsComp/Notification";
 import { CreateCastActions } from "components/PollsComp/CreateCastActions";
 import { PromotedPolls } from "components/PollsComp/PromotedPolls";
-import CreatePoll from "components/Modals/Vote/CreatePoll/CreatePoll";
+import CreatePoll, {
+  token,
+} from "components/Modals/Vote/CreatePoll/CreatePoll";
 import { Dialog, DialogContent } from "@mui/material";
 import Modal from "components/Modals/Modal";
 import { IoMdClose } from "react-icons/io";
@@ -17,6 +19,7 @@ import ActionButton from "components/Commons/Button";
 import { MyPollsApi } from "utils/ApICalls";
 import toast from "react-hot-toast";
 import optionss from "utils/options.json";
+import { url } from "utils/index";
 
 const Voting = () => {
   const userInfoString = localStorage.getItem("2gedaUserInfo");
@@ -161,7 +164,9 @@ const Voting = () => {
                 createdAt={poll.created_at}
                 question={poll.question}
                 // options={options}
-                optionList={poll.options_list.length > 0 ? poll.options_list : optionss}
+                optionList={
+                  poll.options_list.length > 0 ? poll.options_list : optionss
+                }
                 daysRemaining={poll.duration}
                 totalVotes={poll.vote_count}
                 backgroundImageUrl={
@@ -193,7 +198,9 @@ const Voting = () => {
                 createdAt={poll.created_at}
                 question={poll.question}
                 // options={options}
-                optionList={poll.options_list.length > 0 ? poll.options_list : optionss}
+                optionList={
+                  poll.options_list.length > 0 ? poll.options_list : optionss
+                }
                 daysRemaining={poll.duration}
                 totalVotes={poll.vote_count}
                 backgroundImageUrl={
@@ -270,6 +277,43 @@ const Voting = () => {
 
   const handleAll = () => {
     setAllVotesValue(numberOfVotes);
+  };
+
+  const handleSubmitFreeVote = async () => {
+    const payload = {
+      id: singlePoll.vote_id,
+      content: singlePoll.content,
+      cost: 0,
+    };
+    console.log(payload, "Payload");
+
+    try {
+      setLoading(true);
+      const resp = await fetch(url + "/poll/votes", {
+        method: "POST",
+        headers: {
+          Authorization: "Token " + token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const result = await resp.json();
+
+      console.log(result, "vote resp");
+
+      if (result[0]?.have_Voted) {
+        toast.success("Vote casted successfully");
+      }
+    } catch (error) {
+      toast.error("Something went wrong", error.message);
+    } finally {
+      setLoading(false);
+      setAllVotesValue(null);
+      setCastVotes(false);
+      setNumberOfVotes("");
+      setSelectedPoll(null);
+      handleMyPolls();
+    }
   };
 
   const HandleVoteSubmit = () => {
@@ -497,18 +541,29 @@ const Voting = () => {
               )}
 
               {!showPaidVotes && (
-                <Polls
-                  onClick={HandlePaidPoll}
-                  className="w-[100%] p-6 mt-4 cursor-pointer"
-                  authorName={singlePoll.username}
-                  createdAt={singlePoll.created_at}
-                  question={singlePoll.question}
-                  // options={options}
-                  optionList={singlePoll.options_list}
-                  daysRemaining={singlePoll.daysRemaining || "No duration"}
-                  totalVotes={singlePoll.vote_count}
-                  backgroundImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                />
+                <>
+                  <Polls
+                    onClick={HandlePaidPoll}
+                    className="w-[100%] p-6 mt-4 cursor-pointer"
+                    authorName={singlePoll.username}
+                    createdAt={singlePoll.created_at}
+                    question={singlePoll.question}
+                    cast={singlePoll.vote_id}
+                    setContent={setSinglePoll}
+                    optionList={singlePoll.options_list}
+                    daysRemaining={singlePoll.daysRemaining || "No duration"}
+                    totalVotes={singlePoll.vote_count}
+                    backgroundImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  />
+                  <div className="mt-8 ">
+                    <ActionButton
+                      label={loading ? "Voting" : "Vote"}
+                      bg={"pruplr"}
+                      onClick={handleSubmitFreeVote}
+                      disabled={loading}
+                    />
+                  </div>
+                </>
               )}
 
               {showPaidVotes && !castVotes && (

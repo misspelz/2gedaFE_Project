@@ -4,8 +4,8 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-hot-toast";
 import { url } from "utils/index";
 
+export const token = localStorage.getItem("authTOken");
 const CreatePoll = ({ onClose }) => {
-  const token = localStorage.getItem("authTOken");
   const [pollData, setPollData] = useState({
     question: "",
     content: ["", ""],
@@ -31,8 +31,6 @@ const CreatePoll = ({ onClose }) => {
     }));
   };
 
-  
-
   const handleCreatePoll = async (e) => {
     e.preventDefault();
 
@@ -55,36 +53,36 @@ const CreatePoll = ({ onClose }) => {
 
     // Append options
     pollData.content.forEach((content, index) => {
-        formData.append(`content`, content);
+      formData.append(`content`, content);
     });
 
     console.log(formData, "formData");
 
-    const formDataRes = Object.fromEntries(formData)
+    const formDataRes = Object.fromEntries(formData);
 
     console.log(formDataRes, "formDataRes");
 
     try {
-        setIsLoading(true);
-        const resp = await fetch(url + "/poll/polls/", {
-            method: "POST",
-            headers: {
-                Authorization: "Token " + token,
-            },
-            body: formData,
-        });
-        const result = await resp.json();
+      setIsLoading(true);
+      const resp = await fetch(url + "/poll/polls/", {
+        method: "POST",
+        headers: {
+          Authorization: "Token " + token,
+        },
+        body: formData,
+      });
+      const result = await resp.json();
 
-        console.log(result, "REs");
+      console.log(result, "REs");
 
-        if (result?.id) {
-            toast.success("Poll created successfully");
-            onClose();
-        }
+      if (result?.id) {
+        toast.success("Poll created successfully");
+        onClose();
+      }
     } catch (error) {
-        console.error("Error making API request:", error);
+      console.error("Error making API request:", error);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -208,7 +206,6 @@ const CreatePoll = ({ onClose }) => {
 };
 
 export default CreatePoll;
-
 
 // import React, { useState } from "react";
 // import "./CreatePoll.css";
@@ -354,16 +351,16 @@ export default CreatePoll;
 //         </select>
 //       </div>
 
-      // <div className="form-field">
-      //   <label htmlFor="media">Add image or video</label>
-      //   <input
-      //     type="file"
-      //     id="media"
-      //     accept="image/*, video/*"
-      //     name="media"
-      //     className="outline-none"
-      //   />
-      // </div>
+// <div className="form-field">
+//   <label htmlFor="media">Add image or video</label>
+//   <input
+//     type="file"
+//     id="media"
+//     accept="image/*, video/*"
+//     name="media"
+//     className="outline-none"
+//   />
+// </div>
 
 //       <button
 //         className="create-poll-btn outline-none"
