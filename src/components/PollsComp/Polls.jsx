@@ -16,9 +16,11 @@ export const Polls = ({
   myPolls,
   onClose,
   onView,
-  optionList
+  optionList,
+  cast,
+  setContent,
 }) => {
-  
+  console.log(cast);
   const formatCreatedAt = (createdAt) => {
     const date = new Date(createdAt);
     const options = {
@@ -72,6 +74,10 @@ export const Polls = ({
           title={o.content}
           allVotes={o.all_vote}
           totalVotes={totalNumVotes}
+          name={"vote"}
+          id={o.id}
+          cast={cast}
+          setContent={setContent}
         />
       ))}
 

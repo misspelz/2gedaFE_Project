@@ -4,8 +4,10 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-hot-toast";
 import { url } from "utils/index";
 
+
 const CreatePoll = ({ onClose, updatePollsDetails }) => {
   const token = localStorage.getItem("authTOken");
+
   const [pollData, setPollData] = useState({
     question: "",
     content: ["", ""],
@@ -31,8 +33,6 @@ const CreatePoll = ({ onClose, updatePollsDetails }) => {
     }));
   };
 
-  
-
   const handleCreatePoll = async (e) => {
     e.preventDefault();
 
@@ -55,16 +55,17 @@ const CreatePoll = ({ onClose, updatePollsDetails }) => {
 
     // Append options
     pollData.content.forEach((content, index) => {
-        formData.append(`content`, content);
+      formData.append(`content`, content);
     });
 
     console.log(formData, "formData");
 
-    const formDataRes = Object.fromEntries(formData)
+    const formDataRes = Object.fromEntries(formData);
 
     console.log(formDataRes, "formDataRes");
 
     try {
+
         setIsLoading(true);
         const resp = await fetch(url + "/poll/polls/", {
             method: "POST",
@@ -85,8 +86,9 @@ const CreatePoll = ({ onClose, updatePollsDetails }) => {
     } catch (error) {
       console.log("error", error);
       toast.error(error.response.data.error || "An error occurred");
+
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -210,5 +212,6 @@ const CreatePoll = ({ onClose, updatePollsDetails }) => {
 };
 
 export default CreatePoll;
+
 
 
