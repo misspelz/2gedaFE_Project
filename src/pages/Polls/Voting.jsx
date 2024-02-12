@@ -41,7 +41,6 @@ const Voting = () => {
   const [Success, setSuccess] = useState(false);
   const [showPaidVotes, setShowPaidVotes] = useState(false);
   const [pollsDetails, setPollsDetails] = useState([]);
-  console.log("pollsDetails", pollsDetails);
 
   const [singlePoll, setSinglePoll] = useState({});
   console.log("singlePoll", singlePoll);
@@ -112,7 +111,6 @@ const Voting = () => {
   };
 
   const HandlePoll = (pollData) => {
-    console.log("pollData", pollData);
     setSinglePoll(pollData);
     setSelectedPoll(true);
     setShowPaidVotes(false);
@@ -134,8 +132,6 @@ const Voting = () => {
   const handleMyPolls = async (e) => {
     try {
       const response = await MyPollsApi();
-      console.log("pollsresponse", response);
-      console.log("pollsdata", response?.data);
       setPollsDetails(response?.data);
       setLoading(false);
     } catch (error) {
@@ -281,39 +277,39 @@ const Voting = () => {
   };
 
   const handleSubmitFreeVote = async () => {
-    const payload = {
+    console.log(signToken);
+    const load = {
       post_id: singlePoll.vote_id,
       content: singlePoll.content,
-      cost: 0,
+      cost: 12,
     };
-    console.log(payload, "CastVotePayload");
+    console.log(load, "CastVoteload");
 
     try {
       setLoading(true);
-      // const castVoteRes = await CastVoteApi(payload)
-      const resp = await fetch(url + "/poll/votes", {
-        method: "post",
+      // const castVoteRes = await CastVoteApi(load)
+      const resp = await fetch(`${url}/poll/votes/`, {
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: "Token " + signToken,
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(load),
       });
       const result = await resp.json();
 
-      console.log(result, "castVoteRes");
-
-      if (result[0]?.have_Voted) {
+      if (result?.have_Voted) {
         toast.success("Vote casted successfully");
       }
     } catch (error) {
       toast.error("Something went wrong", error.message);
     } finally {
+      handleMyPolls();
       setLoading(false);
       setAllVotesValue(null);
       setCastVotes(false);
       setNumberOfVotes("");
       setSelectedPoll(null);
-      handleMyPolls();
     }
   };
 
@@ -323,11 +319,6 @@ const Voting = () => {
     setCastVotes(false);
     setNumberOfVotes("");
     setSelectedPoll(null);
-  };
-
-  const updatePollsDetails = (newPoll) => {
-    // Update the state with the newly created poll data
-    setPollsDetails([...pollsDetails, newPoll]);
   };
 
   return (
@@ -461,7 +452,7 @@ const Voting = () => {
             >
               <CreatePoll
                 onClose={setShowCreateModal}
-                updatePollsDetails={updatePollsDetails}
+                fetchPolls={handleMyPolls}
               />
             </Dialog>
           </div>
@@ -510,7 +501,8 @@ const Voting = () => {
               authorName={singlePoll.username}
               createdAt={singlePoll.created_at}
               question={singlePoll.question}
-              options={options}
+              setContent={setSinglePoll}
+              cast={singlePoll.vote_id}
               optionList={singlePoll?.options_list}
               daysRemaining={singlePoll.daysRemaining || "No duration"}
               totalVotes={singlePoll.vote_count}
@@ -522,6 +514,15 @@ const Voting = () => {
                 You have 40 votes
               </div>
             )}
+
+            <div className="mt-8 ">
+              <ActionButton
+                label={loading ? "Voting" : "Vote"}
+                bg={"pruplr"}
+                onClick={handleSubmitFreeVote}
+                loading={loading}
+              />
+            </div>
           </div>
           <img
             src="images/fifa.png"
@@ -569,7 +570,7 @@ const Voting = () => {
                       label={loading ? "Voting" : "Vote"}
                       bg={"pruplr"}
                       onClick={handleSubmitFreeVote}
-                      disabled={loading}
+                      loading={loading}
                     />
                   </div>
                 </>
