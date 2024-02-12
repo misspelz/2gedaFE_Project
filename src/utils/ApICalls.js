@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { url } from "./index";
 
-const signToken = localStorage.getItem("authTOken");
+export const signToken = localStorage.getItem("authTOken");
 console.log("signToken", signToken);
 
 export const Login = async (payload) => {
@@ -75,29 +75,19 @@ export const CreatePollApi = async (formData) => {
     }
   );
   return res;
-  // let config = {
-  //   method: "post",
-  //   maxBodyLength: Infinity,
-  //   url: `${url}/poll/polls`,
-  //   headers: {
-  //     "Content-Type": "multipart/form-data",
-  //     Authorization: `Token ${signToken}`,
-  //   },
-  //   redirect: "follow",
-  //   body: formData,
-  // };
+};
 
-  // return axios
-  //   .request(config)
-  //   .then((response) => {
-  //     return response;
-  //   })
-  //   .catch((error) => {
-  //     console.log("error", error);
-  //     if (error.response.data.error) {
-  //       throw new Error(error.response.data.error);
-  //     }
-  //   });
+export const CastVoteApi = async (payload) => {
+  const res = await axios.post(
+    `${url}/poll/votes`,
+    { ...payload },
+    {
+      headers: {
+        Authorization: `Token ${signToken}`,
+      },
+    }
+  );
+  return res;
 };
 
 export const MyPollsApi = async () => {
