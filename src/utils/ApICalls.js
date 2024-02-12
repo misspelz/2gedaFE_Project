@@ -1,42 +1,29 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { url } from "./index";
 
-export const signToken = localStorage.getItem("authTOken");
-console.log("signToken", signToken);
+let token = null;
+
+export const setToken = (newToken) => {
+  token = newToken;
+};
+
+export const getToken = () => {
+  if (!token) {
+    token = localStorage.getItem("authTOken");
+    console.log("regtoken", token);
+  }
+  return token;
+};
 
 export const Login = async (payload) => {
   const res = await axios.post(`${url}/login/`, { ...payload });
   return res;
-  // let userData = JSON.stringify(payload);
-  // console.log("login_api", userData);
-  // let config = {
-  //   method: "POST",
-  //   maxBodyLength: Infinity,
-  //   url: `${url}/login/`,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   redirect: "follow",
-  //   body: userData,
-  // };
-
-  // return axios
-  //   .request(config)
-  //   .then((response) => {
-  //     return response;
-  //   })
-  //   .catch((error) => {
-  //     console.log("error", error);
-  //     if (error.response.data.error) {
-  //       throw new Error(error.response.data.error);
-  //     }
-  //   });
 };
 
 export const UserInfoApi = async (userToken) => {
   const res = await axios.get(`${url}/userinfo/`, {
     headers: {
-      Authorization: `Token ${userToken}`,
+      Authorization: `Token ${userToken || getToken()}`,
     },
   });
   return res;
@@ -57,7 +44,20 @@ export const VerifyOTP = async (otp) => {
     { ...otp },
     {
       headers: {
-        Authorization: `Token ${signToken}`,
+        Authorization: `Token ${getToken()}`,
+      },
+    }
+  );
+  return res;
+};
+
+export const VerifyEmail = async (emailToken) => {
+  const res = await axios.post(
+    `${url}/verify-email/`,
+    { token: emailToken },
+    {
+      headers: {
+        Authorization: `Token ${getToken()}`,
       },
     }
   );
@@ -70,7 +70,7 @@ export const CreatePollApi = async (formData) => {
     { ...formData },
     {
       headers: {
-        Authorization: `Token ${signToken}`,
+        Authorization: `Token ${getToken()}`,
       },
     }
   );
@@ -83,7 +83,7 @@ export const CastVoteApi = async (payload) => {
     { ...payload },
     {
       headers: {
-        Authorization: `Token ${signToken}`,
+        Authorization: `Token ${getToken()}`,
       },
     }
   );
@@ -93,7 +93,7 @@ export const CastVoteApi = async (payload) => {
 export const MyPollsApi = async () => {
   const res = await axios.get(`${url}/poll/polls`, {
     headers: {
-      Authorization: `Token ${signToken}`,
+      Authorization: `Token ${getToken()}`,
     },
   });
   return res;
@@ -102,30 +102,8 @@ export const MyPollsApi = async () => {
 export const SuggestedPollsApi = async () => {
   const res = await axios.get(`${url}/poll/suggested-polls/`, {
     headers: {
-      Authorization: `Token ${signToken}`,
+      Authorization: `Token ${getToken()}`,
     },
   });
   return res;
-  // let config = {
-  //   method: "get",
-  //   maxBodyLength: Infinity,
-  //   url: `${url}/poll/suggested-polls/`,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Token ${signToken}`,
-  //   },
-  //   redirect: "follow",
-  // };
-
-  // return axios
-  //   .request(config)
-  //   .then((response) => {
-  //     return response;
-  //   })
-  //   .catch((error) => {
-  //     console.log("error", error);
-  //     if (error.response.data.error) {
-  //       throw new Error(error.response.data.error);
-  //     }
-  //   });
 };

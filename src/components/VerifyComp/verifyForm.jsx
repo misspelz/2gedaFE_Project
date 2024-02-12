@@ -8,9 +8,11 @@ import { GetOTP, ResendOTP, VerifyOTP } from "utils/ApICalls";
 import { useNavigate } from "react-router-dom";
 
 const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
-  const storedUserInfo = JSON.parse(localStorage.getItem("2gedaUserInfo"));
+  
+  // const storedUserInfo = JSON.parse(localStorage.getItem("2gedaUserInfo"));
   // console.log("storedUserInfo", storedUserInfo)
-  const EmailData = { email: storedUserInfo.email };
+  // const EmailData = { email: storedUserInfo.email };
+
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,25 +36,25 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
     }
   }, [inputRefs]);
 
-  const handleResend = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const response = await GetOTP(EmailData);
-      console.log("ResendOTP", response);
-      if (response.status === 200) {
-        toast.success(response.data.response);
-      }
-      setSeconds(60);
-      setIsActive(true);
-      setTimerExpired(false);
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message || "An error occurred");
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const handleResend = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     setLoading(true);
+  //     const response = await VerifyOTP();
+  //     console.log("VerifyOTP", response);
+  //     if (response.status === 200) {
+  //       toast.success(response.data.response);
+  //     }
+  //     setSeconds(60);
+  //     setIsActive(true);
+  //     setTimerExpired(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error(error.message || "An error occurred");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleInputChange = (e, inputNumber) => {
     const value = e.target.value;
@@ -121,12 +123,12 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
       <div className="verify-form-container">
         <div className="be-condo">Please verify your email</div>
         <div className="ins-tst-dig">
-          We sent a 5 digits code to this email you provided
+          We sent a 5 digits code to your email address
         </div>
-        <div className="change-email">
-          {storedUserInfo.email}
+        {/* <div className="change-email"> */}
+          {/* {storedUserInfo.email} */}
           {/* <span>change</span> */}
-        </div>
+        {/* </div> */}
         <form action="">
           <div className="verify-inputs">
             {[1, 2, 3, 4, 5].map((inputNumber) => (
@@ -153,7 +155,7 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
                   Didn’t get code ?{" "}
                   <button
                     className={`act-resend `}
-                    onClick={handleResend}
+                    // onClick={handleResend}
                     disabled={loading}
                   >
                     {loading ? "Resending..." : "Resend"}
