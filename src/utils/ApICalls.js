@@ -97,28 +97,6 @@ export const MyPollsApi = async () => {
     },
   });
   return res;
-  // let config = {
-  //   method: "get",
-  //   maxBodyLength: Infinity,
-  //   url: `${url}/poll/polls`,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Token ${signToken}`,
-  //   },
-  //   redirect: "follow",
-  // };
-
-  // return axios
-  //   .request(config)
-  //   .then((response) => {
-  //     return response;
-  //   })
-  //   .catch((error) => {
-  //     console.log("error", error);
-  //     if (error.response.data.error) {
-  //       throw new Error(error.response.data.error);
-  //     }
-  //   });
 };
 
 export const SuggestedPollsApi = async () => {
