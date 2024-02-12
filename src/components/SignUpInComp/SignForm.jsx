@@ -77,6 +77,7 @@ const SignForm = () => {
 
       const response = await fetch(`${url}/register/`, requestOptions);
       const responseBody = await response.json();
+      console.log("responseBody", responseBody);
 
       if (!response.ok) {
         if (response.status === 400) {
@@ -88,6 +89,7 @@ const SignForm = () => {
         }
       } else {
         const token = responseBody.token;
+        console.log("registertoken", token);
 
         localStorage.setItem("authTOken", token);
 

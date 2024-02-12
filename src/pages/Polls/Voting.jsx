@@ -8,20 +8,25 @@ import { FindPolls } from "components/PollsComp/FindPolls";
 import { Notifications } from "components/PollsComp/Notification";
 import { CreateCastActions } from "components/PollsComp/CreateCastActions";
 import { PromotedPolls } from "components/PollsComp/PromotedPolls";
-import CreatePoll, {
-  token,
-} from "components/Modals/Vote/CreatePoll/CreatePoll";
+import CreatePoll from "components/Modals/Vote/CreatePoll/CreatePoll";
 import { Dialog, DialogContent } from "@mui/material";
 import Modal from "components/Modals/Modal";
 import { IoMdClose } from "react-icons/io";
 import InputField from "components/Commons/InputField";
 import ActionButton from "components/Commons/Button";
-import { CastVoteApi, MyPollsApi, signToken } from "utils/ApICalls";
+import { CastVoteApi, MyPollsApi, getToken } from "utils/ApICalls";
 import toast from "react-hot-toast";
 import optionss from "utils/options.json";
 import { url } from "utils/index";
 
 const Voting = () => {
+  const [token, setToken] = useState(null); // State to store token
+
+  useEffect(() => {
+    const token = getToken(); // Retrieve token
+    setToken(token); // Set token state
+  }, []);
+  
   const userInfoString = localStorage.getItem("2gedaUserInfo");
 
   const userInfo = JSON.parse(userInfoString);
@@ -294,7 +299,7 @@ const Voting = () => {
       const resp = await fetch(url + "/poll/votes", {
         method: "post",
         headers: {
-          Authorization: "Token " + signToken,
+          Authorization: "Token " + token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),

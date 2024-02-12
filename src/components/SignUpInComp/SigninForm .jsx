@@ -91,7 +91,8 @@ const SigninForm = () => {
           throw new Error(result.error || "An error occurred.");
         }
       } else {
-        localStorage.setItem("authTOken", result.token);
+        const signinTOken = localStorage.setItem("authTOken", result.token);
+        console.log("signinTOken", signinTOken);
 
         const userInfo = await UserInfoApi(result.token);
         console.log("userInfo", userInfo);
