@@ -5,32 +5,35 @@ import ProductDash from "components/Dashboard/ProductDAs";
 import SmallTicketPromoteCard from "components/Dashboard/smallTicketsPromoted";
 import MovieSlider from "components/Home/Movieslider/MovieSlider";
 import Stick from "components/Dashboard/Stick";
-import PostImage from "assets/images/sample-post-image.png"
-import PostAvatar from "assets/images/sample-avatar.png"
+import PostImage from "assets/images/sample-post-image.png";
+import PostAvatar from "assets/images/sample-avatar.png";
 import ProductImage from "assets/images/sample-product.png";
 import MovieDashCard from "components/Home/Movieslider/MovieCards";
 
-const Feeds = ({handleFeedOpen}) => {
-    const mockCreator = {
-		cover_image: {cover_image: PostAvatar},
+const Feeds = () => {
+	const mockCreator = {
+		cover_image: { cover_image: PostAvatar },
 		username: "John Doe",
 		address: {
 			country: "Nigeria",
-			current_city: "Lagos"
-		}
-	}
+			current_city: "Lagos",
+		},
+	};
 
 	const mockReaction = [
-		{ userId: 1, emoji: "👍", user: {username: "user 01"} }
-	]
+		{ userId: 1, emoji: "👍", user: { username: "user 01" } },
+	];
 
-	const mockMedia = [{media: PostImage}, {media: ProductImage}, {media: PostImage}, {media: ProductImage}]
+	const mockMedia = [
+		{ media: PostImage },
+		{ media: ProductImage },
+		{ media: PostImage },
+		{ media: ProductImage },
+	];
 
-    
 	return (
-		<div style={{maxWidth: "560px"}}>
+		<div style={{ maxWidth: "560px" }}>
 			<PostComp
-				handleFeedOpen={handleFeedOpen}
 				postID={"item id"}
 				creator={mockCreator}
 				comment={"some random comment"}
@@ -50,7 +53,6 @@ const Feeds = ({handleFeedOpen}) => {
 			</div>
 
 			<PostComp
-				handleFeedOpen={handleFeedOpen}
 				postID={"item id"}
 				creator={mockCreator}
 				comment={"some random comment"}
@@ -77,7 +79,6 @@ const Feeds = ({handleFeedOpen}) => {
 			</div>
 
 			<PostComp
-				handleFeedOpen={handleFeedOpen}
 				postID={"item id"}
 				creator={mockCreator}
 				comment={"some random comment"}
@@ -89,7 +90,6 @@ const Feeds = ({handleFeedOpen}) => {
 				post_comment_count={4}
 				time_since={"2hr ago"}
 			/>
-
 
 			<div className="ticket-das-row">
 				{[1, 2, 3, 4, 5, 6, 7].map((item) => (
@@ -98,7 +98,6 @@ const Feeds = ({handleFeedOpen}) => {
 			</div>
 
 			<PostComp
-				handleFeedOpen={handleFeedOpen}
 				postID={"item id"}
 				creator={mockCreator}
 				comment={"some random comment"}
@@ -110,7 +109,7 @@ const Feeds = ({handleFeedOpen}) => {
 				post_comment_count={4}
 				time_since={"2hr ago"}
 			/>
-			
+
 			<div className="ticket-das-row">
 				{[1, 2, 3, 4, 5, 6, 7].map((item) => (
 					<ProductDash key={item} />
@@ -118,7 +117,6 @@ const Feeds = ({handleFeedOpen}) => {
 			</div>
 
 			<PostComp
-				handleFeedOpen={handleFeedOpen}
 				postID={"item id"}
 				creator={mockCreator}
 				comment={"some random comment"}
@@ -148,7 +146,6 @@ const Feeds = ({handleFeedOpen}) => {
 			{[1, 2, 3, 4, 5].map((item) => (
 				<PostComp
 					key={item}
-					handleFeedOpen={handleFeedOpen}
 					postID={"item id"}
 					creator={mockCreator}
 					comment={"some random comment"}

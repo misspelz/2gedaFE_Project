@@ -8,12 +8,12 @@ import { useState } from "react";
 import PostmediaGrid from "./post-media-grid/PostmediaGrid";
 import Sharepost from "components/Home/Sharepost/Sharepost";
 import Likepost from "components/Home/Likepost/Likepost";
+import { Link } from "react-router-dom";
 
 const PostComp = ({
   index,
   disnone,
   redmar,
-  handleFeedOpen,
   creator,
   comment,
   media,
@@ -55,21 +55,22 @@ const PostComp = ({
 					{time_since && <div className="time-posted">{time_since}</div>}
 				</div>
 				<hr className="feed-hr" />
-				<div className="post-body-box" onClick={handleFeedOpen}>
-					{content && (
-						<div className="post-body-text">
-							{content}
-							<br />
-							<br />
-							{/* <a href="www.ileifetech.com/freshmen">
-                www.ileifetech.com/freshmen
-              </a> */}
-						</div>
-					)}
-				</div>
-				<div className="dob-img flex" onClick={handleFeedOpen}>
-					{media && <PostmediaGrid media={media} />}
-				</div>
+				<Link to={`/Home/${postID}`} className="post-body-box">
+					<div>
+						{content && (
+							<div className="post-body-text">
+								{content}
+								<br />
+								<br />
+							</div>
+						)}
+					</div>
+				</Link>
+				<Link to={`/Home/${postID}`}>
+					<div>
+						{media && <PostmediaGrid media={media} />}
+					</div>
+				</Link>
 				<div className="post-likes-co">
 					<div className="likes-per-post">
 						<div className="likes-bx">
@@ -95,9 +96,7 @@ const PostComp = ({
 						{commentList.includes(index) ? (
 							<div className="icon-text">
 								<BiMessageAlt className="mess" />
-								<div className="con-test">
-									{50}
-								</div>
+								<div className="con-test">{50}</div>
 							</div>
 						) : (
 							<div className="icon-text">

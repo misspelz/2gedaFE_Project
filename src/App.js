@@ -33,6 +33,7 @@ import ComingSoonPage from "./pages/ComingSoon";
 import PrivacyPolicy from "./components/LandinComp/Privacy";
 import { Toaster } from "react-hot-toast";
 import { ProtectedRoutes } from "./routes/ProtectedRoutes";
+import FeedDetail from "pages/FeedDetail/FeedDetail";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -75,6 +76,7 @@ function App() {
         <Route index path="/Signin" element={<Signin />} />
         <Route index path="/" element={<Landing />} />
         <Route index path="/Home" element={<Home />} />
+        {/* <Route index path="/Home/:feedId" element={<FeedDetail />} /> */}
         <Route index path="/forgot" element={<ForgotPassword />} />
         <Route index path="/verify" element={<Verify />} />
         {/* <Route

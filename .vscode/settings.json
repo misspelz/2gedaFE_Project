@@ -1,3 +1,7 @@
 {
-  "liveServer.settings.port": 5501
+"liveServer.settings.port": 5501,
+"editor.foldingStrategy": "indentation",
+"html.format.indentInnerHtml": true,
+"css.format.newlineBetweenRules": false,
+"css.format.newlineBetweenSelectors": false
 }

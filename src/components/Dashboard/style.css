@@ -122,6 +122,7 @@
 }
 .post-body-box {
   font-size: 16px;
+  text-decoration: none;
   margin: 0 auto;
   padding-top: 20px;
   border: 0;
@@ -140,12 +141,6 @@
 }
 .post-body-text {
   width: 100%;
-}
-
-.dob-img {
-  gap: 5px;
-  width: 100%;
-  justify-content: center;
 }
 
 .over-lay-post {

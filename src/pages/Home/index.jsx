@@ -4,7 +4,6 @@ import DashMessage from "../../components/Dashboard/DasMess";
 import FirstSide from "../../components/Dashboard/FirstSide";
 import Follower from "../../components/Dashboard/Follower";
 import SelectCategory from "../../components/Dashboard/SelectCategory";
-import FeedDetail from "../../components/Home/FeedDetail/FeedDetail";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -39,14 +38,6 @@ const CustomTabPanel = (props) => {
 }
 
 const Home = () => {
-	const [isFeedOpen, setIsFeedOpen] = useState(false);
-
-	const handleFeedOpen = () => {
-		setIsFeedOpen(true);
-	};
-	const handleFeedClose = () => {
-		setIsFeedOpen(false);
-	};
 
 	const [activeTab, setActiveTab] = React.useState(0);
 
@@ -58,67 +49,62 @@ const Home = () => {
 		<div className="home-container">
 			<MainLayout>
 				<div className="main-containe">
-					<div>
-						{isFeedOpen && <FeedDetail handleFeedClose={handleFeedClose} />}
-					</div>
-					{!isFeedOpen && (
-						<div className="left-side-container">
-							<FirstSide />
-							<img src="images/jumia.png" alt="" className="ads-img" />
-							<LifestyleStatus />
-							<Box className="feeds-tabs-main-container">
-								<Box
-									sx={{
-										maxWidth: { xs: 320, sm: 580 },
-										bgcolor: "background.paper",
-										alignItems: "center",
-									}}
-								>
-									<Tabs
-										value={activeTab}
-										onChange={handleChange}
-										variant="scrollable"
-										scrollButtons="auto"
-										className="custom-tabs"
-										aria-label="scrollable tabs"
-									>
-										<Tab label="All posts" />
-										<Tab label="Images" />
-										<Tab label="Videos" />
-										<Tab label="Products" />
-										<Tab label="Voice notes" />
-										<Tab label="Location" />
-										<Tab label="Music" />
-										<Tab label="Files" />
-									</Tabs>
-								</Box>
-								<CustomTabPanel value={activeTab} index={0}>
-									<Feeds handleFeedOpen={handleFeedOpen} />
-								</CustomTabPanel>
-								<CustomTabPanel value={activeTab} index={1}>
-									<Feedimages />
-								</CustomTabPanel>
-								<CustomTabPanel value={activeTab} index={2}>
-									<Feedvideos />
-								</CustomTabPanel>
-								<CustomTabPanel value={activeTab} index={3}>
-									<FeedsProducts />
-								</CustomTabPanel>
-								<CustomTabPanel value={activeTab} index={4}>
-									<FeedsVoice />
-								</CustomTabPanel>
-								<CustomTabPanel value={activeTab} index={5}>
-									<FeedLocations />
-								</CustomTabPanel>
-								<CustomTabPanel value={activeTab} index={6}>
-									<FeedsMusic />
-								</CustomTabPanel>
-								<CustomTabPanel value={activeTab} index={7}>
-									<Feedfiles />
-								</CustomTabPanel>
-							</Box>
-						</div>
-					)}
+                    <div className="left-side-container">
+                        <FirstSide />
+                        <img src="images/jumia.png" alt="" className="ads-img" />
+                        <LifestyleStatus />
+                        <Box className="feeds-tabs-main-container">
+                            <Box
+                                sx={{
+                                    maxWidth: { xs: 320, sm: 580 },
+                                    bgcolor: "background.paper",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Tabs
+                                    value={activeTab}
+                                    onChange={handleChange}
+                                    variant="scrollable"
+                                    scrollButtons="auto"
+                                    className="custom-tabs"
+                                    aria-label="scrollable tabs"
+                                >
+                                    <Tab label="All posts" />
+                                    <Tab label="Images" />
+                                    <Tab label="Videos" />
+                                    <Tab label="Products" />
+                                    <Tab label="Voice notes" />
+                                    <Tab label="Location" />
+                                    <Tab label="Music" />
+                                    <Tab label="Files" />
+                                </Tabs>
+                            </Box>
+                            <CustomTabPanel value={activeTab} index={0}>
+                                <Feeds />
+                            </CustomTabPanel>
+                            <CustomTabPanel value={activeTab} index={1}>
+                                <Feedimages />
+                            </CustomTabPanel>
+                            <CustomTabPanel value={activeTab} index={2}>
+                                <Feedvideos />
+                            </CustomTabPanel>
+                            <CustomTabPanel value={activeTab} index={3}>
+                                <FeedsProducts />
+                            </CustomTabPanel>
+                            <CustomTabPanel value={activeTab} index={4}>
+                                <FeedsVoice />
+                            </CustomTabPanel>
+                            <CustomTabPanel value={activeTab} index={5}>
+                                <FeedLocations />
+                            </CustomTabPanel>
+                            <CustomTabPanel value={activeTab} index={6}>
+                                <FeedsMusic />
+                            </CustomTabPanel>
+                            <CustomTabPanel value={activeTab} index={7}>
+                                <Feedfiles />
+                            </CustomTabPanel>
+                        </Box>
+                    </div>
 					<div className="middle-side-container">
 						<img src="images/ads1.png" alt="" />
 						<img src="images/ads2.png" alt="" />
@@ -131,16 +117,6 @@ const Home = () => {
 							<DashMessage />
 						</div>
 					</div>
-					{/* <div
-						className="quick-dial-container"
-						style={{
-							border: "1px solid red",
-							position: "fixed",
-							top: "50dvh",
-						}}
-					>
-						some text
-					</div> */}
 				</div>
 			</MainLayout>
 		</div>
