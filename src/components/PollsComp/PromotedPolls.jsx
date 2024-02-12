@@ -6,7 +6,7 @@ import optionss from "utils/options.json";
 
 export const PromotedPolls = ({ HandlePoll }) => {
   const [polls, setPolls] = useState([]);
-  console.log("polls", polls);
+  // console.log("polls", polls);
   const [loading, setLoading] = useState(true);
 
   const options = [
@@ -17,8 +17,8 @@ export const PromotedPolls = ({ HandlePoll }) => {
   const handleMyPolls = async (e) => {
     try {
       const response = await MyPollsApi();
-      console.log("pollsresponse", response);
-      console.log("pollsdata", response?.data);
+      // console.log("pollsresponse", response);
+      // console.log("pollsdata", response?.data);
       setPolls(response?.data);
       setLoading(false);
     } catch (error) {

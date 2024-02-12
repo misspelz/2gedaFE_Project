@@ -20,7 +20,7 @@ export const Polls = ({
   cast,
   setContent,
 }) => {
-  console.log(cast);
+  // console.log(cast);
   const formatCreatedAt = (createdAt) => {
     const date = new Date(createdAt);
     const options = {

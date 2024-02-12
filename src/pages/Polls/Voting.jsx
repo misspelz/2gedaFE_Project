@@ -16,7 +16,7 @@ import Modal from "components/Modals/Modal";
 import { IoMdClose } from "react-icons/io";
 import InputField from "components/Commons/InputField";
 import ActionButton from "components/Commons/Button";
-import { MyPollsApi } from "utils/ApICalls";
+import { CastVoteApi, MyPollsApi, signToken } from "utils/ApICalls";
 import toast from "react-hot-toast";
 import optionss from "utils/options.json";
 import { url } from "utils/index";
@@ -25,6 +25,7 @@ const Voting = () => {
   const userInfoString = localStorage.getItem("2gedaUserInfo");
 
   const userInfo = JSON.parse(userInfoString);
+  console.log("singlePoll_userInfo", userInfo);
 
   const [selectedPoll, setSelectedPoll] = useState(false);
   // console.log("singlePoll", selectedPoll);
@@ -165,7 +166,7 @@ const Voting = () => {
                 question={poll.question}
                 // options={options}
                 optionList={
-                  poll.options_list.length > 0 ? poll.options_list : optionss
+                  poll?.options_list?.length > 0 ? poll?.options_list : optionss
                 }
                 daysRemaining={poll.duration}
                 totalVotes={poll.vote_count}
@@ -199,7 +200,7 @@ const Voting = () => {
                 question={poll.question}
                 // options={options}
                 optionList={
-                  poll.options_list.length > 0 ? poll.options_list : optionss
+                  poll?.options_list?.length > 0 ? poll?.options_list : optionss
                 }
                 daysRemaining={poll.duration}
                 totalVotes={poll.vote_count}
@@ -229,7 +230,7 @@ const Voting = () => {
               createdAt={poll.created_at}
               question={poll.question}
               optionList={
-                poll.options_list.length > 0 ? poll.options_list : optionss
+                poll?.options_list?.length > 0 ? poll?.options_list : optionss
               }
               daysRemaining={poll.duration}
               totalVotes={poll.vote_count}
@@ -281,25 +282,26 @@ const Voting = () => {
 
   const handleSubmitFreeVote = async () => {
     const payload = {
-      id: singlePoll.vote_id,
+      post_id: singlePoll.vote_id,
       content: singlePoll.content,
       cost: 0,
     };
-    console.log(payload, "Payload");
+    console.log(payload, "CastVotePayload");
 
     try {
       setLoading(true);
+      // const castVoteRes = await CastVoteApi(payload)
       const resp = await fetch(url + "/poll/votes", {
-        method: "POST",
+        method: "post",
         headers: {
-          Authorization: "Token " + token,
+          Authorization: "Token " + signToken,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       });
       const result = await resp.json();
 
-      console.log(result, "vote resp");
+      console.log(result, "castVoteRes");
 
       if (result[0]?.have_Voted) {
         toast.success("Vote casted successfully");
@@ -458,7 +460,10 @@ const Voting = () => {
               onClose={() => setShowCreateModal((prev) => !prev)}
               fullWidth
             >
-              <CreatePoll onClose={setShowCreateModal} updatePollsDetails={updatePollsDetails} />
+              <CreatePoll
+                onClose={setShowCreateModal}
+                updatePollsDetails={updatePollsDetails}
+              />
             </Dialog>
           </div>
         )}

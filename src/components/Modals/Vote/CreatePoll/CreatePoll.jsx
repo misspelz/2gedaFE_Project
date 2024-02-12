@@ -4,10 +4,8 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-hot-toast";
 import { url } from "utils/index";
 
-
+export const token = localStorage.getItem("authTOken");
 const CreatePoll = ({ onClose, updatePollsDetails }) => {
-  const token = localStorage.getItem("authTOken");
-
   const [pollData, setPollData] = useState({
     question: "",
     content: ["", ""],
@@ -65,28 +63,26 @@ const CreatePoll = ({ onClose, updatePollsDetails }) => {
     console.log(formDataRes, "formDataRes");
 
     try {
+      setIsLoading(true);
+      const resp = await fetch(url + "/poll/polls/", {
+        method: "POST",
+        headers: {
+          Authorization: "Token " + token,
+        },
+        body: formData,
+      });
+      const result = await resp.json();
 
-        setIsLoading(true);
-        const resp = await fetch(url + "/poll/polls/", {
-            method: "POST",
-            headers: {
-                Authorization: "Token " + token,
-            },
-            body: formData,
-        });
-        const result = await resp.json();
+      console.log(result, "REs");
 
-        console.log(result, "REs");
-
-        if (result?.id) {
-            toast.success("Poll created successfully");
-            onClose();
-            updatePollsDetails(result);
-        }
+      if (result?.id) {
+        toast.success("Poll created successfully");
+        onClose();
+        updatePollsDetails(result);
+      }
     } catch (error) {
       console.log("error", error);
       toast.error(error.response.data.error || "An error occurred");
-
     } finally {
       setIsLoading(false);
     }
@@ -212,6 +208,3 @@ const CreatePoll = ({ onClose, updatePollsDetails }) => {
 };
 
 export default CreatePoll;
-
-
-

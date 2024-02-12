@@ -9,10 +9,10 @@ export const Poll = ({
   cast,
   setContent,
 }) => {
-  console.log(cast);
+  // console.log(cast);
   const percent =
     totalVotes !== 0 ? Math.round((allVotes / totalVotes) * 100) : 0;
-  console.log(title);
+  // console.log(title);
   return (
     <label
       htmlFor={title}

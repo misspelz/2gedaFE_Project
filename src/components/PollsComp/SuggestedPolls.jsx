@@ -7,7 +7,7 @@ import optionss from "utils/options.json";
 
 export const SuggestedPolls = ({ HandlePoll }) => {
   const [suggestedPolls, setSuggestedPolls] = useState([]);
-  console.log("suggestedPolls", suggestedPolls);
+  // console.log("suggestedPolls", suggestedPolls);
   const [loading, setLoading] = useState(true);
 
   const initialOptions = [
