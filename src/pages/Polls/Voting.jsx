@@ -26,7 +26,7 @@ const Voting = () => {
     const token = getToken(); // Retrieve token
     setToken(token); // Set token state
   }, []);
-  
+
   const userInfoString = localStorage.getItem("2gedaUserInfo");
 
   const userInfo = JSON.parse(userInfoString);
@@ -282,7 +282,6 @@ const Voting = () => {
   };
 
   const handleSubmitFreeVote = async () => {
-    console.log(signToken);
     const load = {
       post_id: singlePoll.vote_id,
       content: singlePoll.content,
@@ -292,15 +291,11 @@ const Voting = () => {
 
     try {
       setLoading(true);
-      // const castVoteRes = await CastVoteApi(load)
       const resp = await fetch(`${url}/poll/votes/`, {
         method: "POST",
         headers: {
-
           Authorization: "Token " + token,
-
           "Content-Type": "application/json",
-          Authorization: "Token " + signToken,
         },
         body: JSON.stringify(load),
       });

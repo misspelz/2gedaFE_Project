@@ -94,8 +94,9 @@ const SigninForm = () => {
         // console.log("signinTOken", signinTOken);
         const userInfo = await UserInfoApi(result.token);
         // console.log("userInfo", userInfo);
-        userInfo.data && localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data ));
-        
+        userInfo.data &&
+          localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
+
         if (userInfo.data?.is_verified) {
           toast.success("Log in successful");
           navigate("/Home");
