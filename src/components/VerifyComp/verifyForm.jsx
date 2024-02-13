@@ -25,7 +25,7 @@ const VerifyForm = () => {
 
   const storedUserInfo = JSON.parse(localStorage.getItem("2gedaUserInfo"));
   
-  const EmailData = { email: storedUserInfo.email };
+  const EmailData = { email: storedUserInfo?.email };
 
   const HandleResendOTP = async () => {
     try {
