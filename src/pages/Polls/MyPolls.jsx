@@ -226,7 +226,10 @@ const MyPolls = () => {
                 onClose={() => setShowCreateModal((prev) => !prev)}
                 fullWidth
               >
-                <CreatePoll onClose={setShowCreateModal} />
+                <CreatePoll
+                  onClose={setShowCreateModal}
+                  fetchPolls={handleMyPolls}
+                />
               </Dialog>
               <Dialog open={showCloseModal} onClose={handleShowcloseModal}>
                 <ClosePoll closeModal={handleShowcloseModal} />
