@@ -1,18 +1,10 @@
 import { useEffect, useState } from "react";
 import ActionButton from "../Commons/Button";
-import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-import { url } from "../../utils";
 import toast from "react-hot-toast";
-import { GetOTP, ResendOTP, VerifyOTP } from "utils/ApICalls";
+import { GetOTP, VerifyOTP } from "utils/ApICalls";
 import { useNavigate } from "react-router-dom";
 
-const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
-  
-  // const storedUserInfo = JSON.parse(localStorage.getItem("2gedaUserInfo"));
-  // console.log("storedUserInfo", storedUserInfo)
-  // const EmailData = { email: storedUserInfo.email };
-
+const VerifyForm = () => {
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,6 +15,7 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
     inputValue4: "",
     inputValue5: "",
   });
+
   const [seconds, setSeconds] = useState(60);
   const [isActive, setIsActive] = useState(true);
   const [timerExpired, setTimerExpired] = useState(false);
@@ -30,31 +23,32 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
 
   const [inputRefs] = useState([null, null, null, null, null]);
 
-  useEffect(() => {
-    if (inputRefs[0]) {
-      inputRefs[0].focus();
-    }
-  }, [inputRefs]);
+  const storedUserInfo = JSON.parse(localStorage.getItem("2gedaUserInfo"));
+  
+  const EmailData = { email: storedUserInfo.email };
 
-  // const handleResend = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     setLoading(true);
-  //     const response = await VerifyOTP();
-  //     console.log("VerifyOTP", response);
-  //     if (response.status === 200) {
-  //       toast.success(response.data.response);
-  //     }
-  //     setSeconds(60);
-  //     setIsActive(true);
-  //     setTimerExpired(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast.error(error.message || "An error occurred");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const HandleResendOTP = async () => {
+    try {
+      setLoading(true);
+      const response = await GetOTP(EmailData);
+      console.log("response", response);
+      if (response.status === 200) {
+        toast.success(response.data.response);
+
+        setTimeout(() => {
+          navigate("/Signin", { replace: true });
+        }, 3000);
+      }
+    } catch (error) {
+      toast.error(
+        error.response.data.detail ||
+          error.response.data.error ||
+          "An error occurred"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleInputChange = (e, inputNumber) => {
     const value = e.target.value;
@@ -69,23 +63,6 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
       }
     }
   };
-
-  useEffect(() => {
-    let interval;
-
-    if (isActive && seconds > 0) {
-      interval = setInterval(() => {
-        setSeconds(seconds - 1);
-      }, 1000);
-    } else if (seconds === 0) {
-      setIsActive(false);
-      setTimerExpired(true);
-    }
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [isActive, seconds]);
 
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -111,12 +88,38 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
         }, 2000);
       }
     } catch (error) {
-      console.log("eeeerror", error);
-      toast.error(error.response.data.detail || "An error occurred");
+      toast.error(
+        error.response.data.detail ||
+          error.response.data.error ||
+          "An error occurred"
+      );
     } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (inputRefs[0]) {
+      inputRefs[0].focus();
+    }
+  }, [inputRefs]);
+
+  useEffect(() => {
+    let interval;
+
+    if (isActive && seconds > 0) {
+      interval = setInterval(() => {
+        setSeconds(seconds - 1);
+      }, 1000);
+    } else if (seconds === 0) {
+      setIsActive(false);
+      setTimerExpired(true);
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isActive, seconds]);
 
   return (
     <>
@@ -125,10 +128,7 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
         <div className="ins-tst-dig">
           We sent a 5 digits code to your email address
         </div>
-        {/* <div className="change-email"> */}
-          {/* {storedUserInfo.email} */}
-          {/* <span>change</span> */}
-        {/* </div> */}
+
         <form action="">
           <div className="verify-inputs">
             {[1, 2, 3, 4, 5].map((inputNumber) => (
@@ -155,7 +155,7 @@ const VerifyForm = ({ setIsVerify, handleVerifyClick }) => {
                   Didn’t get code ?{" "}
                   <button
                     className={`act-resend `}
-                    // onClick={handleResend}
+                    onClick={HandleResendOTP}
                     disabled={loading}
                   >
                     {loading ? "Resending..." : "Resend"}
