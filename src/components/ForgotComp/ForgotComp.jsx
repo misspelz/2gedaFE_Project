@@ -10,7 +10,7 @@ import { url } from "utils/index";
 import { useNavigate } from "react-router-dom";
 
 const ForgotComponent = () => {
-  const nav = useNavigate()
+  const nav = useNavigate();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,17 +21,25 @@ const ForgotComponent = () => {
   };
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+    const trimmedEmail = event.target.value.trim();
+    setEmail(trimmedEmail);
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    const trimmedPassword = event.target.value.trim();
+    setPassword(trimmedPassword);
   };
 
   const HandleResetPassword = async (e) => {
     setLoading(true);
 
     try {
+      // Check if email is empty
+      if (!email) {
+        toast.error("Please enter your email address.");
+        return;
+      }
+
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
