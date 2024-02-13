@@ -82,7 +82,6 @@ const SigninForm = () => {
 
       const response = await fetch(`${url}/login/`, requestOptions);
       const result = await response.json();
-      console.log("login", result);
 
       if (!response.ok) {
         if (response.status === 400 || response.status === 401) {
@@ -91,25 +90,20 @@ const SigninForm = () => {
           throw new Error(result.error || "An error occurred.");
         }
       } else {
-        const signinTOken = localStorage.setItem("authTOken", result.token);
-        console.log("signinTOken", signinTOken);
-
+        localStorage.setItem("authTOken", result.token);
+        // console.log("signinTOken", signinTOken);
         const userInfo = await UserInfoApi(result.token);
-        console.log("userInfo", userInfo);
-        if (userInfo.status === 200 && userInfo.data?.is_verified === true) {
-          localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
+        // console.log("userInfo", userInfo);
+        userInfo.data && localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data ));
+        
+        if (userInfo.data?.is_verified) {
           toast.success("Log in successful");
           navigate("/Home");
-        } else if (
-          userInfo.status === 200 &&
-          userInfo?.data.is_verified !== true
-        ) {
-          localStorage.setItem("2gedaUserInfo", JSON.stringify(userInfo?.data));
+        } else {
           setIsEmailVerify(true);
         }
       }
     } catch (error) {
-      console.error("Login error:", error);
       toast.error(error.message || "An error occurred.");
     } finally {
       setIsLoading(false);
