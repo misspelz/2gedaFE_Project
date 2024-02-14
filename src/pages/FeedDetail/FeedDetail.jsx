@@ -18,6 +18,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import Quickdial from "./Quickdial";
 import "./feed-detail.css";
 import MainLayout from "Layout/MainLayout";
+import Follower from "components/Dashboard/Follower";
+import DashMessage from "components/Dashboard/DasMess";
+import SelectCategory from "components/Dashboard/SelectCategory";
+import PostImage2 from "assets/images/post-speech.png";
 
 const FeedDetail = () => {
 	const { feedId } = useParams();
@@ -155,15 +159,29 @@ const FeedDetail = () => {
 						{feedId}
 						<div className="feed-top">
 							<FaArrowLeftLong
-								size={26}
-								color="#d4af37"
+								size={20}
+								color="#000"
 								onClick={() => {
 									navigate(-1);
 								}}
+								style={{ cursor: "pointer" }}
 							/>
 							<h3>Feed</h3>
 						</div>
 						<hr className="feed_hr" />
+						<div className="post-preview-container">
+							<div className="post-display-images">
+								<img src={PostImage2} />
+							</div>
+							<div className="post-display-content">
+								<p>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Assumenda nulla, consequatur iste eum harum nemo autem
+									officiis. Error reprehenderit corrupti a amet officiis,
+									inventore officia. Nostrum nemo vel a similique.
+								</p>
+							</div>
+						</div>
 						<div className="comm-bx-pos">
 							<CommentPerPost />
 						</div>
@@ -197,58 +215,9 @@ const FeedDetail = () => {
 							</div>
 						)}
 
-						<div className="inpu-com-box">
+						{/* <div className="inpu-com-box">
 							{!selectedImage && showCommentInput && <CommentInputField />}
-						</div>
-						<div className="edit-comment-to-post">
-							{/* <div className="to-edi-con">
-                    <div className="edi-con-post fl">
-                        <input
-                        type="file"
-                        accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .exe, .apk"
-                        className="pic-inptn"
-                        style={{ display: "none" }}
-                        id="fil-inp"
-                        onChange={handleFileChange}
-                        />
-                        <label htmlFor="fil-inp">
-                        <BsFileEarmarkText className="pic-inptn" />
-                        </label>
-                    </div>{" "}
-                    <div className="edi-con-post nt" onClick={toggleRecInput}>
-                        {showRecInput ? <AiOutlineStop /> : <MdKeyboardVoice />}
-                    </div>
-                    <div className="edi-con-post vd">
-                        <input
-                        type="file"
-                        accept="video/*"
-                        className="pic-inptn"
-                        style={{ display: "none" }}
-                        id="vd-inp"
-                        onChange={handleVideoChange}
-                        />
-                        <label htmlFor="vd-inp">
-                        <MdOndemandVideo className="pic-inptn" />
-                        </label>
-                    </div>
-                    <div className="edi-con-post pc">
-                        <input
-                        type="file"
-                        accept="image/*"
-                        className="pic-inptn"
-                        style={{ display: "none" }}
-                        id="pic-inp"
-                        onChange={handleImageChange}
-                        />
-                        <label htmlFor="pic-inp">
-                        <MdOutlinePhotoSizeSelectActual className="pic-inptn" />
-                        </label>
-                    </div>
-                    <div className="edi-con-post" onClick={toggleCommentInput}>
-                        <FiEdit />
-                    </div>
-                                </div> */}
-						</div>
+						</div> */}
 						<div className="quick-dial-container">
 							<Quickdial />
 						</div>

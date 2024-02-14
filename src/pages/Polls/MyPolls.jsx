@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import MainLayout from "Layout/MainLayout";
-import PollsSearch from "components/PollsComp/PollsSearch";
-import CanVote from "components/Modals/Vote/Can/CanVote";
-import SearchBox from "components/SearchComp/searchBox";
-import Notify from "components/Modals/Vote/Notification/Notify";
-import { url } from "utils";
-import { IoIosNotificationsOutline, IoIosSearch } from "react-icons/io";
 import { Polls } from "components/PollsComp/Polls";
 import { Polls2 } from "components/PollsComp/Polls2";
 import { PollsNotification } from "components/PollsComp/RightComp";
-import { SuggestedPolls } from "components/PollsComp/SuggestedPolls";
 import { FindPolls } from "components/PollsComp/FindPolls";
-import { Notifications } from "components/PollsComp/Notification";
-import { CreateCastActions } from "components/PollsComp/CreateCastActions";
-import { PromotedPolls } from "components/PollsComp/PromotedPolls";
 import CreatePoll from "components/Modals/Vote/CreatePoll/CreatePoll";
 import { Dialog } from "@mui/material";
 import { MyPollsCategories } from "components/PollsComp/MyPollsCategories";
@@ -24,6 +14,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { MyPollsApi } from "utils/ApICalls";
 import toast from "react-hot-toast";
+import optionss from "utils/options.json";
 
 const MyPolls = () => {
   const userInfoString = localStorage.getItem("2gedaUserInfo");
@@ -77,10 +68,10 @@ const MyPolls = () => {
     setViewResults((prev) => !prev);
   };
 
-  const options = [
-    { title: "Python", percentage: "20" },
-    { title: "Java", percentage: "10" },
-  ];
+  // const options = [
+  //   { title: "C#", percentage: "20" },
+  //   { title: "Kotlin", percentage: "10" },
+  // ];
 
   const renderPolls = () => {
     switch (viewType) {
@@ -88,7 +79,7 @@ const MyPolls = () => {
         if (!pollsDetails || pollsDetails.length === 0) {
           return <p className="mt-20">Please wait...</p>;
         } else {
-          const isActive = pollsDetails.filter((poll) => !poll.is_active);
+          const isActive = pollsDetails.filter((poll) => poll.is_active);
           return isActive.length > 0 ? (
             isActive?.map((poll, index) => (
               <Polls
@@ -97,7 +88,10 @@ const MyPolls = () => {
                 authorName={poll.username}
                 createdAt={poll.created_at}
                 question={poll.question}
-                options={options} // take note
+                // options={initialOptions}
+                optionList={
+                  poll?.options_list?.length > 0 ? poll?.options_list : optionss
+                }
                 daysRemaining={poll.duration}
                 totalVotes={poll.vote_count}
                 backgroundImageUrl={
@@ -106,6 +100,7 @@ const MyPolls = () => {
                 myPolls={true}
                 onClose={handleShowcloseModal}
                 onView={handleViewResults}
+                className="border p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0"
               />
             ))
           ) : (
@@ -125,7 +120,10 @@ const MyPolls = () => {
                 authorName={poll.username}
                 createdAt={poll.created_at}
                 question={poll.question}
-                options={options} // take note
+                // options={initialOptions}
+                optionList={
+                  poll?.options_list?.length > 0 ? poll?.options_list : optionss
+                }
                 daysRemaining={poll.duration}
                 totalVotes={poll.vote_count}
                 backgroundImageUrl={
@@ -134,6 +132,7 @@ const MyPolls = () => {
                 myPolls={true}
                 onClose={handleShowcloseModal}
                 onView={handleViewResults}
+                className="border p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0"
               />
             ))
           ) : (
@@ -152,7 +151,10 @@ const MyPolls = () => {
               authorName={poll.username}
               createdAt={poll.created_at}
               question={poll.question}
-              options={options} // take note
+              // options={initialOptions}
+              optionList={
+                poll?.options_list?.length > 0 ? poll?.options_list : optionss
+              }
               daysRemaining={poll.duration}
               totalVotes={poll.vote_count}
               backgroundImageUrl={
@@ -161,6 +163,7 @@ const MyPolls = () => {
               myPolls={true}
               onClose={handleShowcloseModal}
               onView={handleViewResults}
+              className="border p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0"
             />
           ));
         }
@@ -178,7 +181,8 @@ const MyPolls = () => {
       setPollsDetails(response?.data);
       setLoading(false);
     } catch (error) {
-      toast.error(error);
+      console.log("error", error);
+      toast.error(error.response.data.error || "An error occurred");
     }
   };
 
@@ -269,206 +273,8 @@ const MyPolls = () => {
           showCreateModal={() => setShowCreateModal((prev) => !prev)}
         />
       </div>
-
-      {/* <div className="main-containe bus-box-con "> */}
-      {/* <div className="left-side-container buss-all-container p-4"> */}
-      {/* <h2 className="head-line bus-dir ">Voting</h2>
-            <PollsSearch />
-            <img src="images/jumia.png" alt="" className="ads-img" />
-
-            <div className="pollsBox">
-              <h2 className="head-line bus-dir">Suggested polls</h2>
-              <div className="grid" style={{ overflowX: "auto" }}>
-                {suggested && suggested.length > 1 ? (
-                  suggested.map((item, index) => (
-                    <CanVote
-                      key={index}
-                      voteOptions={item.options_list ? item.options_list : []}
-                      creator={item.username ? item.username : "unknown user"}
-                      question={item.question ? item.question : ""}
-                      duration={item.duration ? item.duration : ""}
-                      castVote={castVote}
-                      voteId={item.vote_id ? item.vote_id : ""}
-                    />
-                  ))
-                ) : (
-                  <>
-                    {retrievedArrayString &&
-                      retrievedArrayString.length > 1 &&
-                      retrievedArrayString.map((item, index) => (
-                        <CanVote
-                          key={index}
-                          voteOptions={
-                            item.options_list ? item.options_list : []
-                          }
-                          creator={
-                            item.username ? item.username : "unknown user"
-                          }
-                          question={item.question ? item.question : ""}
-                          duration={item.duration ? item.duration : ""}
-                          castVote={castVote}
-                          voteId={item.vote_id ? item.vote_id : ""}
-                        />
-                      ))}
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="pollsBox">
-              <h2 className="head-line bus-dir">Promoted polls</h2>
-              <div className="grid" style={{ overflowX: "auto" }}>
-                {promoted && promoted.length > 1 ? (
-                  promoted.map((item, index) => (
-                    <CanVote
-                      key={index}
-                      voteOptions={item.options_list ? item.options_list : []}
-                      creator={item.username ? item.username : "unknown user"}
-                      question={item.question ? item.question : ""}
-                      duration={item.duration ? item.duration : ""}
-                      castVote={castVote}
-                      voteId={item.vote_id ? item.vote_id : ""}
-                    />
-                  ))
-                ) : (
-                  <>
-                    {promotedPollsArrayString &&
-                      promotedPollsArrayString.length > 1 &&
-                      promotedPollsArrayString.map((item, index) => (
-                        <CanVote
-                          key={index}
-                          voteOptions={
-                            item.options_list ? item.options_list : []
-                          }
-                          creator={
-                            item.username ? item.username : "unknown user"
-                          }
-                          question={item.question ? item.question : ""}
-                          duration={item.duration ? item.duration : ""}
-                          castVote={castVote}
-                          voteId={item.vote_id ? item.vote_id : ""}
-                        />
-                      ))}
-                  </>
-                )}
-              </div>
-            </div> */}
-
-      {/* <div className="tabs">
-              <div className="oval purple">All</div>
-              <div className="oval">Public</div>
-              <div className="oval">Private</div>
-            </div> */}
-
-      {/* <div className="col">
-              {responseData && responseData.length > 1 ? (
-                responseData.map((item, index) => (
-                  <CanVote
-                    key={index}
-                    voteOptions={item.options_list ? item.options_list : []}
-                    creator={item.username ? item.username : "unknown user"}
-                    question={item.question ? item.question : ""}
-                    duration={item.duration ? item.duration : ""}
-                    castVote={castVote}
-                    voteId={item.vote_id ? item.vote_id : ""}
-                  />
-                ))
-              ) : (
-                <>
-                  {allPollsArrayString &&
-                    allPollsArrayString.length > 1 &&
-                    allPollsArrayString.map((item, index) => (
-                      <CanVote
-                        key={index}
-                        voteOptions={item.options_list ? item.options_list : []}
-                        creator={item.username ? item.username : "unknown user"}
-                        question={item.question ? item.question : ""}
-                        duration={item.duration ? item.duration : ""}
-                        castVote={castVote}
-                        voteId={item.vote_id ? item.vote_id : ""}
-                      />
-                    ))}
-                </>
-              )} */}
-
-      {/* <img src="images/jumia.png" alt="" className="ads-img" />
-              <CanVote />
-              <CanVote onClick={openModal} />
-              <CanVote /> */}
-      {/* </div> */}
-      {/* </div> */}
-
-      {/* <div
-            className="left-side-container"
-            style={{
-              maxWidth: "525px",
-              padding: "20px",
-              background: "#fff",
-            }}
-          >
-            <SearchBox />
-            <Notify />
-          </div> */}
-
-      {/* <Modal
-            isOpen={isModalOpen}
-            onRequestClose={closeModal}
-            contentLabel="Connect Modal"
-          >
-            <CanVote />
-            <button onClick={closeModal}>Close Modal</button>
-          </Modal>
-        </div> */}
     </MainLayout>
   );
 };
-
-// const Votingg = () => {
-//   const [responseData, setResponseData] = useState(null);
-
-//   useEffect(() => {
-//     window.scrollTo(0, 0);
-
-//     const token = localStorage.getItem("authTOken");
-//     console.log(`Token ${token}`);
-//     const makeRequest = async () => {
-//       try {
-//         const response = await fetch(`${url}/poll/polls/`, {
-//           method: "GET",
-//           headers: {
-//             "Content-Type": "multipart/form-data",
-//             Authorization: `Token ${token}`,
-//           },
-//         });
-
-//         if (!response.ok) {
-//           console.log("Response not ok");
-//         }
-
-//         const responseBody = await response.json();
-//         console.log(responseBody);
-//         setResponseData(responseBody);
-
-//         // Check if responseData is not null before mapping
-//       } catch (error) {
-//         console.log(error);
-//         // Handle errors as needed
-//       } finally {
-//         // setIsLoading(true); // Move this line if needed based on your requirement
-//         console.log("Finally block executed");
-//       }
-//     };
-
-//     makeRequest();
-//   }, []);
-
-//   return (
-//     <>
-//       {responseData &&
-//         responseData.length > 1 &&
-//         responseData.map((item, index) => <p>Voting</p>)}
-//     </>
-//   );
-// };
 
 export default MyPolls;

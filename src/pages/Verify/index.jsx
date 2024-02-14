@@ -5,11 +5,11 @@ import VerifyModalSuc from "../../components/Modals/VerifyModalSuc";
 import { useNavigate } from "react-router-dom";
 
 const Verify = () => {
-  const userInfoString = localStorage.getItem("2gedaUserInfo");
+  // const userInfoString = localStorage.getItem("2gedaUserInfo");
 
-  const userInfo = JSON.parse(userInfoString);
+  // const userInfo = JSON.parse(userInfoString);
 
-  const email = userInfo.email;
+  // const email = userInfo?.email;
 
 
   const [isVerify, setIsVerify] = useState(false);
@@ -18,7 +18,7 @@ const Verify = () => {
   const handleVerifyClick = () => {
     setIsVerify(true);
     setTimeout(() => {
-      navigate("/EditProfile");
+      navigate("/Signin");
     }, 1000);
   };
 
@@ -39,7 +39,7 @@ const Verify = () => {
           <VerifyForm
             setIsVerify={setIsVerify}
             handleVerifyClick={handleVerifyClick}
-            email={email}
+            // email={email}
           />
         </div>
       </div>

@@ -126,6 +126,7 @@
   margin: 0 auto;
   padding-top: 20px;
   border: 0;
+  color: #000;
 }
 .feed-hr {
   border-top: 2px solid rgba(0, 0, 0, 0.1);
@@ -323,16 +324,6 @@
 .feed-box {
   background: #fff;
   position: relative;
-}
-.edit-comment-to-post {
-  position: fixed;
-  top: 70vh;
-  left: 60%;
-  display: flex;
-  align-items: flex-end;
-}
-.feed-top {
-  padding: 20px 10px;
 }
 .feed_hr {
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -616,9 +607,6 @@
     width: 38%;
     margin-left: 60px;
   }
-  .edit-comment-to-post {
-    top: 68vh;
-  }
   .pic-bx-cont {
     top: 80vh;
     margin-left: 40px;
@@ -639,10 +627,7 @@
     outline: none !important;
     background: #fff !important;
   }
-  .edit-comment-to-post {
-    top: 65vh;
-    left: 53%;
-  }
+
   .feed-box {
     min-width: 68% !important;
   }
@@ -666,9 +651,6 @@
   .right-side-container {
     display: none;
   }
-  .edit-comment-to-post {
-    left: 86%;
-  }
   .inpu-com-box {
     right: 8%;
   }
@@ -683,14 +665,8 @@
     /* display: none; */
     margin-bottom: 30px;
   }
-  .edit-comment-to-post {
-    left: 86%;
-  }
 }
 @media only screen and (max-width: 830px) {
-  .edit-comment-to-post {
-    left: 92%;
-  }
   .inpu-com-box {
     right: 0%;
     width: 80%;
@@ -704,9 +680,6 @@
 @media only screen and (max-width: 700px) {
   .post-body-box {
     font-size: 14px;
-  }
-  .edit-comment-to-post {
-    left: 88%;
   }
   .pic-bx-cont {
     top: 80vh;
@@ -758,9 +731,6 @@
   .post-likes-co {
     gap: 5px;
   }
-  .edit-comment-to-post {
-    top: 55vh;
-  }
   .inpu-com-box {
     top: 85vh;
     width: 90%;
@@ -800,9 +770,6 @@
   .btxt {
     font-size: 10px;
     margin-top: -5px;
-  }
-  .edit-comment-to-post {
-    left: 83%;
   }
   .likes-bx {
     width: 20px;

@@ -77,19 +77,19 @@ const SignForm = () => {
 
       const response = await fetch(`${url}/register/`, requestOptions);
       const responseBody = await response.json();
+      console.log("responseBody", responseBody);
 
       if (!response.ok) {
         if (response.status === 400) {
           if (responseBody.error === undefined) {
-            // alert(responseBody.username[0]);
             toast.error(responseBody.username[0]);
           } else {
-            // alert(responseBody.error);
             toast.error(responseBody.error);
           }
         }
       } else {
         const token = responseBody.token;
+        console.log("registertoken", token);
 
         localStorage.setItem("authTOken", token);
 
@@ -100,33 +100,6 @@ const SignForm = () => {
     } finally {
       setIsLoading(false);
     }
-
-    // // .then((response) => {
-    // //   if (response.ok && response.status === 200) {
-    // //     // If the response is OK, proceed with parsing JSON
-    // //     return response.json();
-    // //   } else {
-    // //     throw new Error("Authentication failed");
-    // //   }
-    // // })
-    // // .then((result) => {
-    // //   // Check if the token is available in the result
-    // //   const token = result.token;
-
-    // //   if (token) {
-    // //     // Save the token to local storage
-    // //     localStorage.setItem("authToken", token);
-    // //     console.log("authToken", token);
-
-    // //     // Redirect to the profile page
-    // //     navigate("/profile");
-    // //   } else {
-    // //     throw new Error("Token not found in the API response");
-    // //   }
-    // })
-    // .catch((error) => {
-    //   console.log("error", error);
-    // });
   };
 
   return (

@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import "./CreatePoll.css";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-hot-toast";
-import { CreatePollApi } from "utils/ApICalls";
+import { url } from "utils/index";
 
-const CreatePoll = ({ onClose }) => {
+export const token = localStorage.getItem("authTOken");
+const CreatePoll = ({ onClose, updatePollsDetails }) => {
   const [pollData, setPollData] = useState({
+    question: "",
     content: ["", ""],
+    duration: "22 hours",
+    type: "Free",
+    privacy: "Public",
+    media: null,
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -25,43 +31,58 @@ const CreatePoll = ({ onClose }) => {
     }));
   };
 
-  // const handleInputChange = (field, value) => {
-  //   setPollData({
-  //     ...pollData,
-  //     [field]: value,
-  //   });
-  // };
-
-  // const handleAddOption = () => {
-  //   setPollData({
-  //     ...pollData,
-  //     options: [...pollData.options, ""],
-  //   });
-  // };
-
   const handleCreatePoll = async (e) => {
     e.preventDefault();
 
-    // Create FormData
-    const form = new FormData(e.target);
-    form.append("content", pollData.content);
+    const formData = new FormData();
 
-    const formDetails = Object.fromEntries(form);
-    console.log("formDetails", formDetails);
+    // Append poll question
+    formData.append("question", pollData.question);
+
+    // Append poll duration
+    formData.append("duration", pollData.duration);
+
+    // Append poll type
+    formData.append("type", pollData.type);
+
+    // Append poll privacy
+    formData.append("privacy", pollData.privacy);
+
+    // Append media
+    // formData.append("media", pollData.media);
+
+    // Append options
+    pollData.content.forEach((content, index) => {
+      formData.append(`content`, content);
+    });
+
+    console.log(formData, "formData");
+
+    const formDataRes = Object.fromEntries(formData);
+
+    console.log(formDataRes, "formDataRes");
 
     try {
       setIsLoading(true);
-      const res = await CreatePollApi(form);
+      const resp = await fetch(url + "/poll/polls/", {
+        method: "POST",
+        headers: {
+          Authorization: "Token " + token,
+        },
+        body: formData,
+      });
+      const result = await resp.json();
 
-      console.log("createpoll", res?.data[0]);
-      if (res.status === 200) {
+      console.log(result, "REs");
+
+      if (result?.id) {
         toast.success("Poll created successfully");
         onClose();
+        updatePollsDetails(result);
       }
-      // Make your API request here using formData
-      // Example: await fetch('your-api-endpoint', { method: 'POST', body: formData });
     } catch (error) {
-      console.error("Error making API request:", error);
+      console.log("error", error);
+      toast.error(error.response.data.error || "An error occurred");
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +104,9 @@ const CreatePoll = ({ onClose }) => {
           onClick={() => onClose(false)}
           className="cursor-pointer"
         />
-        <span style={{ fontSize: "20px" }}>Create Poll</span>
+        <span style={{ fontSize: "20px", fontWeight: "bold" }}>
+          Create Poll
+        </span>
       </div>
       <div className="form-field">
         <label htmlFor="question">Poll question</label>
@@ -99,10 +122,10 @@ const CreatePoll = ({ onClose }) => {
 
       {pollData.content.map((option, index) => (
         <div className="form-field" key={`option-${index}`}>
-          <label htmlFor={`content`}>{`Option ${index + 1}`}</label>
+          <label htmlFor={`content${index + 1}`}>{`Option ${index + 1}`}</label>
           <input
             type="text"
-            id={`content`}
+            id={`content${index + 1}`}
             placeholder="Type option"
             value={option}
             className="outline-none"
@@ -147,7 +170,7 @@ const CreatePoll = ({ onClose }) => {
       </div>
 
       <div className="form-field">
-        <label htmlFor="privacy">Poll Access</label>
+        <label htmlFor="privacy">Poll access</label>
         <select
           id="privacy"
           name="privacy"
@@ -159,7 +182,7 @@ const CreatePoll = ({ onClose }) => {
         </select>
       </div>
 
-      <div className="form-field">
+      {/* <div className="form-field">
         <label htmlFor="media">Add image or video</label>
         <input
           type="file"
@@ -167,8 +190,11 @@ const CreatePoll = ({ onClose }) => {
           accept="image/*, video/*"
           name="media"
           className="outline-none"
+          onChange={(e) =>
+            handleInputChange("media", e.target.files[0])
+          }
         />
-      </div>
+      </div> */}
 
       <button
         className="create-poll-btn outline-none"

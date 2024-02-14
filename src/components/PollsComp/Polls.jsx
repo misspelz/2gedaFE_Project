@@ -12,35 +12,15 @@ export const Polls = ({
   daysRemaining,
   totalVotes,
   backgroundImageUrl,
-  className = "border w-[100%] p-3 mt-4 rounded-[25px] cursor-pointer",
+  className = "border w-full max-w-[360px] p-3 mt-4 rounded-[25px] cursor-pointer flex-shrink-0",
   myPolls,
   onClose,
   onView,
+  optionList,
+  cast,
+  setContent,
 }) => {
-  // const [optionPercentages, setOptionPercentages] = useState(
-  //   options?.map((option) => parseInt(option.percentage.replace("%", ""), 10))
-  // );
-
-  // const updatePercentage = (index, newPercentage) => {
-  //   const updatedPercentages = [...optionPercentages];
-  //   updatedPercentages[index] = newPercentage;
-
-  //   // Calculate the remaining percentage to distribute among other options
-  //   const remainingPercentage = 100 - newPercentage;
-
-  //   // Decrease other options proportionally
-  //   updatedPercentages.forEach((percentage, i) => {
-  //     if (i !== index) {
-  //       const decreasePercentage =
-  //         (remainingPercentage / (optionPercentages.length - 1)) *
-  //         (100 - newPercentage);
-  //       updatedPercentages[i] = percentage - decreasePercentage;
-  //     }
-  //   });
-
-  //   setOptionPercentages(updatedPercentages);
-  // };
-
+  // console.log(cast);
   const formatCreatedAt = (createdAt) => {
     const date = new Date(createdAt);
     const options = {
@@ -55,37 +35,11 @@ export const Polls = ({
     return date.toLocaleDateString("en-US", options);
   };
 
-  const optionList = [
-    {
-      id: 17,
-      content: "Messi",
-      option_image:
-        "https://2gedademo.s3.amazonaws.com/poll-images/avatar_d6KLR7i.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA5UT6Z2QPKGXJSZQH%2F20240207%2Feu-north-1%2Fs3%2Faws4_request&X-Amz-Date=20240207T154455Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6f859556be878e22e778ba653a407d315fae69cf84c7d26b4684123c8ed45f1f",
-      all_vote: 10,
-      votee: [],
-    },
-    {
-      id: 18,
-      content: "Ronaldo",
-      option_image:
-        "https://2gedademo.s3.amazonaws.com/poll-images/avatar_d6KLR7i.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA5UT6Z2QPKGXJSZQH%2F20240207%2Feu-north-1%2Fs3%2Faws4_request&X-Amz-Date=20240207T154455Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6f859556be878e22e778ba653a407d315fae69cf84c7d26b4684123c8ed45f1f",
-      all_vote: 7,
-      votee: [],
-    },
-    {
-      id: 19,
-      content: "Maradona",
-      option_image:
-        "https://2gedademo.s3.amazonaws.com/poll-images/avatar_d6KLR7i.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA5UT6Z2QPKGXJSZQH%2F20240207%2Feu-north-1%2Fs3%2Faws4_request&X-Amz-Date=20240207T154455Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6f859556be878e22e778ba653a407d315fae69cf84c7d26b4684123c8ed45f1f",
-      all_vote: 5,
-      votee: [],
-    },
-  ];
-
-  const totalNumVotes = optionList.reduce(
+  const totalNumVotes = optionList?.reduce(
     (total, option) => total + option.all_vote,
     0
   );
+
   return (
     <div
       className={className}
@@ -120,6 +74,10 @@ export const Polls = ({
           title={o.content}
           allVotes={o.all_vote}
           totalVotes={totalNumVotes}
+          name={"vote"}
+          id={o.id}
+          cast={cast}
+          setContent={setContent}
         />
       ))}
 
@@ -134,6 +92,7 @@ export const Polls = ({
           {totalNumVotes} votes
         </div>
       </div>
+
       {myPolls && (
         <div className="w-full flex flex-row mt-4 gap-6 lg:gap-10">
           <div className=" flex flex-col w-full gap-4 justify-start">
