@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { BiLike } from "react-icons/bi";
 import "./like-post.css";
 import {
 	EmojiLaughing,
@@ -36,7 +37,7 @@ const Likepost = () => {
 					padding: 0,
 				}}
 			>
-				<ThumbsUp size={22} />
+				<BiLike size={24} color="#000000b9" />
 			</Button>
 			<Menu
 				id="share-menu"

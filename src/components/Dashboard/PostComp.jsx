@@ -1,7 +1,4 @@
-import {
-  BiSolidLike,
-  BiMessageAlt,
-} from "react-icons/bi";
+import { BiSolidLike, BiMessageAlt } from "react-icons/bi";
 import Comment from "./Comment";
 import PostMenu from "../Modals/post-menu/PostMenu";
 import { useState } from "react";
@@ -11,25 +8,31 @@ import Likepost from "components/Home/Likepost/Likepost";
 import { Link } from "react-router-dom";
 
 const PostComp = ({
-  index,
-  disnone,
-  redmar,
-  creator,
-  comment,
-  media,
-  hashtag,
-  content,
-  reaction,
-  post_reaction_count,
-  post_comment_count,
-  time_since,
-  postID,
+	index,
+	disnone,
+	redmar,
+	creator,
+	comment,
+	media,
+	hashtag,
+	content,
+	reaction,
+    shared,
+	post_reaction_count,
+	post_comment_count,
+	time_since,
+	postID,
 }) => {
+	const [commentList, setCommentList] = useState([]);
 
-  const [commentList, setCommentList] = useState([]);
-
-  return (
+	return (
 		<div className={`postcom ${redmar}`}>
+			{shared && (<div className="flex items-center justify-between bg-[#4f0da3] py-2 px-4 rounded-t-full">
+				<p className="m-0 text-[#fff]">
+					Joseph Dimeji <span className="text-[#aa71f4] ml-1"> shared</span>
+				</p>
+				<span className="text-[#aa71f4]">2m ago</span>
+			</div>)}
 			<div className="post-comp-container">
 				<div className="profile-time">
 					<div className="post-profile" style={{}}>
@@ -67,9 +70,7 @@ const PostComp = ({
 					</div>
 				</Link>
 				<Link to={`/Home/${postID}`}>
-					<div>
-						{media && <PostmediaGrid media={media} />}
-					</div>
+					<div>{media && <PostmediaGrid media={media} />}</div>
 				</Link>
 				<div className="post-likes-co">
 					<div className="likes-per-post">
@@ -93,19 +94,12 @@ const PostComp = ({
 								{post_reaction_count && post_reaction_count}
 							</div>
 						</div>
-						{commentList.includes(index) ? (
-							<div className="icon-text">
-								<BiMessageAlt className="mess" />
-								<div className="con-test">{50}</div>
+						<div className="icon-text">
+							<BiMessageAlt size={22} color="#000000b9" />
+							<div className="con-test">
+								{post_comment_count > 0 ? post_comment_count : 0}
 							</div>
-						) : (
-							<div className="icon-text">
-								<BiMessageAlt className="mess" />
-								<div className="con-test">
-									{post_comment_count > 0 ? post_comment_count : 0}
-								</div>
-							</div>
-						)}
+						</div>
 
 						<div className="icon-text">
 							<Sharepost />

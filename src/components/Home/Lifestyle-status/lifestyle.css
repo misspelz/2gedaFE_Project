@@ -83,14 +83,14 @@
     border-radius: 6px;
     display: flex;
     align-items: center;
-    width: 80%;
+    width: 90%;
     cursor: pointer;
     gap: .8rem;
     margin-top: 1rem;
     padding: 1rem;
 }
 
-.left-display button .btn-text-wrapper{
+.left-display .btn-text-wrapper{
     text-align: left;
 }
 .left-display >.friends-status {
@@ -122,6 +122,56 @@
     border-radius: 6px !important;
 }
 
+.status-action-btn {
+    border-radius: 4rem;
+    background: #4d4d4d;
+    color: white;
+    padding: .3rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+}
+
+.lifestyle-caption {
+    border-radius: .3rem;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: .5rem;
+    position: absolute;
+    bottom: 20%;
+    width: 40%;
+    left: 35%;
+
+}
+
+.status-input-caption {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    color: white;
+    padding: .5rem;
+    position: absolute;
+    top: 11%;
+    width: 54%;
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-input-caption input{
+    background: transparent !important;
+    color: #000;
+    width: 180px !important;
+    text-align: center !important;
+}
+
+.lifestyle-caption p {
+    color: white;
+    margin: 0;
+}
+
 .comment-input-container {
     background: white !important;
     width: 100% !important;
@@ -130,9 +180,9 @@
 }
 
 .status-content input{
-    background: white !important;
+    background: white;
     color: black !important;
-    width: 100% !important;
+    width: 100%;
     border-radius: 4rem !important;
 }
 
@@ -150,7 +200,6 @@
 .delete-lifestyle-btn {
     position: absolute;
     top: 18px;
-    color: red;
 }
 
 .upload-status-btn {
@@ -162,11 +211,14 @@
     cursor: pointer;
     width: fit-content;
     border-radius: 4px;
-    margin: 30% 42%;
 }
 
 .status-app label {
     width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .status-logo {
@@ -306,8 +358,57 @@
     align-items: center !important;
 }
 
-@media screen and (max-width: 524px) {
+@media screen and (max-width: 1244px) {
     .lifestyle-modal {
-        width: 80%;
+        width: 88%;
+    }
+}
+
+@media screen and (max-width: 878px) {
+    .left-display .btn-text-wrapper p{
+        display: none;
+    }
+
+    .hide-status-detail {
+        display: none;
+    }
+
+    .lifestyle-main-display {
+        display: grid;
+        grid-template-columns: 24% 78%;
+    }
+
+    .share-lifestyle-btn {
+        background: var(--primary-color);
+        color: #fff;
+        padding: .5rem 1.5rem;
+        font-size: 1.1rem;
+        height: fit-content;
+        width: fit-content;
+        border-radius: 4px;
+        margin: .8rem 30% 0 30% !important;
+    }
+}
+
+@media screen and (max-width: 758px) {
+    .left-display {
+        display: none;
+    }
+
+    .hide-status-detail {
+        display: none;
+    }
+
+    .lifestyle-main-display {
+        display: grid;
+        grid-template-columns: 98%;
+    }
+
+    .status-app label {
+        width: 100%;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

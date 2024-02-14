@@ -166,7 +166,7 @@ const FeedDetail = () => {
 								}}
 								style={{ cursor: "pointer" }}
 							/>
-							<h3>Feed</h3>
+							<h3>Full preview</h3>
 						</div>
 						<hr className="feed_hr" />
 						<div className="post-preview-container">
