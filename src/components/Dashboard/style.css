@@ -189,8 +189,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px;
-  position: relative;
+  margin-top: .6rem;
 }
 .post-menu-cont-bx {
   position: absolute;
@@ -205,6 +204,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  height: 24px;
 }
 .comment-container {
   background: #fff;

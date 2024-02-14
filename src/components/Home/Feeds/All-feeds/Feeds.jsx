@@ -1,7 +1,7 @@
 import React from "react";
 import MusicDash from "components/Dashboard/MusicDas";
 import PostComp from "components/Dashboard/PostComp";
-import ProductDash from "components/Dashboard/ProductDAs";
+import ProductDash from "components/Dashboard/product-card/ProductDAs";
 import SmallTicketPromoteCard from "components/Dashboard/smallTicketsPromoted";
 import MovieSlider from "components/Home/Movieslider/MovieSlider";
 import Stick from "components/Dashboard/Stick";
@@ -29,6 +29,8 @@ const Feeds = () => {
 		{ media: ProductImage },
 		{ media: PostImage },
 		{ media: ProductImage },
+		{ media: PostImage },
+		{ media: ProductImage },
 	];
 
 	return (
@@ -44,6 +46,7 @@ const Feeds = () => {
 				post_reaction_count={3}
 				post_comment_count={4}
 				time_since={"2hr ago"}
+				shared
 			/>
 
 			<div className="music-das-row">
@@ -56,7 +59,7 @@ const Feeds = () => {
 				postID={"item id"}
 				creator={mockCreator}
 				comment={"some random comment"}
-				media={mockMedia}
+				media={mockMedia.slice(0, 1)}
 				hashtag={"hashtag"}
 				content={"Some random content"}
 				reaction={mockReaction}
@@ -69,10 +72,10 @@ const Feeds = () => {
 				{[1, 2, 3, 4, 5, 6, 7].map((item) => (
 					<SmallTicketPromoteCard
 						key={item}
-						description={"small description"}
+						description={"Lagos festival"}
 						eventId={"id123"}
-						formatedDate={"date Feb 24"}
-						location={"Location"}
+						formatedDate={"Feb 24 2024"}
+						location={"Ikeja city mall"}
 						eventImage={PostImage}
 					/>
 				))}
@@ -82,13 +85,14 @@ const Feeds = () => {
 				postID={"item id"}
 				creator={mockCreator}
 				comment={"some random comment"}
-				media={mockMedia}
+				media={mockMedia.slice(0, 2)}
 				hashtag={"hashtag"}
 				content={"Some random content"}
 				reaction={mockReaction}
 				post_reaction_count={3}
 				post_comment_count={4}
 				time_since={"2hr ago"}
+				shared
 			/>
 
 			<div className="ticket-das-row">
@@ -101,7 +105,7 @@ const Feeds = () => {
 				postID={"item id"}
 				creator={mockCreator}
 				comment={"some random comment"}
-				media={mockMedia}
+				media={mockMedia.slice(0, 3)}
 				hashtag={"hashtag"}
 				content={"Some random content"}
 				reaction={mockReaction}
@@ -120,13 +124,14 @@ const Feeds = () => {
 				postID={"item id"}
 				creator={mockCreator}
 				comment={"some random comment"}
-				media={mockMedia}
+				media={undefined}
 				hashtag={"hashtag"}
 				content={"Some random content"}
 				reaction={mockReaction}
 				post_reaction_count={3}
 				post_comment_count={4}
 				time_since={"2hr ago"}
+				shared
 			/>
 
 			<div className="movie-slid-box">
@@ -149,7 +154,7 @@ const Feeds = () => {
 					postID={"item id"}
 					creator={mockCreator}
 					comment={"some random comment"}
-					media={mockMedia}
+					media={mockMedia.slice(0, 4)}
 					hashtag={"hashtag"}
 					content={"Some random content"}
 					reaction={mockReaction}

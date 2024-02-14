@@ -19,10 +19,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./lifestyle.css";
 import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import { IoTextOutline } from "react-icons/io5";
+import { AiOutlineUserAdd } from "react-icons/ai";
 
 const LifestyleStatus = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
+	const [inputCaption, setInputCaption] = useState(false);
 	const handleCloseModal = () => setIsOpen(false);
 	const pagination = {
 		clickable: true,
@@ -30,16 +34,6 @@ const LifestyleStatus = () => {
 		renderBullet: function (index, className) {
 			return '<span class="' + className + '">' + " " + "</span>";
 		},
-	};
-
-	const handleViewStatus = () => {
-		setIsEdit(false);
-		setIsOpen(true);
-	};
-
-	const handleEditStatus = () => {
-		setIsOpen(true);
-		setIsEdit(true);
 	};
 
 	const [images, setImages] = useState([]);
@@ -63,8 +57,21 @@ const LifestyleStatus = () => {
 	};
 
 	useEffect(() => {
-		setIsEdit(true);
+		if (images.length > 0) {
+			setIsEdit(true);
+		}
 	}, [images.length]);
+
+	const handleEditStatus = () => {
+		setIsOpen(true);
+		setIsEdit(true);
+	};
+
+	const handleViewStatus = () => {
+		setIsEdit(false);
+		setIsOpen(true);
+		setImages([]);
+	};
 
 	return (
 		<>
@@ -147,9 +154,9 @@ const LifestyleStatus = () => {
 											/>
 										</div>
 										<span className="font-bold text-lg capitalize">You</span>
-										<span>2 items</span>
-										<span className="flex items-center">
-											<span className="status-time-indicator"></span>
+										<span className="hide-status-detail">2 items</span>
+										<span className="flex items-center hide-status-detail">
+											<span className="status-time-indicato hide-status-detailr"></span>
 											3m ago
 										</span>
 									</div>
@@ -174,9 +181,9 @@ const LifestyleStatus = () => {
 											<span className="font-bold text-lg capitalize">
 												John doe
 											</span>
-											<span>2 items</span>
-											<span className="flex items-center">
-												<span className="status-time-indicator"></span>
+											<span className="hide-status-detail">2 items</span>
+											<span className="flex items-center hide-status-detail">
+												<span className="status-time-indicator hide-status-detail"></span>
 												3m ago
 											</span>
 										</div>
@@ -204,6 +211,13 @@ const LifestyleStatus = () => {
 															src={i % 2 === 0 ? MovieImage1 : MovieImage2}
 															alt="lifestyle-i"
 														/>
+														<div className="lifestyle-caption">
+															<p>
+																Lifestyle caption is displayed here, with a very
+																lengthy text, Lorem ipsum, dolor sit amet
+																consectetur adipisicing elit. Sequi aliquid
+															</p>
+														</div>
 														<OutlinedInput
 															id="outlined-comment-input"
 															type="text"
@@ -276,10 +290,57 @@ const LifestyleStatus = () => {
 																<MdCancel
 																	size={24}
 																	color="#4d4d4d"
-																	// onClick={handleCloseModal}
 																	style={{ cursor: "pointer" }}
 																/>
 															</button>
+															<div className="flex items-end gap-3 justify-end py-[4px] absolute right-[23%]">
+																<button className="status-action-btn">
+																	tag <AiOutlineUserAdd size={12} />
+																</button>
+																<button
+																	className="status-action-btn"
+																	onClick={() => {
+																		setInputCaption(true);
+																	}}
+																>
+																	text <IoTextOutline size={12} />
+																</button>
+															</div>
+															<div className="lifestyle-caption">
+																<p>
+																	Lifestyle caption is displayed here, with a
+																	very lengthy text, Lorem ipsum, dolor sit amet
+																	consectetur adipisicing elit. Sequi aliquid
+																</p>
+															</div>
+															{inputCaption && (
+																<div className="status-input-caption">
+																	<div className="flex items-center gap-2">
+																		<TextField
+																			id="standard-basic"
+																			placeholder="Start typing"
+																			variant="standard"
+																			size="small"
+																		/>
+																		<MdCancel
+																			size={20}
+																			color="#4d4d4d"
+																			style={{ cursor: "pointer" }}
+																			onClick={() => {
+																				setInputCaption(false);
+																			}}
+																		/>
+																	</div>
+																	<button
+																		type="submit"
+																		onClick={() => {
+																			setInputCaption(false);
+																		}}
+																	>
+																		Done
+																	</button>
+																</div>
+															)}
 															<img src={image} alt="lifestyle-media" />
 															<button className="share-lifestyle-btn">
 																Share lifestyle
@@ -287,14 +348,6 @@ const LifestyleStatus = () => {
 														</div>
 													</SwiperSlide>
 												))}
-												{/* <div className="status-logo">
-													<MdCancel
-														size={24}
-														color="#4d4d4d"
-														onClick={handleCloseModal}
-														style={{ cursor: "pointer" }}
-													/>
-												</div> */}
 											</Swiper>
 										)}
 									</div>
