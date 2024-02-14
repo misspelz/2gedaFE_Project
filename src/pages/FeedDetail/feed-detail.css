@@ -1,0 +1,47 @@
+.quick-dial-container {
+    position: fixed;
+    top: 44dvh;
+    right: 30%;
+}
+
+.quick-dial-wrapper button{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.3rem;
+    width: 40px !important;
+    height: 40px !important;
+}
+.quick-dial-wrapper >button:nth-child(1){
+    background: var(--primary-color);
+}
+
+.feed-top {
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.post-display-images img{
+    width: 100%;
+    margin-bottom: .8rem;
+    height: 180px;
+    object-fit: cover;
+}
+
+.post-display-content p {
+    text-align: left !important;
+}
+
+@media screen and (max-width: 1150px){
+    .quick-dial-container{
+        right: 40%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .quick-dial-container{
+        right: 6%;
+    }
+}

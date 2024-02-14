@@ -25,3 +25,289 @@
 	font-size: 11px;
 	color: var(--primary-color);
 }
+
+.lifestyle-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05) !important;
+    background: white;
+    padding: 1rem 1.7rem;
+}
+
+.lifestyle-modal-header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.lifestyle-modal-logo {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+}
+
+.lifestyle-modal-logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.lifestyle-modal-logo >h3 {
+    color: var(--primary-color);
+}
+
+.lifestyle-modal-cancel-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.lifestyle-main-display {
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.lifestyle-main-display >.left-display {
+    border-top:1px solid grey;
+}
+
+.lifestyle-main-display >.left-display label {
+    border: 1px solid grey;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    cursor: pointer;
+    gap: .8rem;
+    margin-top: 1rem;
+    padding: 1rem;
+}
+
+.left-display button .btn-text-wrapper{
+    text-align: left;
+}
+.left-display >.friends-status {
+    max-height: 360px;
+    margin-top: .8rem;
+    overflow-y: scroll;
+}
+
+.status-time-indicator {
+    background: #c6a0f8 !important;
+    color: #c6a0f8;
+    margin-right: .2rem;
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+}
+.status-content {
+    margin-top: 54px;
+    height: 380px;
+    width: 54%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.status-content img {
+    height: 360px !important;
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+    border-radius: 6px !important;
+}
+
+.comment-input-container {
+    background: white !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    border-radius: 4rem !important;
+}
+
+.status-content input{
+    background: white !important;
+    color: black !important;
+    width: 100% !important;
+    border-radius: 4rem !important;
+}
+
+.share-lifestyle-btn {
+    background: var(--primary-color);
+    color: #fff;
+    padding: .5rem 1.5rem;
+    font-size: 1.1rem;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 4px;
+    margin: .8rem 34% 0 34% !important;
+}
+
+.delete-lifestyle-btn {
+    position: absolute;
+    top: 18px;
+    color: red;
+}
+
+.upload-status-btn {
+    background: var(--primary-color);
+    color: #fff;
+    padding: .5rem 1.5rem;
+    font-size: 1.1rem;
+    height: fit-content;
+    cursor: pointer;
+    width: fit-content;
+    border-radius: 4px;
+    margin: 30% 42%;
+}
+
+.status-app label {
+    width: 100%;
+}
+
+.status-logo {
+    position: absolute;
+    color: white;
+    top: 0px;
+    left: 18%;
+    bottom: 16px;
+    z-index: 10;
+    width: 19% !important;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    font-weight: bold;
+}
+
+.status-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    width: 100%;
+}
+
+.lifestyle-swiper,
+.status-app {
+    position: relative;
+    background: #000;
+    height: 100% !important;
+}
+
+.lifestyle-swiper .swiper-slide-shadow-left,
+.lifestyle-swiper .swiper-slide-shadow-right
+{
+    display: block;
+}
+
+.slider-controler {
+    position: relative;
+    bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.slider-controler .swiper-button-next {
+    left: 58% !important;
+    transform: translateX(-58%) !important;
+}
+
+.slider-controler .slider-arrow {
+    background: var(--white);
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    left: 42%;
+    transform: translateX(-42%);
+    filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
+}
+
+
+.lifestyle-status-next,
+.lifestyle-status-prev {
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 50% !important;
+        background-repeat: no-repeat;
+        background-size: 100% auto !important;
+        background-position: center !important;
+        background-color: white !important;
+}
+
+.swiper-button-next {
+    background-image: url('../../../assets/custom-icons/circle-arrow-right-solid.svg') !important;
+    background-repeat: no-repeat !important;
+    width: 32px !important;
+}
+
+.swiper-button-prev {
+    background-image: url('../../../assets/custom-icons/circle-arrow-left-solid.svg') !important;
+    background-repeat: no-repeat;
+    width: 32px !important;
+}
+
+.swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+    left: 20% !important;
+    right: auto !important;
+}
+
+
+.swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+    right: 20% !important;
+    left: auto !important;
+}
+
+.swiper-button-next::after {
+    display: none !important;
+}
+
+.swiper-button-prev::after {
+    display: none !important;
+}
+
+.swiper-pagination-bullet {
+    flex: 1;
+    height: 4px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 8px;
+    color: #f1eeee !important;
+    opacity: 1 !important;
+    background: linear-gradient(to right, #4f0da3 50%, #f1eeeece 50%) !important;
+    background-size: 200% 100% !important;
+    background-position: right bottom !important;
+    transition: none !important;
+}
+
+.swiper-pagination-bullet-active {
+    transition: all 3s ease-in-out !important;
+    background-position: left bottom !important;
+}
+
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+    top: -478px !important;
+    left: 34% !important;
+    right: 6px;
+    width: 44% !important;
+    height: 40px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    margin-top: 6px !important;
+    align-items: center !important;
+}
+
+@media screen and (max-width: 524px) {
+    .lifestyle-modal {
+        width: 80%;
+    }
+}
