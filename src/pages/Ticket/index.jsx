@@ -68,7 +68,7 @@ const Ticket = () => {
     setIsModalOpen(false);
     setIsWeekOpen(false);
   };
-   const handleEventDetailContainerClick = async (eventId) => {
+  const handleEventDetailContainerClick = async (eventId) => {
     console.log("hello done");
     setIsEventDetailOpen(true);
     console.log(eventId);

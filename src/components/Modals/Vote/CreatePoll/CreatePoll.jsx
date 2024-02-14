@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { url } from "utils/index";
 
 export const token = localStorage.getItem("authTOken");
-const CreatePoll = ({ onClose, updatePollsDetails }) => {
+const CreatePoll = ({ onClose, fetchPolls }) => {
   const [pollData, setPollData] = useState({
     question: "",
     content: ["", ""],
@@ -13,6 +13,8 @@ const CreatePoll = ({ onClose, updatePollsDetails }) => {
     type: "Free",
     privacy: "Public",
     media: null,
+    price: 0,
+    amount: 0,
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -48,6 +50,12 @@ const CreatePoll = ({ onClose, updatePollsDetails }) => {
     // Append poll privacy
     formData.append("privacy", pollData.privacy);
 
+    // Append poll price
+    formData.append("price", pollData.price);
+
+    // Append poll amount
+    formData.append("amount", pollData.amount);
+
     // Append media
     // formData.append("media", pollData.media);
 
@@ -77,14 +85,14 @@ const CreatePoll = ({ onClose, updatePollsDetails }) => {
 
       if (result?.id) {
         toast.success("Poll created successfully");
-        onClose();
-        updatePollsDetails(result);
       }
     } catch (error) {
       console.log("error", error);
       toast.error(error.response.data.error || "An error occurred");
     } finally {
+      fetchPolls();
       setIsLoading(false);
+      onClose();
     }
   };
 
@@ -168,6 +176,32 @@ const CreatePoll = ({ onClose, updatePollsDetails }) => {
           <option value="Paid">Paid</option>
         </select>
       </div>
+
+      {pollData.type === "Paid" && (
+        <div className="form-field">
+          <label htmlFor="price">Price</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            className="outline-none"
+            onChange={(e) => handleInputChange("price", e.target.value)}
+          />
+        </div>
+      )}
+
+      {pollData.type === "Paid" && (
+        <div className="form-field">
+          <label htmlFor="amount">Amount</label>
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            className="outline-none"
+            onChange={(e) => handleInputChange("amount", e.target.value)}
+          />
+        </div>
+      )}
 
       <div className="form-field">
         <label htmlFor="privacy">Poll access</label>
