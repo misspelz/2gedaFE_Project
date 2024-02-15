@@ -98,11 +98,11 @@ const EditBusinessProfile = ({ onModalClose }) => {
           </div>
         </div>
 
-        <div className='edit_profile_content_message'>
+        <div className='edit_business_profile_content_message'>
           Fill Business Details
         </div>
 
-        <div className='edit_profile_content'>
+        <div className='edit_profile_content edit_business_profile_content'>
           {/* TOP */}
           <div>
             <div className='top_content'>
