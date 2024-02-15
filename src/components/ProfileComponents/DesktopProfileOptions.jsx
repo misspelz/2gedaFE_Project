@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import EditProfile from '../Modals/EditProfile';
+// import EditProfile from '../Modals/EditProfile';
 import RequestVerification from '../Modals/RequestVerification';
 // import ManageAdvert from '../Modals/ManageAdvert';
 // import Gadget from '../Modals/Gadget';
@@ -10,6 +10,7 @@ import ChangePasswordModal from '../Modals/ChangePasswordModal';
 import EditBusinessProfile from '../BusinessProfileComponents/EditBusinessProfile';
 import Gadget from 'components/Modals/Gadget';
 import ManageAdvert from 'components/Modals/ManageAdvert';
+import EditProfile from 'components/Modals/EditProfile';
 
 const DesktopProfileOptions = ({ setDesktopProfileOptions, type }) => {
   const { modal, setModal } = useModal();

@@ -530,8 +530,14 @@
     font-size: 16px;
   }
 
-  .bottom_image {
-    margin-top: -5rem;
+  .edit_profile_container {
+    overflow-y: auto;
+    height: 92.5vh;
+  }
+
+  .edit_profile_content > div {
+    flex-direction: column;
+    gap: 8px;
   }
 
   .gadget_container {
