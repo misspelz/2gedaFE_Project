@@ -40,7 +40,7 @@ import toast from "react-hot-toast";
 
 export const ProtectedRoutes = ({ element }) => {
   const auth = { token: isAuthenticated() };
-  const localStorageToken = localStorage.getItem("authToken");
+  const localStorageToken = localStorage.getItem("authTOken");
 
   if (!localStorageToken && !auth.token) {
     toast.error("Please, Login to Continue");
