@@ -20,7 +20,7 @@ const actions = [
 				<FiEdit size={20} color="#fff" />
 			</button>
 		),
-		name: "Record",
+		name: "comment",
 	},
 	{
 		icon: (
@@ -28,7 +28,7 @@ const actions = [
 				<MdOutlinePhotoSizeSelectActual size={20} color="#fff" />
 			</button>
 		),
-		name: "Record",
+		name: "image",
 	},
 	{
 		icon: (
@@ -36,7 +36,7 @@ const actions = [
 				<MdOndemandVideo size={20} color="#fff" />
 			</button>
 		),
-		name: "Record",
+		name: "video",
 	},
 	{
 		icon: (
@@ -44,7 +44,7 @@ const actions = [
 				<FaMicrophone size={20} color="#fff" />
 			</button>
 		),
-		name: "Record",
+		name: "record",
 	},
 	{
 		icon: (
@@ -52,7 +52,7 @@ const actions = [
 				<BsFileEarmarkText size={20} />
 			</button>
 		),
-		name: "Record",
+		name: "add file",
 	},
 ];
 

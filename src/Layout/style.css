@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,9 +10,117 @@
   overflow-x: hidden;
 }
 
-.nav-cild {
-  width: 100%;
+/* REWARD LAYOUT STYLING STARTS HERE */
+.reward_container {
+  width: 80%;
+  height: 100%;
+  background: #e6e6e6e1;
+  position: absolute;
+
+  padding: 110px 20px 0px 20px;
+
+  display: flex;
+  gap: 10px;
 }
+
+.reward_large_header {
+  display: block;
+}
+
+.reward_small_header {
+  display: none;
+}
+
+.reward_container .left {
+  flex: 5;
+  background-color: none;
+}
+
+.reward_container .right {
+  flex: 3;
+  background-color: #ffff;
+
+  padding: 20px;
+}
+
+.how_to_earn_container {
+  width: 437px;
+  height: 275px;
+  padding: 24px 9px 24px 9px;
+  border-radius: 10px;
+  background: #d0d5dd;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.how_to_earn_container h2 {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.how_to_earn_container .lists {
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.how_to_earn_container .lists li {
+  height: 52px;
+  padding: 10px 5px 10px 5px;
+
+  border-radius: 5px;
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.how_to_earn_container .lists li span:first-child {
+  padding: 5px 8px 4px 9px;
+  border-radius: 5px;
+
+  background: linear-gradient(180deg, #ff8a15 0%, #ff8a1500 100%);
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.how_to_earn_container .lists li span:last-child {
+  font-size: 14px;
+  font-weight: 400;
+  color: #403f3f;
+}
+
+/* REWARD LAYOUT STYLING ENDS HERE*/
+.reward_main {
+  height: 92%;
+  padding: 0px 10px;
+
+  overflow-y: auto;
+
+  background-color: #ffff;
+}
+.layout-container {
+  display: flex;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* .nav-cild {
+  width: 85%;
+} */
 
 .sidebar-boxxx {
   width: 20%;
@@ -35,7 +143,7 @@
   position: fixed;
 }
 
-.side-items{
+.side-items {
   margin: 0;
   padding: 50px !important;
   width: 100%;
@@ -95,7 +203,7 @@ li {
   background: #fff;
   position: fixed;
   top: 0;
-  width: 84%;
+  width: 80%;
   z-index: 1;
   border-bottom: 1px solid rgb(238, 233, 233);
 }
@@ -206,17 +314,58 @@ li {
     cursor: pointer;
     color: #fff;
   }
+
   .navbar-container {
-    width: 100%;
-    padding: 10px 80px;
+    display: none;
   }
+
   .sidebar-boxxx {
     width: 0;
   }
-}
-@media only screen and (max-width: 940px) {
 
-  
+  /* REWARD LAYOUT STYLING STARTS HERE */
+  .reward_container {
+    width: 100%;
+    flex-direction: column;
+
+    padding: 0;
+  }
+
+  .reward_modal_header {
+    display: block;
+  }
+
+  .reward_container .left {
+    background: none;
+  }
+
+  .reward_container .right {
+    display: none;
+  }
+
+  .how_to_earn_container {
+    width: 100%;
+  }
+
+  .reward_large_header {
+    display: none;
+  }
+
+  .reward_small_header {
+    display: block;
+  }
+
+  .how_to_earn_container .lists li span:first-child,
+  .how_to_earn_container .lists li span:last-child {
+    font-size: 10px;
+  }
+
+  .how_to_earn_container h2 {
+    font-size: 17px;
+  }
+}
+
+@media only screen and (max-width: 940px) {
   .mobile-searc {
     display: initial;
   }
@@ -233,10 +382,9 @@ li {
     left: 0;
     top: 10%;
   }
- .sidebar-box {
-   left: -8%;
- }
-   
+  .sidebar-box {
+    left: -8%;
+  }
 }
 @media only screen and (max-width: 750px) {
   .sidebar-container {
@@ -248,9 +396,9 @@ li {
   .lst {
     left: 0;
   }
-     .sidebar-box {
-       left: -14%;
-     }
+  .sidebar-box {
+    left: -14%;
+  }
 }
 @media only screen and (max-width: 700px) {
   .navbar-container {
@@ -306,7 +454,7 @@ li {
   .sidebar-container {
     width: 35%;
   }
-  .side-items{
+  .side-items {
     margin-left: 80px;
   }
   .ctrl-btn {

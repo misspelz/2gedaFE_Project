@@ -1,5 +1,5 @@
 import React from "react";
-import ProductDash from "../../../Dashboard/ProductDAs";
+import ProductDash from "../../../Dashboard/product-card/ProductDAs";
 
 const FeedsProducts = () => {
 	return (

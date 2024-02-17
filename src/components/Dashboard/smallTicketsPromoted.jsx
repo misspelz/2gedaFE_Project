@@ -11,7 +11,8 @@ const SmallTicketPromoteCard = ({
 	eventId,
 }) => {
 	return (
-		<div className="small-ticket-card">
+        <div className="small-ticket-card">
+            
 			<div className="im-tic-con">
 				<div className="live-tict-lo">
 					<div className="live-tic">Live event</div>
@@ -19,7 +20,7 @@ const SmallTicketPromoteCard = ({
 				<div className="live-tict-im">
 					<img src={ImageLogo} alt="" />
 				</div>
-				<img className="pics" src={eventImage || PostImage} alt="" />
+				<img className="ticket-image" src={eventImage || PostImage} alt="" />
 			</div>
 			<div className="tic-title">{description !== null ? description : ""}</div>
 			<div className="date-loc">
