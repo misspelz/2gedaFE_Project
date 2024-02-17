@@ -12,8 +12,12 @@ const CreatePoll = ({ onClose }) => {
     duration: "22 hours",
     type: "Free",
     privacy: "Public",
-    media: null,
+    // media: null,
+    currency: "NGN",
+    amount: 0,
   });
+
+  console.log("pollData", pollData);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,6 +53,10 @@ const CreatePoll = ({ onClose }) => {
 
     // Append poll privacy
     formData.append("privacy", pollData.privacy);
+
+    // Append poll currency and amount
+    formData.append("currency", pollData.currency);
+    formData.append("amount", pollData.amount);
 
     // Append media
     // formData.append("media", pollData.media);
@@ -115,7 +123,7 @@ const CreatePoll = ({ onClose }) => {
           id="question"
           name="question"
           placeholder="Enter your question"
-          className="outline-none"
+          className="outline-none p-[9px]"
           onChange={(e) => handleInputChange("question", e.target.value)}
         />
       </div>
@@ -128,7 +136,7 @@ const CreatePoll = ({ onClose }) => {
             id={`content${index + 1}`}
             placeholder="Type option"
             value={option}
-            className="outline-none"
+            className="outline-none p-[9px]"
             onChange={(e) => {
               const updatedOptions = [...pollData.content];
               updatedOptions[index] = e.target.value;
@@ -168,6 +176,46 @@ const CreatePoll = ({ onClose }) => {
           <option value="Paid">Paid</option>
         </select>
       </div>
+
+      {/* {pollData.type === "Paid" && (
+        <div className="form-field">
+          <label htmlFor="price">Amount per vote</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            className="outline-none"
+            onChange={(e) => handleInputChange("price", e.target.value)}
+          />
+        </div>
+      )} */}
+
+      {pollData.type === "Paid" && (
+        <div className="flex gap-2 lg:gap-4 items-center justify-center">
+          <div className="form-field w-[60%] lg:w-[80%]">
+            <label htmlFor="amount">Amount per vote</label>
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              className="outline-none p-[9px]"
+              onChange={(e) => handleInputChange("amount", e.target.value)}
+            />
+          </div>
+
+          <div className=" w-[40%] lg:w-[20%] mt-3">
+            <select
+              id="currency"
+              name="currency"
+              className="outline-none "
+              onChange={(e) => handleInputChange("currency", e.target.value)}
+            >
+              <option value="NGN">NGN</option>
+              <option value="USD">USD</option>
+            </select>
+          </div>
+        </div>
+      )}
 
       <div className="form-field">
         <label htmlFor="privacy">Poll access</label>

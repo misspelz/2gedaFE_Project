@@ -59,12 +59,12 @@ const SigninForm = () => {
 
       let formData = {};
 
-      if (isUsingUsername && username) {
+      if (!isUsingUsername && username) {
         formData = {
           username: username,
           password: password,
         };
-      } else if (!isUsingUsername && email) {
+      } else if (isUsingUsername && email) {
         formData = {
           email: email,
           password: password,
@@ -122,18 +122,7 @@ const SigninForm = () => {
 
         <form action='' onSubmit={handleLogin}>
           {!isUsingUsername && (
-            <div className='inp-email'>
-              <InputField
-                placeholder={'Enter your email address'}
-                type={'email'}
-                value={email}
-                onChange={handleEmailChange}
-              />
-            </div>
-          )}
-
-          {isUsingUsername && (
-            <div className='inp-username'>
+            <div className="inp-username">
               <InputField
                 placeholder={'Enter your username'}
                 type={'text'}
@@ -143,7 +132,18 @@ const SigninForm = () => {
             </div>
           )}
 
-          <div className='pass-con'>
+          {isUsingUsername && (
+            <div className="inp-email">
+              <InputField
+                placeholder={"Enter your email address"}
+                type={"email"}
+                value={email}
+                onChange={handleEmailChange}
+              />
+            </div>
+          )}
+
+          <div className="pass-con">
             <InputField
               placeholder={'Enter your password'}
               type={passwordVisible ? 'text' : 'password'}
@@ -162,8 +162,8 @@ const SigninForm = () => {
           </div>
           <div className='use-phone' onClick={handleUseUsernameClick}>
             {isUsingUsername
-              ? 'Use Email Address Instead'
-              : 'Use Username Instead'}
+              ? "Use Username Instead"
+              : "Use Email Address Instead"}
           </div>
 
           <div className='btn-continu'>
