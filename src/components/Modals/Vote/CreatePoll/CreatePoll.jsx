@@ -54,13 +54,10 @@ const CreatePoll = ({ onClose }) => {
     // Append poll privacy
     formData.append("privacy", pollData.privacy);
 
-<<<<<<< HEAD
     // Append poll currency and amount
     formData.append("currency", pollData.currency);
     formData.append("amount", pollData.amount);
 
-=======
->>>>>>> cc90327d27fd5ce8e6894adec32c13ed16184237
     // Append media
     // formData.append("media", pollData.media);
 
@@ -180,7 +177,6 @@ const CreatePoll = ({ onClose }) => {
         </select>
       </div>
 
-<<<<<<< HEAD
       {/* {pollData.type === "Paid" && (
         <div className="form-field">
           <label htmlFor="price">Amount per vote</label>
@@ -221,8 +217,6 @@ const CreatePoll = ({ onClose }) => {
         </div>
       )}
 
-=======
->>>>>>> cc90327d27fd5ce8e6894adec32c13ed16184237
       <div className="form-field">
         <label htmlFor="privacy">Poll access</label>
         <select
