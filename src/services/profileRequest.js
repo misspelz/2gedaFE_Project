@@ -23,6 +23,37 @@ export const getProfileData = async () => {
 
     const data = await response.json();
 
+    console.log(data);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// get current logged in user rewards
+export const getRewards = async () => {
+  try {
+    const response = await fetch(`${mainURL}/reward/get-all/`, requestOptions);
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// get current logged in user rewards
+export const getClaimedHistory = async () => {
+  try {
+    const response = await fetch(
+      `${mainURL}/reward/claim/history/`,
+      requestOptions
+    );
+
+    const data = await response.json();
+
     return data;
   } catch (error) {
     console.log(error);

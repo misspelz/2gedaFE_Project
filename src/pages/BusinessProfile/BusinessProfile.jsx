@@ -1,3 +1,5 @@
+import { IoMdTrash } from 'react-icons/io';
+import { IoMailOpenOutline } from 'react-icons/io5';
 import './style.css';
 import MainLayout from '../../Layout/MainLayout';
 import BusinessProfileHeader from '../../components/BusinessProfileComponents/BusinessProfileHeader';
@@ -7,8 +9,6 @@ import ModalButton from '../../components/Modals/ModalButton';
 import ProfileAds from '../../components/ProfileComponents/ProfileAds';
 import BusinessPosts from '../../components/BusinessProfileComponents/BusinessPosts';
 import ProfileMessageLikeBox from '../../components/ProfileComponents/ProfileMessageLikeBox';
-import { IoMdTrash } from 'react-icons/io';
-import { IoMailOpenOutline } from 'react-icons/io5';
 
 const BusinessProfile = () => {
   return (

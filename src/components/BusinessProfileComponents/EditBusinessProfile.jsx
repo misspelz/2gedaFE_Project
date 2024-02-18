@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { MdEdit, MdOutlineAddPhotoAlternate } from 'react-icons/md';
-import DropdownList from 'react-widgets/DropdownList';
-import 'react-widgets/styles.css';
+import { Checkbox } from 'antd';
+import { IoShieldCheckmark } from 'react-icons/io5';
+import { category, day, month, years } from 'utils/helper';
 
 import ModalWrapper from '../Modals/ModalWrapper';
 import ModalHeader from '../Modals/ModalHeader';
@@ -11,18 +12,11 @@ import ProfileInput from '../ProfileComponents/ProfileInput';
 import ProfileEditOption from '../ProfileComponents/ProfileEditOption';
 import ModalButton from '../Modals/ModalButton';
 import BusinessSwitch from './BusinessSwitch';
-import { Checkbox } from 'antd';
-import { IoShieldCheckmark } from 'react-icons/io5';
+import CustomDropdown from 'components/Modals/CustomDropdown';
 
 const EditBusinessProfile = ({ onModalClose }) => {
   const [cover, setCover] = useState('');
   const [profile, setProfile] = useState('');
-  const [birth, setBirth] = useState({
-    month: 'Month',
-    day: 'Day',
-    year: 'Year',
-  });
-  const [gender, setGender] = useState('');
 
   const handleCover = (event) => {
     setCover(URL.createObjectURL(event.target.files[0]));
@@ -32,17 +26,7 @@ const EditBusinessProfile = ({ onModalClose }) => {
     setProfile(URL.createObjectURL(event.target.files[0]));
   };
 
-  /**
-   * Below are "Date of Birth" values
-   */
-  const dayData = Array.from({ length: 31 }, (_, i) => i + 1);
-  const monthData = Array.from({ length: 12 }, (_, i) => i + 1);
-  const fullYearData = Array.from(
-    { length: 100 },
-    (_, i) => new Date().getFullYear() - i
-  );
-
-  const onChange = (e) => {
+  const onCheckedChange = (e) => {
     console.log(`checked = ${e.target.checked}`);
   };
 
@@ -114,51 +98,15 @@ const EditBusinessProfile = ({ onModalClose }) => {
               <div className='business_profile_category'>
                 <div></div>
 
-                <DropdownList
-                  value='Category'
-                  data={[
-                    'Business category not know yet',
-                    'Business category not know yet',
-                  ]}
-                />
+                <CustomDropdown stallValue='Category' menu={category} />
               </div>
             </div>
 
             <div className='bottom_content'>
               <ProfileEditOption header='Founded'>
-                <DropdownList
-                  data={monthData}
-                  value={birth.month}
-                  onChange={(nextValue) =>
-                    setBirth((prev) => ({
-                      ...prev,
-                      month: nextValue,
-                    }))
-                  }
-                  className='advert_category_dropdown'
-                />
-                <DropdownList
-                  data={dayData}
-                  value={birth.day}
-                  onChange={(nextValue) =>
-                    setBirth((prev) => ({
-                      ...prev,
-                      day: nextValue,
-                    }))
-                  }
-                  className='advert_category_dropdown'
-                />
-                <DropdownList
-                  data={fullYearData}
-                  value={birth.year}
-                  onChange={(nextValue) =>
-                    setBirth((prev) => ({
-                      ...prev,
-                      year: nextValue,
-                    }))
-                  }
-                  className='advert_category_dropdown'
-                />
+                <CustomDropdown stallValue='Day' menu={day} />
+                <CustomDropdown stallValue='Month' menu={month} />
+                <CustomDropdown stallValue='Year' menu={years} />
               </ProfileEditOption>
 
               <div className='option title_not_needed'>
@@ -210,7 +158,7 @@ const EditBusinessProfile = ({ onModalClose }) => {
 
               <div className='always_available'>
                 <span>Always available</span>
-                <Checkbox onChange={onChange} />
+                <Checkbox onChange={onCheckedChange} />
               </div>
 
               <div className='availability'>

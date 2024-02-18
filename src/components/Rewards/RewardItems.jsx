@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import 'react-phone-number-input/style.css';
+import { useRewards } from 'pages/Rewards/useRewards';
 
 import RewardItem from './RewardItem';
 import loginSymbol from '../../assets/profile_images/symbols_login.svg';
@@ -18,10 +19,16 @@ import coinReward from '../../assets/profile_images/coin-rewards.svg';
 import ReferAndEarnBox from './ReferAndEarnBox';
 
 const RewardItems = () => {
+  const { status, rewards } = useRewards();
   const [all, setAll] = useState(false);
+
   function handleSeeAll() {
     setAll((all) => !all);
   }
+
+  console.log(status);
+  console.log('=====================');
+  console.log(rewards);
 
   return (
     <div className='reward_items'>
@@ -73,25 +80,21 @@ const RewardItems = () => {
           length='20'
         />
 
-        {all && (
-          <RewardItem
-            title='Chat'
-            text='Message 10 people on 2geda'
-            icon={chat}
-            amount='5'
-            length='22'
-          />
-        )}
+        <RewardItem
+          title='Chat'
+          text='Message 10 people on 2geda'
+          icon={chat}
+          amount='5'
+          length='22'
+        />
 
-        {all && (
-          <RewardItem
-            title='Stick'
-            text='Stick 25 people on 2geda'
-            icon={stick}
-            amount='5'
-            length='14'
-          />
-        )}
+        <RewardItem
+          title='Stick'
+          text='Stick 25 people on 2geda'
+          icon={stick}
+          amount='5'
+          length='14'
+        />
 
         {all && (
           <RewardItem

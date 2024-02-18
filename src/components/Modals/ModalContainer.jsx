@@ -13,14 +13,17 @@ const ModalContainer = ({ children, type }) => {
     }
   };
 
+  const handleBackModal = () => {
+    setModal((prev) => ({
+      ...prev,
+      [type]: false,
+    }));
+  };
+
   return (
     <div id='modal' onClick={handleContainerClick}>
       {cloneElement(children, {
-        onModalClose: () =>
-          setModal((prev) => ({
-            ...prev,
-            [type]: false,
-          })),
+        onModalClose: handleBackModal,
       })}
     </div>
   );

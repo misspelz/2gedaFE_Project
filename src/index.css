@@ -95,3 +95,7 @@ body {
 img {
   object-fit: cover;
 }
+
+:where(.css-dev-only-do-not-override-1xg9z9n).ant-select-dropdown {
+  z-index: 9999999;
+}
