@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { useModal } from 'Hooks/useModal';
 
 import RewardHeader from '../../components/Rewards/RewardHeader';
 import ooniIcon from '../../assets/profile_images/Ooni_Coin.svg';
 import exchange from '../../assets/profile_images/exchange-icon.svg';
 import ModalButton from '../../components/Modals/ModalButton';
-import PayoutModal from '../../components/Modals/PayoutModal';
 import ModalHeader from 'components/Modals/ModalHeader';
 
 const Payouts = () => {

@@ -14,7 +14,6 @@ const ManageAdvert = ({ onModalClose }) => {
   const { modal, setModal } = useModal();
 
   const handleClick = (e) => {
-    // collecting the attribute (typeof) for the clicked button
     const type = e.target.closest('#btn').attributes.typeof.nodeValue;
 
     setModal((prev) => ({

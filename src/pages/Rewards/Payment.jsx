@@ -1,10 +1,8 @@
-import DropdownList from 'react-widgets/DropdownList';
-import 'react-widgets/styles.css';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { useModal } from 'Hooks/useModal';
+import { banks } from 'utils/helper';
 
+import CustomDropdown from 'components/Modals/CustomDropdown';
 import ModalHeader from 'components/Modals/ModalHeader';
 import PayoutModal from 'components/Modals/PayoutModal';
 import RewardHeader from 'components/Rewards/RewardHeader';
@@ -12,12 +10,10 @@ import ModalButton from 'components/Modals/ModalButton';
 import coin from '../../assets/profile_images/Ooni_Coin.svg';
 
 const Payment = () => {
-  const [bank, setBank] = useState();
   const navigate = useNavigate();
   const { modal, setModal } = useModal();
 
   function handleClick(e) {
-    // collecting the attribute (typeof) for the clicked button
     const type = e.target.attributes.typeof.nodeValue;
 
     setModal((prev) => ({
@@ -58,12 +54,7 @@ const Payment = () => {
           <div className='payment_container_bottom'>
             <h2>Withdrawal information</h2>
 
-            <DropdownList
-              data={['Wema bank', 'Guanranty Trusted Bank', 'First Bank']}
-              defaultValue='Select Bank'
-              onChange={(nextValue) => setBank(nextValue)}
-              //   className='advert_category_dropdown'
-            />
+            <CustomDropdown stallValue='Select bank' menu={banks} />
 
             <div className='payment_input'>
               <input type='text' placeholder='Accont name' />

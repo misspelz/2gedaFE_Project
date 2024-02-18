@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import DropdownList from 'react-widgets/DropdownList';
-import 'react-widgets/styles.css';
 
 import ModalWrapper from './ModalWrapper';
 import ModalHeader from './ModalHeader';
 import ModalButton from './ModalButton';
+import CustomDropdown from './CustomDropdown';
 
 const NewIMEISerialModal = ({ type, title, onModalClose }) => {
   const [modalType, setModalType] = useState(type === 'imei' ? 'Imei' : type);
@@ -22,13 +21,7 @@ const NewIMEISerialModal = ({ type, title, onModalClose }) => {
             placeholder={type.toUpperCase()}
             className='input'
           />
-
-          <DropdownList
-            data={['Imei', 'Serial']}
-            value={modalType}
-            onChange={(value) => setModalType(value)}
-            className='advert_category_dropdown'
-          />
+          <CustomDropdown stallValue='Year' menu={['Imei', 'Serial']} />
 
           <ModalButton>Save</ModalButton>
         </form>

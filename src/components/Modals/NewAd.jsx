@@ -1,7 +1,3 @@
-import { useState } from 'react';
-import DropdownList from 'react-widgets/DropdownList';
-import 'react-widgets/styles.css';
-import { IoCameraOutline } from 'react-icons/io5';
 import './third.css';
 
 import PreviewNewAd from './PreviewNewAd';
@@ -11,29 +7,11 @@ import { useModal } from '../../Hooks/useModal';
 import ModalContainer from './ModalContainer';
 import ModalButton from './ModalButton';
 import { MdOutlineCameraAlt } from 'react-icons/md';
+import { advertCategory, day, month, years } from 'utils/helper';
+import CustomDropdown from './CustomDropdown';
 
 const NewAd = ({ onModalClose }) => {
   const { modal, setModal } = useModal();
-  const [adCategory, setAdCategory] = useState('Select Advert Category');
-  const [startDate, setStartDate] = useState({
-    month: 'Month',
-    day: 'Day',
-    year: 'Year',
-  });
-  const [endDate, setEndDate] = useState({
-    month: 'Month',
-    day: 'Day',
-    year: 'Year',
-  });
-  /**
-   * Below are "Date of Birth" values
-   */
-  const monthData = Array.from({ length: 31 }, (_, i) => i + 1);
-  const dayData = Array.from({ length: 12 }, (_, i) => i + 1);
-  const fullYearData = Array.from(
-    { length: 100 },
-    (_, i) => new Date().getFullYear() - i
-  );
 
   // FOR MODAL ONLY
   function handleClick(e) {
@@ -73,11 +51,9 @@ const NewAd = ({ onModalClose }) => {
               </div>
 
               <div className='advert_category'>
-                <DropdownList
-                  value={adCategory}
-                  onChange={(nextValue) => setAdCategory(nextValue)}
-                  data={['Phone IMEI', 'Serial No']}
-                  className='advert_category_dropdown'
+                <CustomDropdown
+                  stallValue='Select Advert Category'
+                  menu={advertCategory}
                 />
               </div>
             </div>
@@ -108,39 +84,9 @@ const NewAd = ({ onModalClose }) => {
               <label htmlFor=''>Start date</label>
 
               <div className='advert_date start_date'>
-                <DropdownList
-                  data={monthData}
-                  value={startDate.month}
-                  onChange={(nextValue) =>
-                    setStartDate((prev) => ({
-                      ...prev,
-                      month: nextValue,
-                    }))
-                  }
-                  className='advert_category_dropdown'
-                />
-                <DropdownList
-                  data={dayData}
-                  value={startDate.day}
-                  onChange={(nextValue) =>
-                    setStartDate((prev) => ({
-                      ...prev,
-                      day: nextValue,
-                    }))
-                  }
-                  className='advert_category_dropdown'
-                />
-                <DropdownList
-                  data={fullYearData}
-                  value={startDate.year}
-                  onChange={(nextValue) =>
-                    setStartDate((prev) => ({
-                      ...prev,
-                      year: nextValue,
-                    }))
-                  }
-                  className='advert_category_dropdown'
-                />
+                <CustomDropdown stallValue='Day' menu={day} />
+                <CustomDropdown stallValue='Month' menu={month} />
+                <CustomDropdown stallValue='Year' menu={years} />
               </div>
             </div>
 
@@ -148,39 +94,9 @@ const NewAd = ({ onModalClose }) => {
               <label htmlFor=''>End date</label>
 
               <div className='advert_date end_date'>
-                <DropdownList
-                  data={monthData}
-                  value={endDate.month}
-                  onChange={(nextValue) =>
-                    setEndDate((prev) => ({
-                      ...prev,
-                      month: nextValue,
-                    }))
-                  }
-                  className='advert_category_dropdown'
-                />
-                <DropdownList
-                  data={dayData}
-                  value={endDate.day}
-                  onChange={(nextValue) =>
-                    setEndDate((prev) => ({
-                      ...prev,
-                      day: nextValue,
-                    }))
-                  }
-                  className='advert_category_dropdown'
-                />
-                <DropdownList
-                  data={fullYearData}
-                  value={endDate.year}
-                  onChange={(nextValue) =>
-                    setEndDate((prev) => ({
-                      ...prev,
-                      year: nextValue,
-                    }))
-                  }
-                  className='advert_category_dropdown'
-                />
+                <CustomDropdown stallValue='Day' menu={day} />
+                <CustomDropdown stallValue='Month' menu={month} />
+                <CustomDropdown stallValue='Year' menu={years} />
               </div>
             </div>
           </div>

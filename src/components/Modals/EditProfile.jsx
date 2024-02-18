@@ -5,19 +5,13 @@ import ModalWrapper from './ModalWrapper';
 import img from '../../assets/profile_images/profile-cover.png';
 import ProfileInput from '../ProfileComponents/ProfileInput';
 import ProfileEditOption from '../ProfileComponents/ProfileEditOption';
-import DropdownList from 'react-widgets/DropdownList';
-import 'react-widgets/styles.css';
 import ModalButton from './ModalButton';
+import CustomDropdown from './CustomDropdown';
+import { day, genderData, month, years } from 'utils/helper';
 
 const EditProfile = ({ onModalClose }) => {
   const [cover, setCover] = useState('');
   const [profile, setProfile] = useState('');
-  const [birth, setBirth] = useState({
-    month: 'Month',
-    day: 'Day',
-    year: 'Year',
-  });
-  const [gender, setGender] = useState('');
 
   const handleCover = (event) => {
     setCover(URL.createObjectURL(event.target.files[0]));
@@ -26,16 +20,6 @@ const EditProfile = ({ onModalClose }) => {
   const handleProfile = (event) => {
     setProfile(URL.createObjectURL(event.target.files[0]));
   };
-
-  /**
-   * Below are "Date of Birth" values
-   */
-  const dayData = Array.from({ length: 31 }, (_, i) => i + 1);
-  const monthData = Array.from({ length: 12 }, (_, i) => i + 1);
-  const fullYearData = Array.from(
-    { length: 100 },
-    (_, i) => new Date().getFullYear() - i
-  );
 
   return (
     <ModalWrapper>
@@ -102,48 +86,13 @@ const EditProfile = ({ onModalClose }) => {
 
           <div>
             <ProfileEditOption header='Date of Birth'>
-              <DropdownList
-                data={monthData}
-                value={birth.month}
-                onChange={(nextValue) =>
-                  setBirth((prev) => ({
-                    ...prev,
-                    month: nextValue,
-                  }))
-                }
-                className='advert_category_dropdown'
-              />
-              <DropdownList
-                data={dayData}
-                value={birth.day}
-                onChange={(nextValue) =>
-                  setBirth((prev) => ({
-                    ...prev,
-                    day: nextValue,
-                  }))
-                }
-                className='advert_category_dropdown'
-              />
-              <DropdownList
-                data={fullYearData}
-                value={birth.year}
-                onChange={(nextValue) =>
-                  setBirth((prev) => ({
-                    ...prev,
-                    year: nextValue,
-                  }))
-                }
-                className='advert_category_dropdown'
-              />
+              <CustomDropdown stallValue='Day' menu={day} />
+              <CustomDropdown stallValue='Month' menu={month} />
+              <CustomDropdown stallValue='Year' menu={years} />
             </ProfileEditOption>
 
             <ProfileEditOption header='Gender'>
-              <DropdownList
-                data={['male', 'female']}
-                defaultValue='Select a gender'
-                onChange={(nextValue) => setGender(nextValue)}
-                className='advert_category_dropdown'
-              />
+              <CustomDropdown stallValue='Gender' menu={genderData} />
             </ProfileEditOption>
           </div>
 

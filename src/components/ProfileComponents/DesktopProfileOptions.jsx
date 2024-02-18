@@ -15,13 +15,7 @@ import EditProfile from 'components/Modals/EditProfile';
 const DesktopProfileOptions = ({ setDesktopProfileOptions, type }) => {
   const { modal, setModal } = useModal();
 
-  /**
-   * ---------------------
-   * I am accessing the type of modal to be open through the attribute (typeof) passed to each button list :)
-   * ---------------------
-   */
   const handleClick = (e) => {
-    // collecting the attribute (typeof) for the clicked button
     const type = e.target.attributes.typeof.nodeValue;
 
     setModal((prev) => ({
