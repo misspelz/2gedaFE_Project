@@ -64,7 +64,7 @@ const FirstSide = () => {
               <GoBriefcase onClick={() => handleIconClick("jobs")}/>
             </div>
             <input type="file" ref={fileInput} style={{ display: "none" }} />
-            <button className="post-btn" type="submit">
+            <button className="post-btn" type="button">
               Post
             </button>
           </div>

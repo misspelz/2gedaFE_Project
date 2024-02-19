@@ -34,6 +34,7 @@ import PrivacyPolicy from "./components/LandinComp/Privacy";
 import { Toaster } from "react-hot-toast";
 import { ProtectedRoutes } from "./routes/ProtectedRoutes";
 import FeedDetail from "pages/FeedDetail/FeedDetail";
+import { setupAxios } from "./api";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -46,6 +47,7 @@ function ScrollToTop() {
 }
 
 function App() {
+    useEffect(() => {setupAxios()})
   return (
     <div className="App">
       <ScrollToTop />

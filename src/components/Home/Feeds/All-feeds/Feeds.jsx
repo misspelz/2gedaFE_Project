@@ -9,8 +9,11 @@ import PostImage from "assets/images/sample-post-image.png";
 import PostAvatar from "assets/images/sample-avatar.png";
 import ProductImage from "assets/images/sample-product.png";
 import MovieDashCard from "components/Home/Movieslider/MovieCards";
+import { useGetAllFeeds } from "api/hooks/feeds";
 
 const Feeds = () => {
+    const {data, isLoading, isError} = useGetAllFeeds()
+    console.log(data)
 	const mockCreator = {
 		cover_image: { cover_image: PostAvatar },
 		username: "John Doe",
@@ -35,11 +38,14 @@ const Feeds = () => {
 
 	return (
 		<div style={{ maxWidth: "560px" }}>
+            {/* {
+                data
+            } */}
 			<PostComp
 				postID={"item id"}
-				creator={mockCreator}
+				creator={data?.[0].user}
 				comment={"some random comment"}
-				media={mockMedia}
+				media={data?.[0].each_media}
 				hashtag={"hashtag"}
 				content={"Some random content"}
 				reaction={mockReaction}
