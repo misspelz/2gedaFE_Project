@@ -30,10 +30,8 @@ const Voting = () => {
   const userInfoString = localStorage.getItem("2gedaUserInfo");
 
   const userInfo = JSON.parse(userInfoString);
-  console.log("singlePoll_userInfo", userInfo);
 
   const [selectedPoll, setSelectedPoll] = useState(false);
-  // console.log("singlePoll", selectedPoll);
 
   const [Notify, setNotify] = useState(false);
   const [CastVote, setCastVote] = useState(false);
@@ -77,35 +75,12 @@ const Voting = () => {
     }
   };
 
-  // const handleNumberOfVotesChange = (e) => {
-  //   const votes = parseFloat(e.target.value);
-  //   setNumberOfVotes(votes);
-  //   // Calculate amount based on the number of votes and rate per vote (2000 per vote)
-  //   setPayNowAmount(votes * 2000 * (selectedCurrency === "USD" ? 1 / 1900 : 1));
-  // };
-
   const handleCurrencyChange = (e) => {
     const currency = e.target.value;
     setSelectedCurrency(currency);
     // Update payment amount based on the selected currency
     setPayNowAmount(numberOfVotes * 2000 * (currency === "USD" ? 1 / 1900 : 1));
   };
-
-  // useEffect(() => {
-  //   const fetchConversionRate = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `API_URL?base=${selectedCurrency}&symbols=USD`
-  //       );
-  //       const data = await response.json();
-  //       setConversionRate(data.rates.USD);
-  //     } catch (error) {
-  //       console.error("Error fetching conversion rate: ", error);
-  //     }
-  //   };
-
-  //   fetchConversionRate();
-  // }, [selectedCurrency]);
 
   const HandleNotification = () => {
     setNotify(true);
@@ -339,7 +314,7 @@ const Voting = () => {
                 What do you want to do today ?
               </span>
 
-              <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
+              {/* <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} /> */}
 
               <img
                 src="images/fifa.png"
@@ -414,6 +389,13 @@ const Voting = () => {
         {!Notify && !CastVote && (
           <div className=" lg:w-[60%] overflow-x-hidden bg-[#fff] py-10 px-6">
             <div className="pb-[40px] hidden lg:block">
+              <FindPolls onSearch={onSearch} onFilterClick={onFilterClick} />
+
+              <img
+                src="images/fifa.png"
+                alt="fifa-image"
+                className="mt-6 w-full lg:mt-10"
+              />
               <h2 className="mt-4">Suggested Polls</h2>
               <SuggestedPolls HandlePoll={HandlePoll} />
               <h2>Promoted Polls</h2>
