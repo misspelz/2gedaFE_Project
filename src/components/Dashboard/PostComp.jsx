@@ -6,6 +6,7 @@ import PostmediaGrid from "./post-media-grid/PostmediaGrid";
 import Sharepost from "components/Home/Sharepost/Sharepost";
 import Likepost from "components/Home/Likepost/Likepost";
 import { Link } from "react-router-dom";
+import BlankProfile from "assets/images/blank-profile-image.png";
 
 const PostComp = ({
 	index,
@@ -17,7 +18,7 @@ const PostComp = ({
 	hashtag,
 	content,
 	reaction,
-    shared,
+	shared,
 	post_reaction_count,
 	post_comment_count,
 	time_since,
@@ -27,17 +28,19 @@ const PostComp = ({
 
 	return (
 		<div className={`postcom ${redmar}`}>
-			{shared && (<div className="flex items-center justify-between bg-[#4f0da3] py-2 px-4 rounded-t-full">
-				<p className="m-0 text-[#fff]">
-					Joseph Dimeji <span className="text-[#aa71f4] ml-1"> shared</span>
-				</p>
-				<span className="text-[#aa71f4]">2m ago</span>
-			</div>)}
+			{shared && (
+				<div className="flex items-center justify-between bg-[#4f0da3] py-2 px-4 rounded-t-full">
+					<p className="m-0 text-[#fff]">
+						Joseph Dimeji <span className="text-[#aa71f4] ml-1"> shared</span>
+					</p>
+					<span className="text-[#aa71f4]">2m ago</span>
+				</div>
+			)}
 			<div className="post-comp-container">
 				<div className="profile-time">
 					<div className="post-profile" style={{}}>
-						{creator && creator.cover_image && (
-							<img src={creator.cover_image.cover_image} alt="" />
+						{creator && (
+							<img src={creator.cover_image ?? BlankProfile} alt="" />
 						)}
 						<div className="post-profile-details">
 							{creator && creator.username && (
