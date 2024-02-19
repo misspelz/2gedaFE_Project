@@ -51,6 +51,7 @@ import Payment from "./pages/Rewards/Payment";
 import BusinessProfile from "./pages/BusinessProfile/BusinessProfile";
 import ManageBusiness from "pages/ManageBusiness/ManageBusiness";
 import { ModalContextProvider } from "Context/ModalContext";
+import { setupAxios } from "./api";
 
 function ScrollToTop() {
 	const { pathname } = useLocation();

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const _2gedaservice = axios.create({
-	baseURL: "https://development.2geda.net",
+	baseURL: "https://development.2geda.net/api",
 	maxBodyLength: Infinity,
 });
 
