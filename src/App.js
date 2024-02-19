@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import Signup from "./pages/Signup";
@@ -63,20 +62,12 @@ function ScrollToTop() {
 	return null;
 }
 
-const queryClient = new QueryClient({
-	// defaultOptions: {
-	//   queries: {
-	//     staleTime: 2000,
-	//   },
-	// },
-});
-
 function App() {
 	useEffect(() => {
 		setupAxios();
 	});
 	return (
-		<QueryClientProvider client={queryClient}>
+		<>
 			<ModalContextProvider>
 				<div className="App">
 					<ScrollToTop />
@@ -253,7 +244,7 @@ function App() {
 				</div>
 			</ModalContextProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
-		</QueryClientProvider>
+		</>
 	);
 }
 
