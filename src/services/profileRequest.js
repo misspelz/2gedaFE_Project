@@ -24,6 +24,8 @@ const requestOptions = {
  */
 // changing password
 export const changePassword = async (credentials) => {
+  console.log(Object.fromEntries(myHeaders));
+
   try {
     const response = await fetch(`${mainURL}/api/user/change-password/`, {
       ...requestOptions,
