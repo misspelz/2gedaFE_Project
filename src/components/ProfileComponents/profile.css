@@ -5,14 +5,20 @@
 
 .modal_btn {
   width: 204px;
-  height: 58px;
+  height: 54px;
   border-radius: 10px;
   background: #4f0da3;
-  align-self: center;
+
   font-size: 18px;
   color: #fff;
-
   margin: 1rem 0;
+
+  /* new */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  align-self: center;
 }
 
 /* LEFT CONTENT **/

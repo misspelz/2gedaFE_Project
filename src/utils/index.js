@@ -1,1 +1,1 @@
-export const url = "https://development.2geda.net";
+export const url = 'https://development.2geda.net';

@@ -4,7 +4,13 @@ import ProfileOverview from '../../components/ProfileComponents/ProfileOverview'
 import ProfileAds from '../../components/ProfileComponents/ProfileAds';
 import ProfileStickersAndMessages from '../../components/ProfileComponents/ProfileStickersAndMessages';
 
+import { useGetStickers } from './useGetStickers';
+
 const Profile = () => {
+  const { stickerStatus, stickers } = useGetStickers();
+
+  console.log(stickers);
+
   return (
     <div className='home-container'>
       <MainLayout>
