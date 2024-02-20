@@ -14,7 +14,6 @@ const CustomDropdown = ({ stallValue, menu }) => {
       }}
       onChange={handleChange}
       options={menu}
-      zIndexPopup={9999999}
     />
   );
 };

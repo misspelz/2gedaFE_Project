@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const PasswordInput = ({ placeholder }) => {
+const PasswordInput = ({ name, placeholder, onChange }) => {
   const [show, setShow] = useState(false);
 
   const handleClick = () => {
@@ -10,7 +10,12 @@ const PasswordInput = ({ placeholder }) => {
 
   return (
     <div className='password_input'>
-      <input type={show ? 'text' : 'password'} placeholder={placeholder} />
+      <input
+        type={show ? 'text' : 'password'}
+        name={name}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
 
       {show ? (
         <FaEyeSlash className='show_eye' onClick={handleClick} />

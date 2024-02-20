@@ -43,6 +43,21 @@ body {
   background-color: transparent; /* Set the color of the thumb (the moving part) to transparent */
 }
 
+.spinner {
+  width: 70px;
+  height: 70px;
+  animation: Spinner 1s ease linear infinite;
+}
+
+@keyframes Spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .rw-widget-input {
   color: #495057;
   background-color: #fff;

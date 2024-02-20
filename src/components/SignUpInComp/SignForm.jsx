@@ -1,23 +1,23 @@
-import { useState } from "react";
-import ActionButton from "../Commons/Button";
-import InputField from "../Commons/InputField";
-import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
-import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
-import { NavLink, useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-import { url } from "../../utils";
-import Lottie from "lottie-react";
-import preloader from "../../pages/Home/Animation - 1703321875032 (1).json";
-import toast from "react-hot-toast";
+import { useState } from 'react';
+import ActionButton from '../Commons/Button';
+import InputField from '../Commons/InputField';
+import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import { NavLink, useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { url } from '../../utils';
+import Lottie from 'lottie-react';
+import preloader from '../../pages/Home/Animation - 1703321875032 (1).json';
+import toast from 'react-hot-toast';
 
 const SignForm = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isUsingPhone, setIsUsingPhone] = useState(false);
-  const [phone, setPhone] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -40,12 +40,15 @@ const SignForm = () => {
   //   setIsUsingPhone(!isUsingPhone);
   // };
 
-  localStorage.setItem("email", email);
+  localStorage.setItem('email', email);
 
   const signupUser = async (event) => {
     event.preventDefault();
+
     let userData;
+
     setIsLoading(true);
+
     if (isUsingPhone) {
       // User is using phone
       userData = {
@@ -64,20 +67,19 @@ const SignForm = () => {
 
     try {
       var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      var raw = JSON.stringify(userData);
+      myHeaders.append('Content-Type', 'application/json');
 
       var requestOptions = {
-        method: "POST",
+        method: 'POST',
         headers: myHeaders,
-        body: raw,
-        redirect: "follow",
+        body: JSON.stringify(userData),
       };
 
-      const response = await fetch(`${url}/register/`, requestOptions);
+      const response = await fetch(`${url}/api/user/register/`, requestOptions);
+
       const responseBody = await response.json();
-      console.log("responseBody", responseBody);
+
+      console.log('responseBody', responseBody);
 
       if (!response.ok) {
         if (response.status === 400) {
@@ -89,13 +91,14 @@ const SignForm = () => {
         }
       } else {
         const token = responseBody.token;
-        console.log("registertoken", token);
+        console.log('registertoken', token);
 
-        localStorage.setItem("authTOken", token);
+        localStorage.setItem('authTOken', token);
 
-        navigate("/verify");
+        navigate('/verify');
       }
     } catch (error) {
+      console.log(error);
       toast.error(error);
     } finally {
       setIsLoading(false);
@@ -103,38 +106,38 @@ const SignForm = () => {
   };
 
   return (
-    <div className="sign-form">
-      <div className="create-ead-txt text-red-500">Create an Account</div>
-      <div className="greet-txt">
+    <div className='sign-form'>
+      <div className='create-ead-txt text-red-500'>Create an Account</div>
+      <div className='greet-txt'>
         Welcome to 2geda! <br /> To continue, please provide your details
       </div>
 
-      <form action="" onSubmit={signupUser}>
+      <form action='' onSubmit={signupUser}>
         {isUsingPhone ? (
-          <div className="inp-phone">
+          <div className='inp-phone'>
             <PhoneInput
-              defaultCountry="NG"
-              className="custom-phone-input"
-              name="phone"
-              style={{ height: "40px" }}
+              defaultCountry='NG'
+              className='custom-phone-input'
+              name='phone'
+              style={{ height: '40px' }}
               onChange={(phone) => setPhone(phone)}
-              placeholder="+234 80 2015 5501"
+              placeholder='+234 80 2015 5501'
               required
             />
             {/* <InputField placeholder={"Input Phone Number"} type={"tel"} /> */}
-            <div className="ins-bx-txt">
+            <div className='ins-bx-txt'>
               We’ll verify the phone provided to be sure it belongs to you
             </div>
           </div>
         ) : (
-          <div className="inp-email">
+          <div className='inp-email'>
             <InputField
-              placeholder={"Input email address"}
-              type={"text"}
+              placeholder={'Input email address'}
+              type={'text'}
               value={email}
               onChange={handleEmailChange}
             />
-            <div className="ins-bx-txt">
+            <div className='ins-bx-txt'>
               We’ll verify the email provided to be sure it belongs to you
             </div>
           </div>
@@ -147,61 +150,61 @@ const SignForm = () => {
         </div> */}
 
         <InputField
-          placeholder={"Username"}
-          type={"text"}
-          name="username"
+          placeholder={'Username'}
+          type={'text'}
+          name='username'
           value={username}
           onChange={handleUsernameChange}
         />
-        <div className="pass-con">
+        <div className='pass-con'>
           <InputField
-            placeholder={"Create Password"}
-            type={passwordVisible ? "text" : "password"}
-            name="password"
+            placeholder={'Create Password'}
+            type={passwordVisible ? 'text' : 'password'}
+            name='password'
             value={password}
             onChange={handlePasswordChange}
           />
-          <div className="eye-box" onClick={togglePasswordVisibility}>
+          <div className='eye-box' onClick={togglePasswordVisibility}>
             {passwordVisible ? (
-              <BsEyeSlashFill className="eye-icon" />
+              <BsEyeSlashFill className='eye-icon' />
             ) : (
-              <BsEyeFill className="eye-icon" />
+              <BsEyeFill className='eye-icon' />
             )}
           </div>
         </div>
-        <div className="btn-continu">
+        <div className='btn-continu'>
           {isLoading ? (
             <Lottie
               animationData={preloader}
               style={{
-                width: "300px",
-                height: "100px",
+                width: '300px',
+                height: '100px',
               }}
             />
           ) : (
             <ActionButton
               onClick={signupUser}
-              label={"Continue"}
-              bg={"pruplr"}
-              type={"submit"}
+              label={'Continue'}
+              bg={'pruplr'}
+              type={'submit'}
             />
           )}
           {/* <button type="submit">Submit</button> */}
         </div>
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <NavLink
-            to="/Signin"
-            className="alr-ave"
-            style={{ color: "#4f0da3" }}
+            to='/Signin'
+            className='alr-ave'
+            style={{ color: '#4f0da3' }}
           >
             Already have an account? &nbsp;
-            <span style={{ fontSize: "14px" }}>Sign In</span>
+            <span style={{ fontSize: '14px' }}>Sign In</span>
           </NavLink>
         </div>
       </form>

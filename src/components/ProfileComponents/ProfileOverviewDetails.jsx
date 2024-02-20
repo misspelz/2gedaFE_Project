@@ -1,20 +1,13 @@
 import { useState } from 'react';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import cover from '../../assets/profile_images/profile-cover.png';
-import { useProfileDetails } from './useProfileDetails';
 
 const ProfileOverviewDetails = () => {
-  const { status, data } = useProfileDetails();
-
   const [profileState, setProfileState] = useState(false);
 
   const handleProfileImage = () => {
     setProfileState(true);
   };
-
-  console.log(status);
-  console.log('=========================');
-  console.log(data);
 
   return (
     <div

@@ -80,7 +80,8 @@ const SigninForm = () => {
         redirect: 'follow',
       };
 
-      const response = await fetch(`${url}/login/`, requestOptions);
+      const response = await fetch(`${url}/api/user/login/`, requestOptions);
+
       const result = await response.json();
 
       if (!response.ok) {
@@ -93,17 +94,20 @@ const SigninForm = () => {
         localStorage.setItem('authToken', result.token);
 
         // console.log("signinTOken", signinTOken);
-        const userInfo = await UserInfoApi(result.token);
+        // const userInfo = await UserInfoApi(result.token);
         // console.log("userInfo", userInfo);
-        userInfo.data &&
-          localStorage.setItem('2gedaUserInfo', JSON.stringify(userInfo?.data));
+        // userInfo.data &&
+        //   localStorage.setItem('2gedaUserInfo', JSON.stringify(userInfo?.data));
 
-        if (userInfo.data?.is_verified) {
-          toast.success('Log in successful');
-          navigate('/Home');
-        } else {
-          setIsEmailVerify(true);
-        }
+        // if (userInfo.data?.is_verified) {
+        //   toast.success('Log in successful');
+        //   navigate('/Home');
+        // } else {
+        //   setIsEmailVerify(true);
+        // }
+
+        toast.success('Log in successful');
+        navigate('/Home');
       }
     } catch (error) {
       toast.error(error.message || 'An error occurred.');
@@ -122,7 +126,7 @@ const SigninForm = () => {
 
         <form action='' onSubmit={handleLogin}>
           {!isUsingUsername && (
-            <div className="inp-username">
+            <div className='inp-username'>
               <InputField
                 placeholder={'Enter your username'}
                 type={'text'}
@@ -133,17 +137,17 @@ const SigninForm = () => {
           )}
 
           {isUsingUsername && (
-            <div className="inp-email">
+            <div className='inp-email'>
               <InputField
-                placeholder={"Enter your email address"}
-                type={"email"}
+                placeholder={'Enter your email address'}
+                type={'email'}
                 value={email}
                 onChange={handleEmailChange}
               />
             </div>
           )}
 
-          <div className="pass-con">
+          <div className='pass-con'>
             <InputField
               placeholder={'Enter your password'}
               type={passwordVisible ? 'text' : 'password'}
@@ -162,8 +166,8 @@ const SigninForm = () => {
           </div>
           <div className='use-phone' onClick={handleUseUsernameClick}>
             {isUsingUsername
-              ? "Use Username Instead"
-              : "Use Email Address Instead"}
+              ? 'Use Username Instead'
+              : 'Use Email Address Instead'}
           </div>
 
           <div className='btn-continu'>

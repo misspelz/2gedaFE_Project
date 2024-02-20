@@ -1,5 +1,5 @@
-import axios from "axios";
-import { url } from "./index";
+import axios from 'axios';
+import { url } from './index';
 
 let token = null;
 
@@ -9,8 +9,8 @@ export const setToken = (newToken) => {
 
 export const getToken = () => {
   if (!token) {
-    token = localStorage.getItem("authTOken");
-    console.log("regtoken", token);
+    token = localStorage.getItem('authTOken');
+    console.log('regtoken', token);
   }
   return token;
 };
@@ -30,14 +30,14 @@ export const UserInfoApi = async (userToken) => {
 };
 
 export const GetOTP = async (emailData) => {
-  console.log("emailData", emailData);
+  console.log('emailData', emailData);
 
   const res = await axios.post(`${url}/get-otp/`, { ...emailData });
   return res;
 };
 
 export const VerifyOTP = async (otp) => {
-  console.log("otp", otp);
+  console.log('otp', otp);
 
   const res = await axios.post(
     `${url}/verify-otp/`,
